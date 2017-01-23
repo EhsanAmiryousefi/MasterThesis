@@ -1,0 +1,22 @@
+The summary of what I did and learned till now:
+I have been playing around with the general structure of the llvm, how to use Cmake tool to build the llvm and how to work with the passes.
+
+CMAKE Tool:
+	we need to place our llvm source files in the user dircetory and then in our build directory we need to specify the llvm source code(in build dir-->CMAKE <SRCDIR>).
+	then we need to build the byte files using make command as follow:
+	MAKE -j32
+	-j32 specifies number of cores to be used in order to build the files.
+
+	and finally we use the following command to copy some files automatically 
+	make DESTDIR=<installhere> install -j32
+
+	DESTDIR=<installhere> this one specifies where to copy the files and need to ne set in order to make the files accessible when there is no access to the root for the current user.
+
+PASSES:
+	a pass is a mechanism either to analyze or optimize the code. in order to write passes, we need to first implement them in specific directories, after that we need to do som configurations regarding to load and registeration of the pass.
+	Once we are done with this phase, we can start to implement our PASSNAME.cpp file. after finishing that part we should compile the file to be added to the clang compiler. now we are done with our pass implementation.
+	the next step is to call a pass while compiling. we need to first generate the IL code from our code using following command:
+	clang file.c -S -emit-llvm -o outputname.bc
+	this will compile the file and generate the *.bc code after that we need to pass the *.bc code to compiler using the name of the pass to analyze(optimize) the code as folow:
+	opt -load lib/LLVMHello.so -hello < hello.bc > /dev/null
+

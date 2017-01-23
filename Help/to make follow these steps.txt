@@ -1,0 +1,118 @@
+
+
+to make follow these steps
+cmake <llvm dir>
+make -j32
+make DESTDIR=<installhere> install -j32
+
+Compiler-rt------> Should be copied to llvm/projects/
+clang---------> Should be copied to llvm/tools
+http://llvm.org/docs/GettingStarted.html
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+COMPILE:
+clang file.c -S -emit-llvm -o outputname.bc
+
+RUN THE PASS:
+opt -load lib/LLVMHello.so -hello < hello.bc > /dev/null
+//after the load we should give the absolute directory of the sahred object(.so) to to be loaded
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//Extract the file
+$ tar -xf file.tar.xz
+
+//Copy all files inside source to destination
+cp -a /source/. /dest/
+
+//download-xf 
+wget <web address>
+
+
+//rename a file or dir
+mv <oldname> <newname>
+
+//To see the results of a pass in opt
+opt -load ../llvm_Build/lib/LLVMHello.so -help
+
+//to get information about the execution time of your pass along with the other //passes you queue up
+opt -load lib/LLVMHello.so -hello -time-passes < hello.bc > /dev/null
+
+
+
+/////////////////HOW TO INITIAL INSTRUMENTATION
+1. DiscoP.cpp:
+    INITIALIZE_PASS(DiscoPoP, "DiscoPoP", "analyze dependences", false, false)
+
+    FunctionPass *llvm::createDiscoPoPPass() {
+     initializeLoopInfoPass(*PassRegistry::getPassRegistry());
+     return new DiscoPoP();
+    }
+
+2. copy DiscoPoP.cpp to lib/Transforms/Instrumentation
+
+3. adapt lib/Transforms/Instrumentation/CMakeLists.txt
+   + add_llvm_library( ... DiscoPoP)
+
+4. include/llvm/InitializePasses.h:
+   + "void initializeDiscoPoPPass(PassRegistry&);"
+
+5. include/llvm/Transforms/Instrumentation.h
+   + FunctionPass *createDiscoPoPPass();
+
+6. lib/Transforms/Instrumentation/Instrumentation.cpp:
+   + initializeDiscoPoPPass(Registry);
+   in function llvm::initializeInstrumentation(PassRegistry &Registry)
+
+   ------
+   to execute it:
+   /home/amiryousefi/llvm_Build/bin/opt -S -YourPassName < InputSRC.c > InstrumentedOutput.ll
+
+/////////////////END OF HOW TO INITIAL INSTRUMENTATION
+
+
+///
+//Add the local directory as the default dir for opt 
+export PATH=/home/amiryousefi/build/bin:$PATH
+
+//Gives the current dir of the opt
+which opt
+
+//To Execute a Pass
+  opt -S -YourPassName < InputSRC.bc > InstrumentedOutput.ll
+
+//copy to netwrok directory
+scp src.tar.gz ehsan@10.14.33.210:/home/ehsan/MasterThesis/
+
+///////////////////////
+//To compile the DiscoPoPOpenMP functions 
+clang++ -emit-llvm -c -std=c++11 -g iFunctions.cpp -o iFunctions.ll
+
+
+//Zip a file
+tar -zcvf YOURZIPFILENAME.tar.gz YOURSOURCEFILENAME/ 
+
+//To give the relative address of open MP: 
+use -i in the calling 
+
+//Compile with open mp lib
+clang NewTestFile.c -I ../../build/projects/openmp/runtime/src/  -S -emit-llvm -o new.bc
+
+
+////////////
+1-compile source code to .bc
+
+----->clang NewTestFile.c -I ../../build/projects/openmp/runtime/src/  -S -emit-llvm -o new.bc
+
+2-Instrument the .bc
+----->opt -S -DiscoPoPOpenMP < new.bc > InstrumentedOutput.ll
+
+3-Compile iFunctions library
+----->clang++ -emit-llvm -c -std=c++11 -g iFunctions.cpp -o iFunctions.ll
+
+4-Compile and create executable
+
+------>clang++ InstrumentedOutput.ll ~/dp-clang-llvm/projects/compiler-rt/lib/DiscoPoPOpenMP/iFunctions.ll -o outputname
+
+5- execution
+./outputname
+
+
+

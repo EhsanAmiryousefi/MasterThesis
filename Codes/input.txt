@@ -1,0 +1,16 @@
+#include <stdio.h>
+void getEhsanName();
+int main() {
+	int a=10;
+	int b=12;
+	int c = a*b;
+	printf("%d \n", c);
+	getEhsanName();
+return 0;
+}
+
+void getEhsanName()
+{
+	printf("Ehsan Amiryousefi\n");
+}
+
