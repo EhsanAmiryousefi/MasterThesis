@@ -17,9 +17,9 @@ int main()
 	POMP_Task_enter(…);
 	#pragma omp task
 	{
-		POMP_Task_enter(…);
+		POMP_Task_begin(…);
 		do_something();
-		POMP_Task_enter(…);
+		POMP_Task_end(…);
 	}
 	POMP_Task_exit(…);
 	return 0;
