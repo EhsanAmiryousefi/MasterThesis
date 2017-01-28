@@ -1,4 +1,4 @@
-; ModuleID = '<stdin>'
+; ModuleID = 'sourcefile.c'
 source_filename = "sourcefile.c"
 target datalayout = "e-m:e-i64:64-f80:128-n8:16:32:64-S128"
 target triple = "x86_64-unknown-linux-gnu"
@@ -24,24 +24,16 @@ define i32 @main() #0 !dbg !10 {
   %6 = bitcast %ident_t* %5 to i8*
   %7 = bitcast %ident_t* @0 to i8*
   call void @llvm.memcpy.p0i8.p0i8.i64(i8* %6, i8* %7, i64 24, i32 8, i1 false)
-  %8 = ptrtoint i32* %1 to i64
-  call void @__DiscoPoPOpenMPWrite(i32 1, i64 %8)
   store i32 0, i32* %1, align 4
   call void @llvm.dbg.declare(metadata [20 x i32]* %2, metadata !13, metadata !17), !dbg !18
   call void @llvm.dbg.declare(metadata i32* %3, metadata !19, metadata !17), !dbg !20
-  %9 = ptrtoint i32* %3 to i64
-  call void @__DiscoPoPOpenMPWrite(i32 1, i64 %9)
   store i32 1000, i32* %3, align 4, !dbg !20
   call void @llvm.dbg.declare(metadata i32* %4, metadata !21, metadata !17), !dbg !22
-  %10 = ptrtoint i32* %4 to i64
-  call void @__DiscoPoPOpenMPWrite(i32 1, i64 %10)
   store i32 0, i32* %4, align 4, !dbg !22
-  %11 = getelementptr inbounds %ident_t, %ident_t* %5, i32 0, i32 4, !dbg !23
-  %12 = ptrtoint i8** %11 to i64
-  call void @__DiscoPoPOpenMPWrite(i32 1, i64 %12)
-  store i8* getelementptr inbounds ([27 x i8], [27 x i8]* @1, i32 0, i32 0), i8** %11, align 8, !dbg !23
+  %8 = getelementptr inbounds %ident_t, %ident_t* %5, i32 0, i32 4, !dbg !23
+  store i8* getelementptr inbounds ([27 x i8], [27 x i8]* @1, i32 0, i32 0), i8** %8, align 8, !dbg !23
   call void (%ident_t*, i32, void (i32*, i32*, ...)*, ...) @__kmpc_fork_call(%ident_t* %5, i32 3, void (i32*, i32*, ...)* bitcast (void (i32*, i32*, [20 x i32]*, i32*, i32*)* @.omp_outlined. to void (i32*, i32*, ...)*), [20 x i32]* %2, i32* %3, i32* %4), !dbg !23
-  %13 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([17 x i8], [17 x i8]* @.str.1, i32 0, i32 0)), !dbg !24
+  %9 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([17 x i8], [17 x i8]* @.str.1, i32 0, i32 0)), !dbg !24
   ret i32 0, !dbg !25
 }
 
@@ -65,163 +57,95 @@ define internal void @.omp_outlined.(i32* noalias, i32* noalias, [20 x i32]* der
   %18 = bitcast %ident_t* %17 to i8*
   %19 = bitcast %ident_t* @0 to i8*
   call void @llvm.memcpy.p0i8.p0i8.i64(i8* %18, i8* %19, i64 24, i32 8, i1 false)
-  %20 = ptrtoint i32** %6 to i64
-  call void @__DiscoPoPOpenMPWrite(i32 1, i64 %20)
   store i32* %0, i32** %6, align 8
   call void @llvm.dbg.declare(metadata i32** %6, metadata !34, metadata !17), !dbg !35
-  %21 = ptrtoint i32** %7 to i64
-  call void @__DiscoPoPOpenMPWrite(i32 1, i64 %21)
   store i32* %1, i32** %7, align 8
   call void @llvm.dbg.declare(metadata i32** %7, metadata !36, metadata !17), !dbg !35
-  %22 = ptrtoint [20 x i32]** %8 to i64
-  call void @__DiscoPoPOpenMPWrite(i32 1, i64 %22)
   store [20 x i32]* %2, [20 x i32]** %8, align 8
   call void @llvm.dbg.declare(metadata [20 x i32]** %8, metadata !37, metadata !17), !dbg !35
-  %23 = ptrtoint i32** %9 to i64
-  call void @__DiscoPoPOpenMPWrite(i32 1, i64 %23)
   store i32* %3, i32** %9, align 8
   call void @llvm.dbg.declare(metadata i32** %9, metadata !38, metadata !17), !dbg !35
-  %24 = ptrtoint i32** %10 to i64
-  call void @__DiscoPoPOpenMPWrite(i32 1, i64 %24)
   store i32* %4, i32** %10, align 8
   call void @llvm.dbg.declare(metadata i32** %10, metadata !39, metadata !17), !dbg !35
-  %25 = ptrtoint [20 x i32]** %8 to i64
-  call void @__DiscoPoPOpenMPRead(i32 0, i64 %25)
-  %26 = load [20 x i32]*, [20 x i32]** %8, align 8, !dbg !40
-  %27 = ptrtoint i32** %9 to i64
-  call void @__DiscoPoPOpenMPRead(i32 0, i64 %27)
-  %28 = load i32*, i32** %9, align 8, !dbg !40
-  %29 = ptrtoint i32** %10 to i64
-  call void @__DiscoPoPOpenMPRead(i32 0, i64 %29)
-  %30 = load i32*, i32** %10, align 8, !dbg !40
+  %20 = load [20 x i32]*, [20 x i32]** %8, align 8, !dbg !40
+  %21 = load i32*, i32** %9, align 8, !dbg !40
+  %22 = load i32*, i32** %10, align 8, !dbg !40
   call void @llvm.dbg.declare(metadata i32* %11, metadata !41, metadata !17), !dbg !35
   call void @llvm.dbg.declare(metadata i32* %12, metadata !42, metadata !17), !dbg !35
-  %31 = ptrtoint i32* %12 to i64
-  call void @__DiscoPoPOpenMPWrite(i32 1, i64 %31)
   store i32 0, i32* %12, align 4, !dbg !43
   call void @llvm.dbg.declare(metadata i32* %13, metadata !44, metadata !17), !dbg !35
-  %32 = ptrtoint i32* %13 to i64
-  call void @__DiscoPoPOpenMPWrite(i32 1, i64 %32)
   store i32 19, i32* %13, align 4, !dbg !43
   call void @llvm.dbg.declare(metadata i32* %14, metadata !45, metadata !17), !dbg !35
-  %33 = ptrtoint i32* %14 to i64
-  call void @__DiscoPoPOpenMPWrite(i32 1, i64 %33)
   store i32 1, i32* %14, align 4, !dbg !43
   call void @llvm.dbg.declare(metadata i32* %15, metadata !46, metadata !17), !dbg !35
-  %34 = ptrtoint i32* %15 to i64
-  call void @__DiscoPoPOpenMPWrite(i32 1, i64 %34)
   store i32 0, i32* %15, align 4, !dbg !43
   call void @llvm.dbg.declare(metadata i32* %16, metadata !47, metadata !17), !dbg !35
-  %35 = getelementptr inbounds %ident_t, %ident_t* %17, i32 0, i32 4, !dbg !40
-  %36 = ptrtoint i8** %35 to i64
-  call void @__DiscoPoPOpenMPWrite(i32 1, i64 %36)
-  store i8* getelementptr inbounds ([27 x i8], [27 x i8]* @1, i32 0, i32 0), i8** %35, align 8, !dbg !40
-  %37 = ptrtoint i32** %6 to i64
-  call void @__DiscoPoPOpenMPRead(i32 0, i64 %37)
-  %38 = load i32*, i32** %6, align 8, !dbg !40
-  %39 = ptrtoint i32* %38 to i64
-  call void @__DiscoPoPOpenMPRead(i32 0, i64 %39)
-  %40 = load i32, i32* %38, align 4, !dbg !40
-  call void @__kmpc_for_static_init_4(%ident_t* %17, i32 %40, i32 34, i32* %15, i32* %12, i32* %13, i32* %14, i32 1, i32 1), !dbg !40
-  %41 = ptrtoint i32* %13 to i64
-  call void @__DiscoPoPOpenMPRead(i32 0, i64 %41)
-  %42 = load i32, i32* %13, align 4, !dbg !43
-  %43 = icmp sgt i32 %42, 19, !dbg !43
-  br i1 %43, label %44, label %45, !dbg !43
+  %23 = getelementptr inbounds %ident_t, %ident_t* %17, i32 0, i32 4, !dbg !40
+  store i8* getelementptr inbounds ([27 x i8], [27 x i8]* @1, i32 0, i32 0), i8** %23, align 8, !dbg !40
+  %24 = load i32*, i32** %6, align 8, !dbg !40
+  %25 = load i32, i32* %24, align 4, !dbg !40
+  call void @__kmpc_for_static_init_4(%ident_t* %17, i32 %25, i32 34, i32* %15, i32* %12, i32* %13, i32* %14, i32 1, i32 1), !dbg !40
+  %26 = load i32, i32* %13, align 4, !dbg !43
+  %27 = icmp sgt i32 %26, 19, !dbg !43
+  br i1 %27, label %28, label %29, !dbg !43
 
-; <label>:44:                                     ; preds = %5
-  br label %48, !dbg !48
+; <label>:28:                                     ; preds = %5
+  br label %31, !dbg !48
 
-; <label>:45:                                     ; preds = %5
-  %46 = ptrtoint i32* %13 to i64
-  call void @__DiscoPoPOpenMPRead(i32 0, i64 %46)
-  %47 = load i32, i32* %13, align 4, !dbg !50
-  br label %48, !dbg !50
+; <label>:29:                                     ; preds = %5
+  %30 = load i32, i32* %13, align 4, !dbg !50
+  br label %31, !dbg !50
 
-; <label>:48:                                     ; preds = %45, %44
-  %49 = phi i32 [ 19, %44 ], [ %47, %45 ], !dbg !52
-  %50 = ptrtoint i32* %13 to i64
-  call void @__DiscoPoPOpenMPWrite(i32 1, i64 %50)
-  store i32 %49, i32* %13, align 4, !dbg !52
-  %51 = ptrtoint i32* %12 to i64
-  call void @__DiscoPoPOpenMPRead(i32 0, i64 %51)
-  %52 = load i32, i32* %12, align 4, !dbg !52
-  %53 = ptrtoint i32* %11 to i64
-  call void @__DiscoPoPOpenMPWrite(i32 1, i64 %53)
-  store i32 %52, i32* %11, align 4, !dbg !52
-  br label %54, !dbg !54
+; <label>:31:                                     ; preds = %29, %28
+  %32 = phi i32 [ 19, %28 ], [ %30, %29 ], !dbg !52
+  store i32 %32, i32* %13, align 4, !dbg !52
+  %33 = load i32, i32* %12, align 4, !dbg !52
+  store i32 %33, i32* %11, align 4, !dbg !52
+  br label %34, !dbg !54
 
-; <label>:54:                                     ; preds = %83, %48
-  %55 = ptrtoint i32* %11 to i64
-  call void @__DiscoPoPOpenMPRead(i32 0, i64 %55)
-  %56 = load i32, i32* %11, align 4, !dbg !55
-  %57 = ptrtoint i32* %13 to i64
-  call void @__DiscoPoPOpenMPRead(i32 0, i64 %57)
-  %58 = load i32, i32* %13, align 4, !dbg !55
-  %59 = icmp sle i32 %56, %58, !dbg !35
-  br i1 %59, label %60, label %88, !dbg !57
+; <label>:34:                                     ; preds = %52, %31
+  %35 = load i32, i32* %11, align 4, !dbg !55
+  %36 = load i32, i32* %13, align 4, !dbg !55
+  %37 = icmp sle i32 %35, %36, !dbg !35
+  br i1 %37, label %38, label %55, !dbg !57
 
-; <label>:60:                                     ; preds = %54
-  %61 = ptrtoint i32* %11 to i64
-  call void @__DiscoPoPOpenMPRead(i32 0, i64 %61)
-  %62 = load i32, i32* %11, align 4, !dbg !58
-  %63 = mul nsw i32 %62, 1, !dbg !60
-  %64 = add nsw i32 0, %63, !dbg !60
-  %65 = ptrtoint i32* %16 to i64
-  call void @__DiscoPoPOpenMPWrite(i32 1, i64 %65)
-  store i32 %64, i32* %16, align 4, !dbg !60
-  %66 = ptrtoint i32* %28 to i64
-  call void @__DiscoPoPOpenMPRead(i32 0, i64 %66)
-  %67 = load i32, i32* %28, align 4, !dbg !61
-  %68 = ptrtoint i32* %16 to i64
-  call void @__DiscoPoPOpenMPRead(i32 0, i64 %68)
-  %69 = load i32, i32* %16, align 4, !dbg !63
-  %70 = add nsw i32 %67, %69, !dbg !64
-  %71 = ptrtoint i32* %16 to i64
-  call void @__DiscoPoPOpenMPRead(i32 0, i64 %71)
-  %72 = load i32, i32* %16, align 4, !dbg !65
-  %73 = sext i32 %72 to i64, !dbg !66
-  %74 = getelementptr inbounds [20 x i32], [20 x i32]* %26, i64 0, i64 %73, !dbg !66
-  %75 = ptrtoint i32* %74 to i64
-  call void @__DiscoPoPOpenMPWrite(i32 1, i64 %75)
-  store i32 %70, i32* %74, align 4, !dbg !67
-  %76 = getelementptr inbounds %ident_t, %ident_t* %17, i32 0, i32 4, !dbg !68
-  %77 = ptrtoint i8** %76 to i64
-  call void @__DiscoPoPOpenMPWrite(i32 1, i64 %77)
-  store i8* getelementptr inbounds ([27 x i8], [27 x i8]* @2, i32 0, i32 0), i8** %76, align 8, !dbg !68
-  call void @__kmpc_critical(%ident_t* %17, i32 %40, [8 x i32]* @.gomp_critical_user_.var), !dbg !68
-  %78 = ptrtoint i32* %30 to i64
-  call void @__DiscoPoPOpenMPRead(i32 0, i64 %78)
-  %79 = load i32, i32* %30, align 4, !dbg !69
-  %80 = add nsw i32 %79, 1, !dbg !69
-  %81 = ptrtoint i32* %30 to i64
-  call void @__DiscoPoPOpenMPWrite(i32 1, i64 %81)
-  store i32 %80, i32* %30, align 4, !dbg !69
-  call void @__kmpc_end_critical(%ident_t* %17, i32 %40, [8 x i32]* @.gomp_critical_user_.var), !dbg !71
-  br label %82, !dbg !72
+; <label>:38:                                     ; preds = %34
+  %39 = load i32, i32* %11, align 4, !dbg !58
+  %40 = mul nsw i32 %39, 1, !dbg !60
+  %41 = add nsw i32 0, %40, !dbg !60
+  store i32 %41, i32* %16, align 4, !dbg !60
+  %42 = load i32, i32* %21, align 4, !dbg !61
+  %43 = load i32, i32* %16, align 4, !dbg !63
+  %44 = add nsw i32 %42, %43, !dbg !64
+  %45 = load i32, i32* %16, align 4, !dbg !65
+  %46 = sext i32 %45 to i64, !dbg !66
+  %47 = getelementptr inbounds [20 x i32], [20 x i32]* %20, i64 0, i64 %46, !dbg !66
+  store i32 %44, i32* %47, align 4, !dbg !67
+  %48 = getelementptr inbounds %ident_t, %ident_t* %17, i32 0, i32 4, !dbg !68
+  store i8* getelementptr inbounds ([27 x i8], [27 x i8]* @2, i32 0, i32 0), i8** %48, align 8, !dbg !68
+  call void @__kmpc_critical(%ident_t* %17, i32 %25, [8 x i32]* @.gomp_critical_user_.var), !dbg !68
+  %49 = load i32, i32* %22, align 4, !dbg !69
+  %50 = add nsw i32 %49, 1, !dbg !69
+  store i32 %50, i32* %22, align 4, !dbg !69
+  call void @__kmpc_end_critical(%ident_t* %17, i32 %25, [8 x i32]* @.gomp_critical_user_.var), !dbg !71
+  br label %51, !dbg !72
 
-; <label>:82:                                     ; preds = %60
-  br label %83, !dbg !73
+; <label>:51:                                     ; preds = %38
+  br label %52, !dbg !73
 
-; <label>:83:                                     ; preds = %82
-  %84 = ptrtoint i32* %11 to i64
-  call void @__DiscoPoPOpenMPRead(i32 0, i64 %84)
-  %85 = load i32, i32* %11, align 4, !dbg !74
-  %86 = add nsw i32 %85, 1, !dbg !76
-  %87 = ptrtoint i32* %11 to i64
-  call void @__DiscoPoPOpenMPWrite(i32 1, i64 %87)
-  store i32 %86, i32* %11, align 4, !dbg !76
-  br label %54, !dbg !77, !llvm.loop !78
+; <label>:52:                                     ; preds = %51
+  %53 = load i32, i32* %11, align 4, !dbg !74
+  %54 = add nsw i32 %53, 1, !dbg !76
+  store i32 %54, i32* %11, align 4, !dbg !76
+  br label %34, !dbg !77, !llvm.loop !78
 
-; <label>:88:                                     ; preds = %54
-  br label %89, !dbg !79
+; <label>:55:                                     ; preds = %34
+  br label %56, !dbg !79
 
-; <label>:89:                                     ; preds = %88
-  %90 = getelementptr inbounds %ident_t, %ident_t* %17, i32 0, i32 4, !dbg !80
-  %91 = ptrtoint i8** %90 to i64
-  call void @__DiscoPoPOpenMPWrite(i32 1, i64 %91)
-  store i8* getelementptr inbounds ([27 x i8], [27 x i8]* @3, i32 0, i32 0), i8** %90, align 8, !dbg !80
-  call void @__kmpc_for_static_fini(%ident_t* %17, i32 %40), !dbg !80
+; <label>:56:                                     ; preds = %55
+  %57 = getelementptr inbounds %ident_t, %ident_t* %17, i32 0, i32 4, !dbg !80
+  store i8* getelementptr inbounds ([27 x i8], [27 x i8]* @3, i32 0, i32 0), i8** %57, align 8, !dbg !80
+  call void @__kmpc_for_static_fini(%ident_t* %17, i32 %25), !dbg !80
   ret void, !dbg !81
 }
 
@@ -239,10 +163,6 @@ declare void @__kmpc_for_static_fini(%ident_t*, i32)
 declare void @__kmpc_fork_call(%ident_t*, i32, void (i32*, i32*, ...)*, ...)
 
 declare i32 @printf(i8*, ...) #3
-
-declare void @__DiscoPoPOpenMPRead(i32, i64)
-
-declare void @__DiscoPoPOpenMPWrite(i32, i64)
 
 attributes #0 = { nounwind uwtable "disable-tail-calls"="false" "less-precise-fpmad"="false" "no-frame-pointer-elim"="true" "no-frame-pointer-elim-non-leaf" "no-infs-fp-math"="false" "no-jump-tables"="false" "no-nans-fp-math"="false" "no-signed-zeros-fp-math"="false" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+fxsr,+mmx,+sse,+sse2,+x87" "unsafe-fp-math"="false" "use-soft-float"="false" }
 attributes #1 = { nounwind readnone }

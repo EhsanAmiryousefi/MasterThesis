@@ -1,14 +1,14 @@
 comp:
-	clang sourcefile.c -fopenmp -g -I ../build/projects/openmp/runtime/src/ -emit-llvm -S -o  output.bc
+	/home/amiryousefi/repbuild/bin/clang sourcefile.c -fopenmp -g -I /home/amiryousefi/repbuild/projects/openmp/runtime/src/ -emit-llvm -S -o  output.ll
 
 instm: comp
-	opt -S -DiscoPoPOpenMP < output.bc > InstrumentedOutput.ll
+	/home/amiryousefi/repbuild/bin/opt -S -dpomp < output.ll > InstrumentedOutput.ll
 
 iFunComp:
-	clang++ -emit-llvm -c -std=c++11 -g ~/dp-clang-llvm/projects/compiler-rt/lib/DiscoPoPOpenMP/iFunctions.cpp -o ~/dp-clang-llvm/projects/compiler-rt/lib/DiscoPoPOpenMP/iFunctions.ll
+	/home/amiryousefi/repbuild/bin/clang++ -emit-llvm -c -std=c++11 -g /home/amiryousefi/MasterThesis/llvm/projects/compiler-rt/lib/DiscoPoPOpenMP/iFunctions.cpp -o /home/amiryousefi/MasterThesis/llvm/projects/compiler-rt/lib/DiscoPoPOpenMP/iFunctions.ll
 
 compExec:
-	clang++ InstrumentedOutput.ll ~/dp-clang-llvm/projects/compiler-rt/lib/DiscoPoPOpenMP/iFunctions.ll -o outputname
+	/home/amiryousefi/repbuild/bin/clang++ InstrumentedOutput.ll /home/amiryousefi/MasterThesis/llvm/projects/compiler-rt/lib/DiscoPoPOpenMP/iFunctions.ll -o outputname
 
 exec:
 	./outputname
