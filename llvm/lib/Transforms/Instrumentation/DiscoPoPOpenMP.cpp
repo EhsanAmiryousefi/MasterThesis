@@ -12,6 +12,16 @@
 //
 //===----------------------------------------------------------------------===//
 
+#include <stdint.h>
+#include <string>
+#include <sstream>
+#include <stdexcept>
+#include <iostream>   // std::cerr 
+#include <fstream>
+#include <vector>
+#include <utility>
+#include <unistd.h>
+#include <assert.h>
 #include "llvm/Transforms/Instrumentation.h"
 #include "llvm/ADT/ilist.h"
 #include "llvm/ADT/Statistic.h"
@@ -39,7 +49,7 @@
 #include "llvm/Analysis/LoopInfo.h"
 #include "llvm/Analysis/RegionInfo.h"
 #include "llvm/Support/Debug.h"
-#include "llvm/Support/DPUtils.h"
+//#include "llvm/Support/DPUtils.h"
 #include "llvm/Support/CommandLine.h"
 #include "llvm/Support/raw_ostream.h"
 #include "llvm/Pass.h"
@@ -91,9 +101,22 @@ STATISTIC(IntrinsicsInstrumented, "Block memory intrinsics instrumented");
 
 typedef IRBuilder<TargetFolder> BuilderTy;
 
+using namespace std;
+
+cl::opt<string> FileMappingPath("fm-path", cl::init(""),
+  cl::desc("Specify file mapping location"), cl::Hidden);
+
 namespace {
   struct DiscoPoPOpenMP : public FunctionPass {
     static char ID;
+
+    #define LIDSIZE 14    // Number of bits for holding LID
+    #define MAXLNO 16384  // Maximum number of lines in a single file. Has to be 2^LIDSIZE.
+
+
+
+    typedef int32_t LID;
+    typedef int64_t ADDR;
     LLVMContext* ThisModuleContext;
     Module *ThisModule;
 
@@ -116,6 +139,12 @@ namespace {
     DiscoPoPOpenMP() : FunctionPass(ID) {
       initializeDiscoPoPOpenMPPass(*PassRegistry::getPassRegistry());
     }
+
+    string get_exe_dir();
+    int32_t getFileID(string fileMapping, string fullPathName);
+    inline bool fexists(const string& filename);
+    inline vector<string>* split(string input, char delim);
+    inline string decodeLID(int32_t lid);
 
     bool doInitialization(Module &M) override;
     bool runOnFunction(Function &F) override;
@@ -176,7 +205,7 @@ void DiscoPoPOpenMP::setupCallbacks() {
   DPOMPRead = cast<Function>(ThisModule->getOrInsertFunction("__DiscoPoPOpenMPRead",
     Void,
     Int32,
-    // Int32,
+    Int32,
     Int64,
             //CharPtr,
             //CharPtr,
@@ -185,7 +214,7 @@ void DiscoPoPOpenMP::setupCallbacks() {
   DPOMPWrite = cast<Function>(ThisModule->getOrInsertFunction("__DiscoPoPOpenMPWrite",
     Void,
     Int32,
-    // Int32,
+    Int32,
     Int64,
             //CharPtr,
             //CharPtr,
@@ -232,10 +261,10 @@ void DiscoPoPOpenMP::instrumentStoreInst(Instruction *toInstrument)
   errs()<<"store instruction found: " << ++StoresInstrumented<<"\n";
   vector<Value*> args;
   args.push_back(ConstantInt::get(Int32,1));
+  args.push_back(ConstantInt::get(Int32, 1));
   Value* memAddr = PtrToIntInst::CreatePointerCast(cast<StoreInst>(toInstrument)->getPointerOperand(),
     Int64, "", toInstrument);
   args.push_back(memAddr); 
-  args.push_back(ConstantInt::get(Int32, lid));
   CallInst::Create(DPOMPWrite,args,"",toInstrument);
   errs()<<"End of %d "<<StoresInstrumented<<"store instruction! \n";
 }
@@ -256,17 +285,12 @@ void DiscoPoPOpenMP::instrumentLoadInst(Instruction *toInstrument){
   }
   errs()<<"Inside LoadInst1!"<<"\n";
   vector<Value*> args;
-
-
-
   args.push_back(ConstantInt::get(Int32, 0));
-
-  Value* memAddr = PtrToIntInst::CreatePointerCast(cast<LoadInst>(toInstrument)->getPointerOperand(),
+  args.push_back(ConstantInt::get(Int32, 0));
+   Value* memAddr = PtrToIntInst::CreatePointerCast(cast<LoadInst>(toInstrument)->getPointerOperand(),
     Int64, "", toInstrument);
-  args.push_back(memAddr); 
-
-  args.push_back(ConstantInt::get(Int32, lid));
-
+ 
+   args.push_back(memAddr); 
   CallInst::Create(DPOMPRead, args, "", toInstrument);
 
       //CallInst::Create(LoadCheckFunction, VoidPointer, "", LI);
@@ -376,7 +400,7 @@ int DiscoPoPOpenMP::getLID(Instruction* BI)
       File = File.substr(2, File.size() - 1);
     }
 
-    fileID = dputil::getFileID(FileMappingPath, Dir.str() + "/" + File.str());
+    fileID = getFileID(FileMappingPath, Dir.str() + "/" + File.str());
 
     // file is not in FileMapping.txt
     if (fileID == 0)
@@ -434,5 +458,72 @@ void DiscoPoPOpenMP::determineFileID(Function &F) {
   //     }
   //   }
   }
+
+  inline string DiscoPoPOpenMP::decodeLID(int32_t lid) {
+  if (lid == 0)
+    return "*";
+
+  stringstream ss;
+  ss << (lid >> LIDSIZE) << ":" << lid % MAXLNO;
+  return ss.str();
+}
+
+inline vector<string>* DiscoPoPOpenMP::split(string input, char delim) {
+  vector<string>* substrings = new vector<string>();
+  istringstream inputStringStream(input);
+  string sub;
+  
+  while(getline(inputStringStream, sub, delim)) {
+    substrings->push_back(sub); 
+  }
+  
+  return substrings;
+}
+
+int32_t DiscoPoPOpenMP::getFileID(string fileMapping, string fullPathName) {
+  int32_t index = 0; // if the associated file id is not found, then we return 0
+  string line;
+  ifstream fileMap(fileMapping.c_str());
+
+  if (fileMap.is_open()) {
+    vector<string>* substrings = NULL;
+    while (getline(fileMap, line)) {
+      substrings = split(line, '\t');
+      if (substrings->size() == 2) {
+        string indexString = (*substrings)[0];
+        string fileName = (*substrings)[1];
+        if (fileName.compare(fullPathName) == 0) {
+          index = (int32_t)atoi(indexString.c_str());
+          break;  
+        }
+      }
+      substrings->clear();
+      delete substrings;  
+    }
+    fileMap.close();
+  }
+
+  return index;
+}
+
+inline bool DiscoPoPOpenMP::fexists(const string& filename) {
+  ifstream ifile(filename.c_str());
+  return ifile;
+}
+
+string DiscoPoPOpenMP::get_exe_dir() {
+  char buff[1024];
+  ssize_t len = ::readlink("/proc/self/exe", buff, sizeof(buff)-1);
+  if (len != -1) {
+    buff[len] = '\0';
+    string fullPath = std::string(buff);
+    return fullPath.substr(0, fullPath.find_last_of('/'));
+  }
+  else {
+    return "";     
+  }
+}
+
+
 
 

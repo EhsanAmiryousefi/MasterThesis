@@ -273,3 +273,10 @@ ifneq ($(DEBUGMAKE),)
   $(info MAKE: Done processing Makefile)
   $(info  )
 endif
+
+
+
+$(Tmp.ObjPath)/%.o: $(Tmp.SrcPath)/%.cpp $(Tmp.Dependencies) $(Tmp.ObjPath)/.dir
+$(Summary) "  COMPILE:   $(Tmp.Name)/$(Tmp.Config)/$(Tmp.Arch): $$<" 
+$(Verb) $(Tmp.CC) $(COMMON_CXXFLAGS) $(Tmp.CFLAGS) -std=c++11 -Wno-error=unused-private-field -c -o $$@ $$<
+

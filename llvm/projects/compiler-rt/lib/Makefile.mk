@@ -1,3 +1,4 @@
+
 #===- lib/Makefile.mk --------------------------------------*- Makefile -*--===#
 #
 #                     The LLVM Compiler Infrastructure
@@ -11,3 +12,4 @@ SubDirs :=
 
 # Add submodules.
 SubDirs += builtins
+SubDirs +=DiscoPoPOpenMP

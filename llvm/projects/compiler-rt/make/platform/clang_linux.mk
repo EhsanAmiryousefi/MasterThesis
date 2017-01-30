@@ -52,6 +52,9 @@ ifeq ($(call contains,$(SupportedArches),i386),true)
 Configs += builtins-i386 profile-i386
 Arch.builtins-i386 := i386
 Arch.profile-i386 := i386
+
+Configs += DiscoPoPOpenMP-i386
+add Arch.DiscoPoPOpenMP-i386:=i386
 endif
 
 # Build runtime libraries for x86_64.
@@ -59,6 +62,9 @@ ifeq ($(call contains,$(SupportedArches),x86_64),true)
 Configs += builtins-x86_64 profile-x86_64
 Arch.builtins-x86_64 := x86_64
 Arch.profile-x86_64 := x86_64
+
+Configs += DiscoPoPOpenMP-x86_64
+add Arch.DiscoPoPOpenMP-x86_64:=x86_64
 endif
 
 endif
@@ -74,6 +80,9 @@ CFLAGS.builtins-x86_64 := $(CFLAGS) -m64
 CFLAGS.profile-i386 := $(CFLAGS) -m32
 CFLAGS.profile-x86_64 := $(CFLAGS) -m64
 
+CFLAGS.DiscoPoPOpenMP-i386 := -Wall -O3 -fomit-frame-pointer -m32
+CFLAGS.DiscoPoPOpenMP-x86_64 := -Wall -O3 -fomit-frame-pointer -m64
+
 FUNCTIONS.builtins-i386 := $(CommonFunctions) $(ArchFunctions.i386)
 FUNCTIONS.builtins-x86_64 := $(CommonFunctions) $(ArchFunctions.x86_64)
 FUNCTIONS.profile-i386 := GCDAProfiling InstrProfiling InstrProfilingBuffer \
@@ -83,6 +92,10 @@ FUNCTIONS.profile-i386 := GCDAProfiling InstrProfiling InstrProfilingBuffer \
                           InstrProfilingMerge InstrProfilingMergeFile
 FUNCTIONS.profile-x86_64 := $(FUNCTIONS.profile-i386)
 
+FUNCTIONS.DiscoPoP-i386 := $(DiscoPoPOpenMPFunctions)
+FUNCTIONS.DiscoPoP-x86_64 := $(DiscoPoPOpenMPFunctions)
+
+
 # Always use optimized variants.
 OPTIMIZED := 1
 
@@ -90,3 +103,4 @@ OPTIMIZED := 1
 VISIBILITY_HIDDEN := 0
 
 SHARED_LIBRARY_SUFFIX := so
+
