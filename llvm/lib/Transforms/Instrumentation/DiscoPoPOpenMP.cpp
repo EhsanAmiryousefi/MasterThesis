@@ -86,8 +86,10 @@
 #include <iomanip>
 #include <algorithm>
 #include <string.h>
+
 using namespace llvm;
 using namespace std;
+using LID = int32_t;
 
 #define DEBUG_TYPE "dpomp"
 
@@ -101,10 +103,11 @@ STATISTIC(IntrinsicsInstrumented, "Block memory intrinsics instrumented");
 
 typedef IRBuilder<TargetFolder> BuilderTy;
 
-using namespace std;
 
 cl::opt<string> FileMappingPath("fm-path", cl::init(""),
   cl::desc("Specify file mapping location"), cl::Hidden);
+
+ static map<LID, vector<pair<string,int>>> callLineToFNameMap; // location of function calls to a (functio name,PIDIndex)
 
 namespace {
   struct DiscoPoPOpenMP : public FunctionPass {
@@ -113,14 +116,13 @@ namespace {
     #define LIDSIZE 14    // Number of bits for holding LID
     #define MAXLNO 16384  // Maximum number of lines in a single file. Has to be 2^LIDSIZE.
 
-
-
-    typedef int32_t LID;
+    // typedef int32_t LID;
     typedef int64_t ADDR;
     LLVMContext* ThisModuleContext;
     Module *ThisModule;
 
     int StoresInstrumented;
+    int LoadsInstrumented;
     // Basic types
     Type *Void;
     IntegerType *Int32, *Int64;
@@ -128,7 +130,7 @@ namespace {
 
     int32_t fileID;
 
-    Function *DPOMPRead, *DPOMPWrite;
+    Function *DPOMPRead, *DPOMPWrite,*DPOMPInitialize,*DPOMPFinalize;
 
     IRBuilder<> *Builder;
     const DataLayout *TD;
@@ -155,6 +157,10 @@ namespace {
 
     void instrumentLoadInst(Instruction *toInstrument);
     void instrumentStoreInst(Instruction *toInstrument);
+    void insertInitializeInst(Function &F);
+    void insertFinalizeInst(Instruction *before);
+
+
     int getLID(Instruction* BI);
     void determineFileID(Function &F);
 
@@ -193,18 +199,18 @@ void DiscoPoPOpenMP::setupCallbacks() {
      * NULL
      */
 
-  // DPOMPInitialize = cast<Function>(ThisModule->getOrInsertFunction("__DiscoPoPOpenMPInitialize", 
-  //     Void,
-  //     CharPtr,
-  //     (Type*)0));
+  DPOMPInitialize = cast<Function>(ThisModule->getOrInsertFunction("__DiscoPoPOpenMPInitialize", 
+      Void,
+      // CharPtr,
+      (Type*)0));
 
-    // DPOMPFinalize = cast<Function>(ThisModule->getOrInsertFunction("__DiscoPoPOpenMPFinalize", 
-    //   Void,
-    //   (Type*)0));
+    DPOMPFinalize = cast<Function>(ThisModule->getOrInsertFunction("__DiscoPoPOpenMPFinalize", 
+      Void,
+      (Type*)0));
 
   DPOMPRead = cast<Function>(ThisModule->getOrInsertFunction("__DiscoPoPOpenMPRead",
     Void,
-    Int32,
+    // Int32,
     Int32,
     Int64,
             //CharPtr,
@@ -213,7 +219,7 @@ void DiscoPoPOpenMP::setupCallbacks() {
 
   DPOMPWrite = cast<Function>(ThisModule->getOrInsertFunction("__DiscoPoPOpenMPWrite",
     Void,
-    Int32,
+    // Int32,
     Int32,
     Int64,
             //CharPtr,
@@ -251,24 +257,6 @@ bool DiscoPoPOpenMP::doInitialization(Module &M) {
   return true;
 }
 
-void DiscoPoPOpenMP::instrumentStoreInst(Instruction *toInstrument)
-{
-  int32_t lid=getLID(toInstrument);
-  if (lid==0)
-  {
-    return;
-  }
-  errs()<<"store instruction found: " << ++StoresInstrumented<<"\n";
-  vector<Value*> args;
-  args.push_back(ConstantInt::get(Int32,1));
-  args.push_back(ConstantInt::get(Int32, 1));
-  Value* memAddr = PtrToIntInst::CreatePointerCast(cast<StoreInst>(toInstrument)->getPointerOperand(),
-    Int64, "", toInstrument);
-  args.push_back(memAddr); 
-  CallInst::Create(DPOMPWrite,args,"",toInstrument);
-  errs()<<"End of %d "<<StoresInstrumented<<"store instruction! \n";
-}
-
 
 bool DiscoPoPOpenMP::instrument(Value *Ptr, Value *InstVal,
   const DataLayout &DL) {
@@ -276,66 +264,84 @@ bool DiscoPoPOpenMP::instrument(Value *Ptr, Value *InstVal,
 }
 
 
-void DiscoPoPOpenMP::instrumentLoadInst(Instruction *toInstrument){
 
+void DiscoPoPOpenMP::insertInitializeInst(Function &F){
+  errs() <<"Init entered! \n";
+  if (F.hasName() && F.getName().equals("main")){
+    errs() <<"Init main entered! \n";
+    BasicBlock &entryBB = F.getEntryBlock();
+    int32_t lid = 0;  
+
+    for (inst_iterator i = inst_begin(F), e = inst_end(F); i != e; ++i)  
+    {   
+      errs() <<"for loop entered! \n";       
+      Instruction *I = &*i;
+      lid = getLID(I);
+      errs()<<"The lid is equal to:"<<lid<<"\n";
+      if (lid>0&&!isa<PHINode>(I)){ 
+        errs() <<"IF entered! \n";
+        CallInst::Create(DPOMPInitialize,"", I);
+        break;
+      }
+    }
+  }
+  assert((lid > 0) && "Function entry is not instrumented because LID are all invalid for the entry block.");
+}
+
+
+void DiscoPoPOpenMP::insertFinalizeInst(Instruction *before){
+    CallInst::Create(DPOMPFinalize, "", before);
+}
+
+//Store instrumenter
+void DiscoPoPOpenMP::instrumentStoreInst(Instruction *toInstrument)
+{
+  errs()<<"store instruction found: " << ++StoresInstrumented<<"\n";
   int32_t lid=getLID(toInstrument);
   if (lid==0)
   {
+    errs()<<"store instruction no. " << StoresInstrumented<<" exited since there is no line number!"<<"\n";
     return;
   }
-  errs()<<"Inside LoadInst1!"<<"\n";
-  vector<Value*> args;
-  args.push_back(ConstantInt::get(Int32, 0));
-  args.push_back(ConstantInt::get(Int32, 0));
-   Value* memAddr = PtrToIntInst::CreatePointerCast(cast<LoadInst>(toInstrument)->getPointerOperand(),
-    Int64, "", toInstrument);
  
-   args.push_back(memAddr); 
+  vector<Value*> args;
+  args.push_back(ConstantInt::get(Int32,lid));
+  //Memory location refrenced by the instruction
+  Value* memAddr = PtrToIntInst::CreatePointerCast(cast<StoreInst>(toInstrument)->getPointerOperand(),
+    Int64, "", toInstrument);
+  args.push_back(memAddr); 
+  CallInst::Create(DPOMPWrite,args,"",toInstrument);
+  errs()<<"End of "<<StoresInstrumented<<" store instruction! \n";
+}
+
+
+
+//Load instrumenter
+void DiscoPoPOpenMP::instrumentLoadInst(Instruction *toInstrument){
+  errs()<<"Load instruction found: " << ++LoadsInstrumented<<"\n";
+  int32_t lid=getLID(toInstrument);
+  if (lid==0)
+  {
+    errs()<<"Load instruction no. " << LoadsInstrumented<<" exited since there is no line number!"<<"\n";
+    return;
+  }
+  vector<Value*> args;
+  args.push_back(ConstantInt::get(Int32, lid));
+  Value* memAddr = PtrToIntInst::CreatePointerCast(cast<LoadInst>(toInstrument)->getPointerOperand(),
+    Int64, "", toInstrument);
+  args.push_back(memAddr); 
   CallInst::Create(DPOMPRead, args, "", toInstrument);
-
-      //CallInst::Create(LoadCheckFunction, VoidPointer, "", LI);
-
-  ++LoadsInstrumented;
-
-  //   int32_t lid = 0;//getLID(toInstrument);
-  //   if (lid == 0) return;
-
-
-  //   args.push_back(ConstantInt::get(Int32, lid));
-  //   //args.push_back(ConstantInt::get(Int32, pidIndex));
-
-
-  //   Value* memAddr = PtrToIntInst::CreatePointerCast(cast<LoadInst>(toInstrument)->getPointerOperand(),
-  //           Int64, "", toInstrument);
-  //   args.push_back(memAddr);    
-  //   IRBuilder<> builder(toInstrument);
-  //   Value *fName;
-
-  //   if(toInstrument->getParent()->getParent()->hasName()){
-  //     fName = builder.CreateGlobalStringPtr(string(toInstrument->getParent()->getParent()->getName().data()).c_str(), ".str");
-  //   args.push_back(fName);      
-  //   } else {
-  //     fName = builder.CreateGlobalStringPtr(string("NULL").c_str(), ".str");
-  //     args.push_back(fName);
-  //   }
-
-  //   string varName = "var";//determineVariableName(toInstrument);
-  // //if (varName.find(".addr") != varName.npos)
-  //   //  varName.erase(varName.find(".addr"), 5);
-  //   Value *vName = builder.CreateGlobalStringPtr(varName.c_str(), ".str");
-  //   args.push_back(vName);    
-
-  //   CallInst::Create(LoadCheckFunction, args, "", toInstrument);
-  errs()<<"Inside LoadInst2!"<<"\n";
-
-
+  errs()<<"End of "<<LoadsInstrumented<<" load instruction! \n";
 }
 
 bool DiscoPoPOpenMP::runOnFunction(Function &F) {
-  const DataLayout &DL = F.getParent()->getDataLayout();
 
+  
+  insertInitializeInst(F);
+  const DataLayout &DL = F.getParent()->getDataLayout();
   IRBuilder<> TheBuilder(F.getContext());
   Builder = &TheBuilder;
+
 
 
   // check HANDLE_MEMORY_INST in include/llvm/Instruction.def for memory
@@ -346,7 +352,10 @@ bool DiscoPoPOpenMP::runOnFunction(Function &F) {
 
     Instruction *I = &*i;
     if (isa<LoadInst>(I))// || isa<StoreInst>(I) || isa<AtomicCmpXchgInst>(I) || isa<AtomicRMWInst>(I))
+    {
       instrumentLoadInst(I);
+      errs()<<"The line Id is: " << decodeLID(getLID(I))<<"\n";
+    }
     else if (isa<StoreInst>(I))
       instrumentStoreInst(I);
   }
@@ -356,34 +365,24 @@ bool DiscoPoPOpenMP::runOnFunction(Function &F) {
 
 int DiscoPoPOpenMP::getLID(Instruction* BI)
 {
- //   if (MDNode *N = BI->getMetadata("dbg")) {  // Here I is an LLVM instruction
- //   DILocation Loc(N);                      // DILocation is in DebugInfo.h
- //   unsigned Line = Loc.getLineNumber();
- //   StringRef File = Loc.getFilename();
- //   StringRef Dir = Loc.getDirectory();
- // }
+  
 
+  int32_t lid = 0;
+  int32_t lno =0;
+  StringRef File = "", Dir = "";
 
-   // Get the new fileID.
-    StringRef File = "", Dir = "";
-   int32_t lid = 0;
-   int32_t lno = 0;//BI->getDebugLoc().getLine();
-   DILocation *Loc = BI->getDebugLoc();
-
-   if (Loc) { // Here I is an LLVM instruction
-    lno = Loc->getLine();
-    File = Loc->getFilename();
-    Dir = Loc->getDirectory();
-  }
-  ////////////
-
-
+  if (DILocation *Loc = BI->getDebugLoc()) { // Here I is an LLVM instruction
+  lno = Loc->getLine();
+  File = Loc->getFilename();
+  Dir = Loc->getDirectory();
+}
   if (lno == 0) {
     return 0;
   }
 
   if (fileID == 0)
   {
+    // Get the new fileID.
     
     MDNode *N = BI->getMetadata("dbg");
     if (N == NULL)
@@ -392,7 +391,13 @@ int DiscoPoPOpenMP::getLID(Instruction* BI)
       // No metadata is attached to BI.
       return 0;
     }
-
+    DILocation *Loc = BI->getDebugLoc();
+     if (Loc) { // Here I is an LLVM instruction
+      //lno = Loc->getLine();
+      File = Loc->getFilename();
+      Dir = Loc->getDirectory();
+    }
+    
 
     if (File.str().substr(0, 2) == "./")
     {
@@ -405,59 +410,56 @@ int DiscoPoPOpenMP::getLID(Instruction* BI)
     // file is not in FileMapping.txt
     if (fileID == 0)
       return -1;
-
-
   }
   lid = (fileID << LIDSIZE) + lno;
-  
-  return lid;
+  return lid;  
 }
 void DiscoPoPOpenMP::determineFileID(Function &F) {
-  // fileID = 0;
+  fileID = 0;
 
-  // // if FileMapping.txt is not given, we use 1 as file index
-  // if (!dputil::fexists(FileMappingPath))
-  // {
-  //   fileID = 1;
-  // }
-  // else
-  // {
-  //   for (Function::iterator FI = F.begin(), FE = F.end(); FI != FE; ++FI)
-  //   {
-  //     BasicBlock &BB = *FI;
-  //     for (BasicBlock::iterator BI = BB.begin(), EI = BB.end(); BI != EI; ++BI)
-  //     {
-  //       if (BI->getDebugLoc().getLine())
-  //       {
-  //         MDNode *N = BI->getMetadata("dbg");
-  //         // N == NULL means BI is only a helper instruction.
-  //         // No metadata is attached to BI.
-  //         if (N)
-  //         {
-  //           StringRef File = "", Dir = "";
-  //           DILocation Loc(N);
-  //           File = Loc.getFilename();
-  //           Dir = Loc.getDirectory();
-
-  //           char* absolutePathFileName = realpath((Dir.str() + "/" + File.str()).c_str(), NULL);
-
-  //           if (absolutePathFileName == NULL)
-  //           {
-  //             absolutePathFileName = realpath(File.data(), NULL);
-  //           }
-
-  //           if (absolutePathFileName)
-  //           {
-  //             fileID = 
-  //             ::getFileID(FileMappingPath, string(absolutePathFileName));
-  //             delete[] absolutePathFileName;
-  //           }
-  //           break;
-  //         }
-  //       }
-  //     }
-  //   }
+  // if FileMapping.txt is not given, we use 1 as file index
+  if (!fexists(FileMappingPath))
+  {
+    fileID = 1;
   }
+  else
+  {
+    for (Function::iterator FI = F.begin(), FE = F.end(); FI != FE; ++FI)
+    {
+      BasicBlock &BB = *FI;
+      for (BasicBlock::iterator BI = BB.begin(), EI = BB.end(); BI != EI; ++BI)
+      {
+        if (BI->getDebugLoc().getLine())
+        {
+          MDNode *N = BI->getMetadata("dbg");
+          // N == NULL means BI is only a helper instruction.
+          // No metadata is attached to BI.
+          if (N)
+          {
+            StringRef File = "", Dir = "";
+            DILocation *Loc = BI->getDebugLoc();
+            File = Loc->getFilename();
+            Dir = Loc->getDirectory();
+
+            char* absolutePathFileName = realpath((Dir.str() + "/" + File.str()).c_str(), NULL);
+
+            if (absolutePathFileName == NULL)
+            {
+              absolutePathFileName = realpath(File.data(), NULL);
+            }
+
+            if (absolutePathFileName)
+            {
+              fileID = getFileID(FileMappingPath, string(absolutePathFileName));
+              delete[] absolutePathFileName;
+            }
+            break;
+          }
+        }
+      }
+    }
+  }
+}
 
   inline string DiscoPoPOpenMP::decodeLID(int32_t lid) {
   if (lid == 0)

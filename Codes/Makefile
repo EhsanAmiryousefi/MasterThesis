@@ -1,5 +1,5 @@
 comp:
-	/home/amiryousefi/repbuild/bin/clang sourcefile.c -fopenmp -g -I /home/amiryousefi/repbuild/projects/openmp/runtime/src/ -emit-llvm -S -o  output.ll
+	/home/amiryousefi/repbuild/bin/clang sourcefile.c -fopenmp -O0 -g -I /home/amiryousefi/repbuild/projects/openmp/runtime/src/ -emit-llvm -S -o  output.ll
 
 instm: comp
 	/home/amiryousefi/repbuild/bin/opt -S -dpomp < output.ll > InstrumentedOutput.ll
