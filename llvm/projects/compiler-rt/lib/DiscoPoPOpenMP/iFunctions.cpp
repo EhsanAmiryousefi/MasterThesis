@@ -115,7 +115,7 @@ bool checkVectorIsZero(vector<int> inVector){
 //The wrapper is to avoid mangling
 extern "C"{
 
-void __DiscoPoPOpenMPInitialize(char* allFunctionIndices){
+void __DiscoPoPOpenMPInitialize(){
 
 cout <<"DiscoPoPOpenMPInitialize begin!"<<"\n";
     stack = new map<int, int>();
@@ -136,19 +136,19 @@ cout <<"DiscoPoPOpenMPInitialize begin!"<<"\n";
 
     flag = false;
 
-    string allFIndices(allFunctionIndices);
+    //string allFIndices(allFunctionIndices);
 
-    for(auto i:split(allFIndices, ' ')){
+    // for(auto i:split(allFIndices, ' ')){
         
-        if(i.empty())
-            continue;
+    //     if(i.empty())
+    //         continue;
 
-        int index = stoi(i);
+    //     int index = stoi(i);
 
-        (*stack)[index] = 0;
-        (*PIDs)[index] = 0;
-        (*counters)[index] = 0;
-    }
+    //     (*stack)[index] = 0;
+    //     (*PIDs)[index] = 0;
+    //     (*counters)[index] = 0;
+    // }
 
     #ifdef __linux__
         // try to get an output file name w.r.t. the target application
@@ -158,12 +158,12 @@ cout <<"DiscoPoPOpenMPInitialize begin!"<<"\n";
         if (readlink("/proc/self/exe", selfPath, PATH_MAX - 1) == -1) {
             delete[] selfPath;
             selfPath = nullptr;
-            out->open("CUInstResult.txt", ios::out);
+            out->open("DsicoPoPOpenMPResult.txt", ios::out);
         }
-        out->open(string(selfPath) + "_CUInstResult.txt", ios::out);
+        out->open(string(selfPath) + "_DsicoPoPOpenMPResult.txt", ios::out);
     }
     #else
-        out->open("CUInstResult.txt", ios::out);
+        out->open("DsicoPoPOpenMPResult.txt", ios::out);
     #endif
         assert(out->is_open() && "Cannot open a file to output CU instantiation results.\n");
         if (DpOMP_DEBUG) {
@@ -172,9 +172,13 @@ cout <<"DiscoPoPOpenMPInitialize begin!"<<"\n";
         cout <<"DiscoPoPOpenMPInitialize end!"<<"\n";
 
 }
-
-void __DiscoPoPOpenMPRead(LID lid, int pidIndex, ADDR addr, char* fName, char* varName) {
-cout <<"DiscoPoPOpenMPRead begin!"<<"\n";
+//
+void __DiscoPoPOpenMPRead(LID lid, int pidIndex, ADDR addr) {
+cout <<"__DiscoPoPOpenMPRead begin!"<<"\n";
+out <<"READ found";
+// out<<"......";
+// out<<addr;
+// out<<"\n";
     /*
     map<int, int> *PIDsTmp = new map<int, int>();
     map<ADDR, vector<int>> *signatureTmp = new map<ADDR, vector<int>>();
@@ -226,13 +230,13 @@ cout <<"DiscoPoPOpenMPRead begin!"<<"\n";
 
 
 
-        //*out << res << endl; 
+        /out << res << endl; 
     }
     */
 }
-
-void __DiscoPoPOpenMPWrite(LID lid, int pidIndex, ADDR addr, char* fName, char* varName) {
-
+//, char* fName, char* varName
+void __DiscoPoPOpenMPWrite(LID lid, int pidIndex, ADDR addr) {
+    cout<<"__DiscoPoPOpenMPWrite invoked";
     /*
     map<int, int> *PIDsTmp = new map<int, int>();
     map<ADDR, vector<int>> *signatureTmp = new map<ADDR, vector<int>>();
@@ -273,80 +277,80 @@ void __DiscoPoPOpenMPWrite(LID lid, int pidIndex, ADDR addr, char* fName, char* 
 
 void __DiscoPoPOpenMPCallBefore(int index) {
 
-    map<int, int> *stackTmp = new map<int, int>();
-    map<int, int> *PIDsTmp = new map<int, int>();
-    map<int, int> *countersTmp = new map<int, int>();
-    map<ADDR, vector<int>> *signatureTmp = new map<ADDR, vector<int>>();
+    // map<int, int> *stackTmp = new map<int, int>();
+    // map<int, int> *PIDsTmp = new map<int, int>();
+    // map<int, int> *countersTmp = new map<int, int>();
+    // map<ADDR, vector<int>> *signatureTmp = new map<ADDR, vector<int>>();
 
-    if (DpOMP_DEBUG) {
-        *out << "DEBUG: beforeInstCall in function " << index << endl;
-    }
+    // if (DpOMP_DEBUG) {
+    //     *out << "DEBUG: beforeInstCall in function " << index << endl;
+    // }
 
-    (*stackTmp)[index] = (*stack)[index];
-    (*PIDsTmp)[index] = (*PIDs)[index];
-    (*countersTmp)[index] = (*counters)[index];
+    // (*stackTmp)[index] = (*stack)[index];
+    // (*PIDsTmp)[index] = (*PIDs)[index];
+    // (*countersTmp)[index] = (*counters)[index];
 
-    if((*stack)[index] == 0){
-        (*counters)[index]++;
-        (*PIDs)[index] = (*counters)[index];  
+    // if((*stack)[index] == 0){
+    //     (*counters)[index]++;
+    //     (*PIDs)[index] = (*counters)[index];  
 
-        (*countersTmp)[index]++; 
-        (*PIDsTmp)[index] = (*countersTmp)[index];      
-    } 
+    //     (*countersTmp)[index]++; 
+    //     (*PIDsTmp)[index] = (*countersTmp)[index];      
+    // } 
     
-    (*stack)[index]++;
-    (*stackTmp)[index]++;
+    // (*stack)[index]++;
+    // (*stackTmp)[index]++;
 }
 
 void __DiscoPoPOpenMPCallAfter(int index, int lastCall) {
 
-    map<int, int> *stackTmp = new map<int, int>();
-    map<int, int> *PIDsTmp = new map<int, int>();
-    map<int, int> *countersTmp = new map<int, int>();
-    map<ADDR, vector<int>> *signatureTmp = new map<ADDR, vector<int>>();
+    // map<int, int> *stackTmp = new map<int, int>();
+    // map<int, int> *PIDsTmp = new map<int, int>();
+    // map<int, int> *countersTmp = new map<int, int>();
+    // map<ADDR, vector<int>> *signatureTmp = new map<ADDR, vector<int>>();
 
-    if (DpOMP_DEBUG) {
-        *out << "DEBUG: afterInstCall in function " << index << endl;
-    }
+    // if (DpOMP_DEBUG) {
+    //     *out << "DEBUG: afterInstCall in function " << index << endl;
+    // }
 
-    (*stackTmp)[index] = (*stack)[index];
-    (*PIDsTmp)[index] = (*PIDs)[index];
-    (*countersTmp)[index] = (*counters)[index];
+    // (*stackTmp)[index] = (*stack)[index];
+    // (*PIDsTmp)[index] = (*PIDs)[index];
+    // (*countersTmp)[index] = (*counters)[index];
 
-    (*stackTmp)[index]--;
-    (*stack)[index]--;
-    if((*stack)[index] == 0){
+    // (*stackTmp)[index]--;
+    // (*stack)[index]--;
+    // if((*stack)[index] == 0){
 
-        if(lastCall == 1){
-            (*countersTmp)[index] = 0;
-            (*counters)[index] = 0;
+    //     if(lastCall == 1){
+    //         (*countersTmp)[index] = 0;
+    //         (*counters)[index] = 0;
 
-            (*PIDs)[index] = 0;
-            (*PIDsTmp)[index] = 0;
+    //         (*PIDs)[index] = 0;
+    //         (*PIDsTmp)[index] = 0;
 
-            //Delete (* pidIndex PIDs[pidIndex]) tuples from writeResults
+    //         //Delete (* pidIndex PIDs[pidIndex]) tuples from writeResults
 
-            /*
-            for (set<string>::iterator it = writeResults->begin(); it != writeResults->end(); it++){
-                string temp = " " + to_string(index) + " ";
-                if(it->find(temp) != string::npos){
-                    writeResults->erase(it);
-                }
-            }
+    //         /*
+    //         for (set<string>::iterator it = writeResults->begin(); it != writeResults->end(); it++){
+    //             string temp = " " + to_string(index) + " ";
+    //             if(it->find(temp) != string::npos){
+    //                 writeResults->erase(it);
+    //             }
+    //         }
 
-            for (set<string>::iterator it = writeIntermediateResults->begin(); it != writeIntermediateResults->end(); it++){
-                string temp = " " + to_string(index);
-                if(it->find(temp) != string::npos){
-                    writeIntermediateResults->erase(it);
-                }
-            }
-            */
+    //         for (set<string>::iterator it = writeIntermediateResults->begin(); it != writeIntermediateResults->end(); it++){
+    //             string temp = " " + to_string(index);
+    //             if(it->find(temp) != string::npos){
+    //                 writeIntermediateResults->erase(it);
+    //             }
+    //         }
+    //         */
             
-            for(auto &i:(*signature)){
-                i.second[index] = 0;
-            } 
-        }
-    }
+    //         for(auto &i:(*signature)){
+    //             i.second[index] = 0;
+    //         } 
+    //     }
+    // }
 }
 
 void __DiscoPoPOpenMPFinalize(LID lid) {
@@ -360,14 +364,14 @@ void __DiscoPoPOpenMPFinalize(LID lid) {
     set_difference(writeResults->begin(), writeResults->end(), readResults->begin(), readResults->end(),
         inserter(res2, res2.end()));
     */
-    for(auto i:(*results)){
-        //map<string,string>::iterator it;
-        *out << i << endl; 
+    // for(auto i:(*results)){
+    //     map<string,string>::iterator it;
+    //     *out << i << endl; 
 
-        //it = finalResults->find(i);
-        //if (it != finalResults->end());
-        //    *out << it->second << endl;        
-    }
+    //     it = finalResults->find(i);
+    //     if (it != finalResults->end());
+    //        *out << it->second << endl;        
+    // }
     /*
     *out << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
     for(auto i:(*writeResults)){

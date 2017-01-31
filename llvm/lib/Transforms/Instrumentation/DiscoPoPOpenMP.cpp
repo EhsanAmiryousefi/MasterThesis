@@ -1,14 +1,8 @@
-//===- BoundsChecking.cpp - Instrumentation for run-time bounds checking --===//
-//
-//                     The LLVM Compiler Infrastructure
-//
-// This file is distributed under the University of Illinois Open Source
-// License. See LICENSE.TXT for details.
-//
 //===----------------------------------------------------------------------===//
 //
 // This file implements a pass that instruments the code to perform run-time
-// bounds checking on loads, stores, and other memory intrinsics.
+// bounds checking on loads, stores, and other memory intrinsics for OpenMP applications .
+//Author: Ehsan Amiryousefi
 //
 //===----------------------------------------------------------------------===//
 
@@ -49,7 +43,6 @@
 #include "llvm/Analysis/LoopInfo.h"
 #include "llvm/Analysis/RegionInfo.h"
 #include "llvm/Support/Debug.h"
-//#include "llvm/Support/DPUtils.h"
 #include "llvm/Support/CommandLine.h"
 #include "llvm/Support/raw_ostream.h"
 #include "llvm/Pass.h"
@@ -57,35 +50,16 @@
 #include "llvm/PassSupport.h"
 #include "llvm-c/Core.h"
 #include "llvm/Analysis/DominanceFrontier.h"
-
 #include <map>
 #include <set>
-#include <utility>
 #include <iomanip>
 #include <algorithm>
 #include <string.h>
-
-#include "llvm/Transforms/Instrumentation.h"
-#include "llvm/ADT/Statistic.h"
 #include "llvm/Analysis/MemoryBuiltins.h"
 #include "llvm/Analysis/TargetFolder.h"
 #include "llvm/Analysis/TargetLibraryInfo.h"
-#include "llvm/IR/DataLayout.h"
-#include "llvm/IR/IRBuilder.h"
-#include "llvm/IR/InstIterator.h"
 #include "llvm/IR/Intrinsics.h"
-#include "llvm/Pass.h"
-#include "llvm/Support/CommandLine.h"
-#include "llvm/Support/Debug.h"
-#include "llvm/Support/raw_ostream.h"
 
-
-#include <map>
-#include <set>
-#include <utility>
-#include <iomanip>
-#include <algorithm>
-#include <string.h>
 
 using namespace llvm;
 using namespace std;
@@ -93,12 +67,10 @@ using LID = int32_t;
 
 #define DEBUG_TYPE "dpomp"
 
-//static cl::opt<bool> SingleTrapBB("dpomp-single-trap", cl::desc("Use one trap block per function"));
-
-STATISTIC(LoadsInstrumented, "Loads instrumented");
-STATISTIC(StoresInstrumented, "Stores instrumented");
-STATISTIC(AtomicsInstrumented, "Atomic memory intrinsics instrumented");
-STATISTIC(IntrinsicsInstrumented, "Block memory intrinsics instrumented");
+// STATISTIC(LoadsInstrumented, "Loads instrumented");
+// STATISTIC(StoresInstrumented, "Stores instrumented");
+// STATISTIC(AtomicsInstrumented, "Atomic memory intrinsics instrumented");
+// STATISTIC(IntrinsicsInstrumented, "Block memory intrinsics instrumented");
 
 
 typedef IRBuilder<TargetFolder> BuilderTy;
@@ -213,8 +185,8 @@ void DiscoPoPOpenMP::setupCallbacks() {
     // Int32,
     Int32,
     Int64,
-            //CharPtr,
-            //CharPtr,
+    //CharPtr,
+    //CharPtr,
     (Type*)0));
 
   DPOMPWrite = cast<Function>(ThisModule->getOrInsertFunction("__DiscoPoPOpenMPWrite",
@@ -253,7 +225,6 @@ bool DiscoPoPOpenMP::doInitialization(Module &M) {
   ThisModule = &M;
   setupDataTypes();
   setupCallbacks();
-
   return true;
 }
 
@@ -266,20 +237,14 @@ bool DiscoPoPOpenMP::instrument(Value *Ptr, Value *InstVal,
 
 
 void DiscoPoPOpenMP::insertInitializeInst(Function &F){
-  errs() <<"Init entered! \n";
   if (F.hasName() && F.getName().equals("main")){
-    errs() <<"Init main entered! \n";
-    BasicBlock &entryBB = F.getEntryBlock();
     int32_t lid = 0;  
 
     for (inst_iterator i = inst_begin(F), e = inst_end(F); i != e; ++i)  
     {   
-      errs() <<"for loop entered! \n";       
       Instruction *I = &*i;
       lid = getLID(I);
-      errs()<<"The lid is equal to:"<<lid<<"\n";
       if (lid>0&&!isa<PHINode>(I)){ 
-        errs() <<"IF entered! \n";
         CallInst::Create(DPOMPInitialize,"", I);
         break;
       }
@@ -293,7 +258,6 @@ void DiscoPoPOpenMP::insertFinalizeInst(Instruction *before){
     CallInst::Create(DPOMPFinalize, "", before);
 }
 
-//Store instrumenter
 void DiscoPoPOpenMP::instrumentStoreInst(Instruction *toInstrument)
 {
   errs()<<"store instruction found: " << ++StoresInstrumented<<"\n";
@@ -315,8 +279,6 @@ void DiscoPoPOpenMP::instrumentStoreInst(Instruction *toInstrument)
 }
 
 
-
-//Load instrumenter
 void DiscoPoPOpenMP::instrumentLoadInst(Instruction *toInstrument){
   errs()<<"Load instruction found: " << ++LoadsInstrumented<<"\n";
   int32_t lid=getLID(toInstrument);
@@ -335,21 +297,12 @@ void DiscoPoPOpenMP::instrumentLoadInst(Instruction *toInstrument){
 }
 
 bool DiscoPoPOpenMP::runOnFunction(Function &F) {
-
-  
+  determineFileID(F);
   insertInitializeInst(F);
-  const DataLayout &DL = F.getParent()->getDataLayout();
-  IRBuilder<> TheBuilder(F.getContext());
-  Builder = &TheBuilder;
-
-
 
   // check HANDLE_MEMORY_INST in include/llvm/Instruction.def for memory
   // touching instructions
-  std::vector<Instruction*> WorkList;
   for (inst_iterator i = inst_begin(F), e = inst_end(F); i != e; ++i) {
-    determineFileID(F);
-
     Instruction *I = &*i;
     if (isa<LoadInst>(I))// || isa<StoreInst>(I) || isa<AtomicCmpXchgInst>(I) || isa<AtomicRMWInst>(I))
     {
