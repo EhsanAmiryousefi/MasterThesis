@@ -14,6 +14,7 @@ int main() {
 		#pragma omp critical 
 		x++;
 	}
+	#pragma omp barrier
 printf("test source file");
 return 0;
 }
