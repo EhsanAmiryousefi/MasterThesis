@@ -1,115 +1,101 @@
-#include <cstdio>
-#include <map>
-#include <unordered_map>
-#include <vector>
-#include <string>
-#include <stdint.h>
-#include <sstream>
-#include <stdexcept>
-#include <iostream>   // std::cerr 
-#include <fstream>
-#include <utility>
-#include <unistd.h>
-#include <assert.h>
-#include <set>
-#include <algorithm>
-#include <omp.h>
+#include <stdio.h>
+#include "iFunctions.h"
+#include "omp.h"
+using namespace std;
+using namespace peutil;
+
+bool DpOMP_DEBUG = false;                          // debug flag
 
 #ifdef __linux__                    // headers only available on Linux
 #include <unistd.h>
 #include <linux/limits.h>
 #endif
 
-#define LIDSIZE 14    // Number of bits for holding LID
-#define MAXLNO 16384  // Maximum number of lines in a single file. Has to be 2^LIDSIZE.
-
-typedef int32_t LID;
-typedef int64_t ADDR;
-
-using namespace std;
-
-bool DpOMP_DEBUG = false;        // debug flag
 
 
 namespace __DpOMP {
 
-    map<int, int> *stack = nullptr;
+    
     map<int, int> *PIDs = nullptr;
-    map<int, int> *counters = nullptr;
 
-    map<string,string> *finalResults = nullptr;
-    set<string> *readResults = nullptr;
-    set<string> *writeResults = nullptr;
-    set<string> *writeIntermediateResults = nullptr;
 
-    set<string> *results = nullptr;
+    bool peInited = false;                          // library initialization flag
+    int32_t SIG_NUM_ELEM = 6000000;
+    int32_t BF_NUM_ELEM = 32;
+    double BF_FP_RATE = 0.0001;
 
-    set<ADDR> *writtenAddresses = nullptr;
-
-    map<ADDR, vector<int>> *signature; // the map from memory addresses to PID calls.
-
+    DepsMatrix* depsMatrix = nullptr;
     ofstream *out;
 
-    bool flag;
+    ReadSignature* RSig = nullptr;
+    WriteSignature* WSig = nullptr;
+
+    /******* BEGIN: parallelization section *******/
+
+    atomic<uint8_t> targetThreads(0);               // this variable is used to map system thread-ids to our thread-ids
+    pid_t mainTid;                                  // main program thread ID
+    thread_local pid_t targetThreadId = -1;         // system thread id for each thread
+
+    /******* END: parallelization section *******/
+
+
+
 
 /******* Helper functions *******/
-    vector<string> split(const string &s, const char delim) {
-    stringstream ss(s);
-    string tmp;
-    vector<string> out;
-    while (getline(ss, tmp, delim)) {
-        out.emplace_back(tmp);
+void outputDeps() {
+    assert((depsMatrix!= nullptr) && "Dep map is not available!");
+    if (DpOMP_DEBUG) {
+        cout << "BEGIN: Printing Output.txt file... \n";
     }
-    return out;
+    // print out all dps
+    depsMatrix->print(out, targetThreads-1);
 }
 
-LID encodeLID(const string s) {
-    vector<string> tmp = split(s, ':');
-    return (static_cast<LID>(stoi(tmp[0])) << LIDSIZE) + static_cast<LID>(stoi(tmp[1]));
-}
+void readRuntimeInfo() {
+    ifstream conf(get_exe_dir() + "/pe.conf");
+    string line;
+    if (conf.is_open()) {
+        auto func = [](char c){ return (c == ' ');};
+        vector<string>* substrings = nullptr;
+        while (getline(conf, line)) {
+            substrings = split(line, '=');
+            if (substrings->size() == 2) {
+                string variable = (*substrings)[0];
+                string value    = (*substrings)[1];
+                variable.erase(std::remove_if( variable.begin(), variable.end(), func), variable.end());
+                value.erase(std::remove_if( value.begin(), value.end(), func), value.end());
 
-// decode LID to string
-string decodeLID(LID lid) {
-    if (lid == 0)
-        return "*";
-
-    stringstream ss;
-    ss << (lid >> LIDSIZE) << ":" << lid % MAXLNO;
-    return ss.str();
-}
-/*
-vector<int> vectorizePIDs(){
-    vector<int> convertedPIDs;
-
-    for(auto i = PIDs->begin(); i != PIDs->end(); i++ ){
-
-        convertedPIDs.push_back(i->second);
-    }
-    return convertedPIDs;
-}
-*/
-vector<int> getVectorizedPIDs(int index){
-    vector<int> convertedPIDs;
-    for(int i = 0; i < PIDs->size(); i++){
-        if(i == index){
-            convertedPIDs.push_back((*PIDs)[index]);
-        }else{
-            convertedPIDs.push_back(0);
+                double doubleValue = (double)atof(value.c_str());
+                if (doubleValue > 0) {
+                    if (variable.compare("DpOMP_DEBUG") == 0) {
+                        DpOMP_DEBUG = true;
+                    }
+                    else if (variable.compare("SIG_NUM_ELEM") == 0) {
+                        SIG_NUM_ELEM = (int32_t)doubleValue;
+                    }
+                    else if (variable.compare("BF_NUM_ELEM") == 0) {
+                        BF_NUM_ELEM = (int32_t)doubleValue;
+                    }
+                    else if (variable.compare("BF_FP_RATE") == 0) {
+                        BF_FP_RATE = doubleValue;
+                    }
+                }
+            }
+            substrings->clear();
+            delete substrings;
         }
     }
-    return convertedPIDs;
-}
-/*
-bool checkVectorIsZero(vector<int> inVector){
 
-    for(auto i: inVector){
-        if( i != 0)
-            return false;
+    if (DpOMP_DEBUG) {
+        cout << "BF_FP_RATE = " << BF_FP_RATE << "\n";
+        cout << "Signature slots = " << SIG_NUM_ELEM << "\n";
     }
-    return true;
 }
-*/
+
 /******* END Helper functions *******/
+
+
+
 
 /******* Instrumentation functions *******/
 
@@ -117,292 +103,84 @@ bool checkVectorIsZero(vector<int> inVector){
 extern "C"{
 
 void __DiscoPoPOpenMPInitialize(){
-
-cout <<"DiscoPoPOpenMPInitialize begin!"<<"\n";
-    stack = new map<int, int>();
-    PIDs = new map<int, int>();
-    counters = new map<int, int>();
-    signature = new map<ADDR, vector<int>>();
-
-    finalResults = new map<string,string>();
-    readResults = new set<string>();
-    writeResults = new set<string>();
-    writeIntermediateResults = new set<string>();
-
-    results = new set<string>();
-
-    writtenAddresses = new set<ADDR>();
-
-    out = new ofstream();
-
-    flag = false;
-
-    //string allFIndices(allFunctionIndices);
-
-    // for(auto i:split(allFIndices, ' ')){
-        
-    //     if(i.empty())
-    //         continue;
-
-    //     int index = stoi(i);
-
-    //     (*stack)[index] = 0;
-    //     (*PIDs)[index] = 0;
-    //     (*counters)[index] = 0;
-    // }
-
-    #ifdef __linux__
-        // try to get an output file name w.r.t. the target application
-        // if it is not available, fall back to "Output.txt"
-    char* selfPath = new char[PATH_MAX];
-    if (selfPath != nullptr) {
-        if (readlink("/proc/self/exe", selfPath, PATH_MAX - 1) == -1) {
-            delete[] selfPath;
-            selfPath = nullptr;
-            out->open("DsicoPoPOpenMPResult.txt", ios::out);
-        }
-        out->open(string(selfPath) + "_DiscoPoPOpenMPResult.txt", ios::out);
-    }
-    #else
-        out->open("DsicoPoPOpenMPResult.txt", ios::out);
-    #endif
-        assert(out->is_open() && "Cannot open a file to output CU instantiation results.\n");
+    cout <<"DiscoPoPOpenMPInitialize begin!"<<"\n";
+    pid_t systid = syscall(SYS_gettid);
+    if (!peInited) {
+        // This part should be executed only once.
+        mainTid = systid;
+        cout << "mainTid: " << mainTid << endl;
+        readRuntimeInfo();
+        depsMatrix = new DepsMatrix();
+        RSig = new ReadSignature(SIG_NUM_ELEM, BF_NUM_ELEM, BF_FP_RATE);
+        WSig = new WriteSignature(SIG_NUM_ELEM);
+        out = new ofstream();
+        out->open("Output.txt", ios::out);
+        peInited = true;
         if (DpOMP_DEBUG) {
-            cout << "CUInst initialized at the beginning of main function." << endl;
+            cout << "PE initialized" << endl;
         }
-        cout <<"DiscoPoPOpenMPInitialize end!"<<"\n";
-
+    }
+    if (targetThreadId < 0){
+        targetThreadId = systid;
+        targetThreads++;
+        depsMatrix->addNewTid(systid);
+    }
 }
 //
-void __DiscoPoPOpenMPRead(LID lid,ADDR addr, char* varName) {
-    cout <<"__DiscoPoPOpenMPRead begin! \n";
-    *out<<"[READ]"<<varName<<"---->[Line Id] "<<decodeLID(lid)<<"[ADDR]"<<addr
-    <<" [ThreadID]"<<omp_get_thread_num()<<"\n";
-    /*
-    map<int, int> *PIDsTmp = new map<int, int>();
-    map<ADDR, vector<int>> *signatureTmp = new map<ADDR, vector<int>>();
-    string read;
-    string readRes;
-    string readResComplete;
-
-    (*PIDsTmp)[pidIndex] = (*PIDs)[pidIndex];
-
-    if((*PIDs)[pidIndex] != 0){
-        if(writtenAddresses->find(addr) != writtenAddresses->end()){
-            readResComplete = to_string(addr) + " " + to_string(pidIndex) + " " + to_string((*PIDs)[pidIndex]);
-            if(writeResults->find(readResComplete) == writeResults->end()){
-                readRes = to_string(addr) + " " + to_string(pidIndex);
-                if(writeIntermediateResults ->find(readRes) != writeIntermediateResults->end()){
-                    readResults->insert(readResComplete);
-                }
-            }
+void __DiscoPoPOpenMPRead(ADDR addr, char* fileName, int32_t varSize, int32_t loopID, int32_t parentLoopID) {
+    // cout <<"__DiscoPoPOpenMPRead begin! \n";
+    // *out<<"[READ]"<<varName<<"---->[Line Id] "<<decodeLID(lid)<<"[ADDR]"<<addr
+    // <<" [ThreadID]"<<omp_get_thread_num()<<"\n";
+    pid_t lastWriteTid = WSig->membershipCheck(addr);
+    if (lastWriteTid) {
+        // RAW
+        bool lastRead = RSig->membershipCheck(addr, targetThreadId);
+        if((lastWriteTid != targetThreadId) && lastRead==false ){
+            depsMatrix->set(lastWriteTid, targetThreadId, string(fileName), varSize, loopID, parentLoopID);
         }
-    } 
-    
-    if (DpOMP_DEBUG) {
-        *out << "DEBUG: instLoad at encoded LID " << decodeLID(lid) << " and addr " << std::hex << addr << endl;
     }
-
+    RSig->insert(addr, targetThreadId);
     
-    if((*PIDs)[pidIndex] == 0)
-        return;
-    else if((*signature).count(addr) ==  0)
-        return;
-    else if((*signature)[addr][pidIndex] == 0)
-        return;
-    else if((*signature)[addr][pidIndex] == (*PIDs)[pidIndex])
-        return;
-    else if((*signature)[addr][pidIndex] != (*PIDs)[pidIndex]){
-
-        string res = "RAW in line: " + decodeLID(lid) 
-                    //+ ", ADDR: " + to_string(addr) 
-                    + ", variable: " + string(varName);
-                    //+ ", PIDIndex: " + to_string(pidIndex) 
-                    //+ ", Signature[" + to_string(pidIndex) + "]:" + to_string((*signature)[addr][pidIndex]) 
-                    //+ ", PIDs[" + to_string(pidIndex) + "]: " + to_string((*PIDs)[pidIndex]); 
-                    //+ ", stack[" + to_string(pidIndex) + "]: " + to_string((*stack)[pidIndex]);
-                    
-        //string readRes = to_string(addr) + " " + string(varName) + " " + string(fName);
-        results->insert(res);
-
-        //finalResults->insert(pair<string,string>(readRes, res));
-
-
-
-        /out << res << endl; 
-    }
-    */
 }
 //, char* fName, char* varName
-void __DiscoPoPOpenMPWrite(LID lid, ADDR addr, char* varName) {
-    cout<<"__DiscoPoPOpenMPWrite invoked \n";
-      *out<<"[WRITE]"<<varName<<"---->[Line Id] "<<decodeLID(lid)<<" [ADDR]"<<addr
-    <<" [ThreadID]"<<omp_get_thread_num()<<"\n";
-    //<<"[VARIABLE NAME]"<<varName READ]"<<varName<<
-    /*
-    map<int, int> *PIDsTmp = new map<int, int>();
-    map<ADDR, vector<int>> *signatureTmp = new map<ADDR, vector<int>>();
-
-    (*PIDsTmp)[pidIndex] = (*PIDs)[pidIndex];
-
-    if((*PIDs)[pidIndex] != 0){
-        writtenAddresses->insert(addr);
-        string writeIntermediateRes = to_string(addr) + " " + to_string(pidIndex);
-        writeIntermediateResults->insert(writeIntermediateRes);
-        string writeRes = to_string(addr) + " " + to_string(pidIndex) + " " + to_string((*PIDs)[pidIndex]);
-        writeResults->insert(writeRes);
-    }
-    
-
-    if (DpOMP_DEBUG) {
-        *out << "DEBUG: instStore at encoded LID " << std::dec << decodeLID(lid) << " and addr " << std::hex << addr << endl;
-    }
-
-    
-    if((*PIDs)[pidIndex] == 0)
-        return;
-    else if((*signature).count(addr) == 0){
-        (*signature)[addr] = getVectorizedPIDs(pidIndex);
-    } else if((*signature)[addr][pidIndex] == 0){
-        (*signature)[addr][pidIndex] = (*PIDs)[pidIndex];
-    } else if((*signature)[addr][pidIndex] != (*PIDs)[pidIndex]){  
-        string res = "WAW in function: " + string(fName) + ", line: " + decodeLID(lid) + ", variable: " + string(varName);
-        results->insert(res);
-
-        //string writeRes = to_string(addr) + " " + string(varName) + " " + string(fName);
-        //writeResults->insert(writeRes);
-
-        (*signature)[addr][pidIndex] = (*PIDs)[pidIndex];
-    }   
-   */ 
+void __DiscoPoPOpenMPWrite(int32_t lid, ADDR addr, char* varName) {
+    // cout<<"__DiscoPoPOpenMPWrite invoked \n";
+    //   *out<<"[WRITE]"<<varName<<"---->[Line Id] "<<decodeLID(lid)<<" [ADDR]"<<addr
+    // <<" [ThreadID]"<<omp_get_thread_num()<<"\n";
+    WSig->insert(addr, targetThreadId);
+    RSig->clearAccesses(addr);
 }
 
 void __DiscoPoPOpenMPCallBefore(int index) {
 
-    // map<int, int> *stackTmp = new map<int, int>();
-    // map<int, int> *PIDsTmp = new map<int, int>();
-    // map<int, int> *countersTmp = new map<int, int>();
-    // map<ADDR, vector<int>> *signatureTmp = new map<ADDR, vector<int>>();
-
-    // if (DpOMP_DEBUG) {
-    //     *out << "DEBUG: beforeInstCall in function " << index << endl;
-    // }
-
-    // (*stackTmp)[index] = (*stack)[index];
-    // (*PIDsTmp)[index] = (*PIDs)[index];
-    // (*countersTmp)[index] = (*counters)[index];
-
-    // if((*stack)[index] == 0){
-    //     (*counters)[index]++;
-    //     (*PIDs)[index] = (*counters)[index];  
-
-    //     (*countersTmp)[index]++; 
-    //     (*PIDsTmp)[index] = (*countersTmp)[index];      
-    // } 
-    
-    // (*stack)[index]++;
-    // (*stackTmp)[index]++;
 }
 
 void __DiscoPoPOpenMPCallAfter(int index, int lastCall) {
 
-    // map<int, int> *stackTmp = new map<int, int>();
-    // map<int, int> *PIDsTmp = new map<int, int>();
-    // map<int, int> *countersTmp = new map<int, int>();
-    // map<ADDR, vector<int>> *signatureTmp = new map<ADDR, vector<int>>();
-
-    // if (DpOMP_DEBUG) {
-    //     *out << "DEBUG: afterInstCall in function " << index << endl;
-    // }
-
-    // (*stackTmp)[index] = (*stack)[index];
-    // (*PIDsTmp)[index] = (*PIDs)[index];
-    // (*countersTmp)[index] = (*counters)[index];
-
-    // (*stackTmp)[index]--;
-    // (*stack)[index]--;
-    // if((*stack)[index] == 0){
-
-    //     if(lastCall == 1){
-    //         (*countersTmp)[index] = 0;
-    //         (*counters)[index] = 0;
-
-    //         (*PIDs)[index] = 0;
-    //         (*PIDsTmp)[index] = 0;
-
-    //         //Delete (* pidIndex PIDs[pidIndex]) tuples from writeResults
-
-    //         /*
-    //         for (set<string>::iterator it = writeResults->begin(); it != writeResults->end(); it++){
-    //             string temp = " " + to_string(index) + " ";
-    //             if(it->find(temp) != string::npos){
-    //                 writeResults->erase(it);
-    //             }
-    //         }
-
-    //         for (set<string>::iterator it = writeIntermediateResults->begin(); it != writeIntermediateResults->end(); it++){
-    //             string temp = " " + to_string(index);
-    //             if(it->find(temp) != string::npos){
-    //                 writeIntermediateResults->erase(it);
-    //             }
-    //         }
-    //         */
-            
-    //         for(auto &i:(*signature)){
-    //             i.second[index] = 0;
-    //         } 
-    //     }
-    // }
+   
 }
 
 void __DiscoPoPOpenMPFinalize() {
 
-    /*
-    set<string> res;
-    set_difference(readResults->begin(), readResults->end(), writeResults->begin(), writeResults->end(),
-        inserter(res, res.end()));
+     cout<<"__DiscoPoPOpenMPFinalize invoked \n";
+    if (DpOMP_DEBUG) {
+        cout << "Program terminated! clearing up" << endl;
+    }
 
-    set<string> res2;
-    set_difference(writeResults->begin(), writeResults->end(), readResults->begin(), readResults->end(),
-        inserter(res2, res2.end()));
-    */
-    // for(auto i:(*results)){
-    //     map<string,string>::iterator it;
-    //     *out << i << endl; 
+    outputDeps();
 
-    //     it = finalResults->find(i);
-    //     if (it != finalResults->end());
-    //        *out << it->second << endl;        
-    // }
-    /*
-    *out << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
-    for(auto i:(*writeResults)){
-        //map<string,string>::iterator it;
-        *out << i << endl;
-    }
-    *out << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
-    for(auto i:(*writeIntermediateResults)){
-        //map<string,string>::iterator it;
-        *out << i << endl;
-    }
-    */
-    /*
-    *out << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
-    
-    for(auto i:(*finalResults)){
-        *out << i.second << endl; 
-    }
-*/
+    delete depsMatrix;
+
     out->flush();
     out->close();
 
     delete out;
-    delete stack;
-    delete signature;
-    delete PIDs;
-    delete counters;
-    cout<<"__DiscoPoPOpenMPFinalize invoked \n";
+
+    if (DpOMP_DEBUG) {
+        cout << "Program terminated." << endl;
+    }
 }
 
 }
-} // namespace __CUInst
+
+} 

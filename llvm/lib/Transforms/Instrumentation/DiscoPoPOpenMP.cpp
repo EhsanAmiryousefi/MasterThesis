@@ -185,11 +185,11 @@ void DiscoPoPOpenMP::setupCallbacks() {
 
   DPOMPRead = cast<Function>(ThisModule->getOrInsertFunction("__DiscoPoPOpenMPRead",
     Void,
-    // Int32,
-    Int32,
     Int64,
     CharPtr,
-    //CharPtr,
+    Int32,
+    Int32,
+    Int32
     (Type*)0));
 
   DPOMPWrite = cast<Function>(ThisModule->getOrInsertFunction("__DiscoPoPOpenMPWrite",
