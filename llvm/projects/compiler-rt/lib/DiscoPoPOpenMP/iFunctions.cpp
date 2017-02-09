@@ -13,6 +13,7 @@
 #include <assert.h>
 #include <set>
 #include <algorithm>
+#include <omp.h>
 
 #ifdef __linux__                    // headers only available on Linux
 #include <unistd.h>
@@ -160,7 +161,7 @@ cout <<"DiscoPoPOpenMPInitialize begin!"<<"\n";
             selfPath = nullptr;
             out->open("DsicoPoPOpenMPResult.txt", ios::out);
         }
-        out->open(string(selfPath) + "_DsicoPoPOpenMPResult.txt", ios::out);
+        out->open(string(selfPath) + "_DiscoPoPOpenMPResult.txt", ios::out);
     }
     #else
         out->open("DsicoPoPOpenMPResult.txt", ios::out);
@@ -173,12 +174,10 @@ cout <<"DiscoPoPOpenMPInitialize begin!"<<"\n";
 
 }
 //
-void __DiscoPoPOpenMPRead(LID lid, int pidIndex, ADDR addr) {
-cout <<"__DiscoPoPOpenMPRead begin!"<<"\n";
-out <<"READ found";
-// out<<"......";
-// out<<addr;
-// out<<"\n";
+void __DiscoPoPOpenMPRead(LID lid,ADDR addr, char* varName) {
+    cout <<"__DiscoPoPOpenMPRead begin! \n";
+    *out<<"[READ]"<<varName<<"---->[Line Id] "<<decodeLID(lid)<<"[ADDR]"<<addr
+    <<" [ThreadID]"<<omp_get_thread_num()<<"\n";
     /*
     map<int, int> *PIDsTmp = new map<int, int>();
     map<ADDR, vector<int>> *signatureTmp = new map<ADDR, vector<int>>();
@@ -235,8 +234,11 @@ out <<"READ found";
     */
 }
 //, char* fName, char* varName
-void __DiscoPoPOpenMPWrite(LID lid, int pidIndex, ADDR addr) {
-    cout<<"__DiscoPoPOpenMPWrite invoked";
+void __DiscoPoPOpenMPWrite(LID lid, ADDR addr, char* varName) {
+    cout<<"__DiscoPoPOpenMPWrite invoked \n";
+      *out<<"[WRITE]"<<varName<<"---->[Line Id] "<<decodeLID(lid)<<" [ADDR]"<<addr
+    <<" [ThreadID]"<<omp_get_thread_num()<<"\n";
+    //<<"[VARIABLE NAME]"<<varName READ]"<<varName<<
     /*
     map<int, int> *PIDsTmp = new map<int, int>();
     map<ADDR, vector<int>> *signatureTmp = new map<ADDR, vector<int>>();
@@ -353,7 +355,7 @@ void __DiscoPoPOpenMPCallAfter(int index, int lastCall) {
     // }
 }
 
-void __DiscoPoPOpenMPFinalize(LID lid) {
+void __DiscoPoPOpenMPFinalize() {
 
     /*
     set<string> res;
@@ -399,7 +401,7 @@ void __DiscoPoPOpenMPFinalize(LID lid) {
     delete signature;
     delete PIDs;
     delete counters;
-    
+    cout<<"__DiscoPoPOpenMPFinalize invoked \n";
 }
 
 }

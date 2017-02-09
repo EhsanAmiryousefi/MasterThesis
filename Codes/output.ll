@@ -7,153 +7,165 @@ target triple = "x86_64-unknown-linux-gnu"
 
 @.str = private unnamed_addr constant [23 x i8] c";unknown;unknown;0;0;;\00", align 1
 @0 = private unnamed_addr constant %ident_t { i32 0, i32 2, i32 0, i32 0, i8* getelementptr inbounds ([23 x i8], [23 x i8]* @.str, i32 0, i32 0) }, align 8
-@1 = private unnamed_addr constant [27 x i8] c";sourcefile.c;main;10;10;;\00"
-@2 = private unnamed_addr constant [27 x i8] c";sourcefile.c;main;14;11;;\00"
+@1 = private unnamed_addr constant [27 x i8] c";sourcefile.c;main;15;10;;\00"
+@2 = private unnamed_addr constant [27 x i8] c";sourcefile.c;main;19;11;;\00"
 @.gomp_critical_user_.var = common global [8 x i32] zeroinitializer
-@3 = private unnamed_addr constant [27 x i8] c";sourcefile.c;main;10;36;;\00"
-@4 = private unnamed_addr constant [27 x i8] c";sourcefile.c;main;17;10;;\00"
+@3 = private unnamed_addr constant [27 x i8] c";sourcefile.c;main;15;36;;\00"
+@4 = private unnamed_addr constant [27 x i8] c";sourcefile.c;main;22;10;;\00"
 @.str.1 = private unnamed_addr constant [17 x i8] c"test source file\00", align 1
 @n = constant i32 20, align 4
 
 ; Function Attrs: nounwind uwtable
 define i32 @main() #0 !dbg !10 {
-  %1 = alloca i32, align 4
-  %2 = alloca [20 x i32], align 16
-  %3 = alloca i32, align 4
-  %4 = alloca i32, align 4
-  %5 = alloca %ident_t, align 8
-  %6 = bitcast %ident_t* %5 to i8*
-  %7 = bitcast %ident_t* @0 to i8*
-  call void @llvm.memcpy.p0i8.p0i8.i64(i8* %6, i8* %7, i64 24, i32 8, i1 false)
-  %8 = getelementptr inbounds %ident_t, %ident_t* %5, i32 0, i32 4
-  store i8* getelementptr inbounds ([27 x i8], [27 x i8]* @4, i32 0, i32 0), i8** %8, align 8
-  %9 = call i32 @__kmpc_global_thread_num(%ident_t* %5)
-  store i32 0, i32* %1, align 4
-  call void @llvm.dbg.declare(metadata [20 x i32]* %2, metadata !13, metadata !17), !dbg !18
-  call void @llvm.dbg.declare(metadata i32* %3, metadata !19, metadata !17), !dbg !20
-  store i32 1000, i32* %3, align 4, !dbg !20
-  call void @llvm.dbg.declare(metadata i32* %4, metadata !21, metadata !17), !dbg !22
-  store i32 0, i32* %4, align 4, !dbg !22
-  %10 = getelementptr inbounds %ident_t, %ident_t* %5, i32 0, i32 4, !dbg !23
-  store i8* getelementptr inbounds ([27 x i8], [27 x i8]* @1, i32 0, i32 0), i8** %10, align 8, !dbg !23
-  call void (%ident_t*, i32, void (i32*, i32*, ...)*, ...) @__kmpc_fork_call(%ident_t* %5, i32 3, void (i32*, i32*, ...)* bitcast (void (i32*, i32*, [20 x i32]*, i32*, i32*)* @.omp_outlined. to void (i32*, i32*, ...)*), [20 x i32]* %2, i32* %3, i32* %4), !dbg !23
-  %11 = getelementptr inbounds %ident_t, %ident_t* %5, i32 0, i32 4, !dbg !24
-  store i8* getelementptr inbounds ([27 x i8], [27 x i8]* @4, i32 0, i32 0), i8** %11, align 8, !dbg !24
-  call void @__kmpc_barrier(%ident_t* %5, i32 %9), !dbg !24
-  %12 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([17 x i8], [17 x i8]* @.str.1, i32 0, i32 0)), !dbg !25
-  ret i32 0, !dbg !26
+entry:
+  %retval = alloca i32, align 4
+  %Ehsan = alloca i32, align 4
+  %a = alloca [20 x i32], align 16
+  %b = alloca i32, align 4
+  %x = alloca i32, align 4
+  %hasan = alloca i32, align 4
+  %.kmpc_loc.addr = alloca %ident_t, align 8
+  %0 = bitcast %ident_t* %.kmpc_loc.addr to i8*
+  %1 = bitcast %ident_t* @0 to i8*
+  call void @llvm.memcpy.p0i8.p0i8.i64(i8* %0, i8* %1, i64 24, i32 8, i1 false)
+  %2 = getelementptr inbounds %ident_t, %ident_t* %.kmpc_loc.addr, i32 0, i32 4
+  store i8* getelementptr inbounds ([27 x i8], [27 x i8]* @4, i32 0, i32 0), i8** %2, align 8
+  %3 = call i32 @__kmpc_global_thread_num(%ident_t* %.kmpc_loc.addr)
+  store i32 0, i32* %retval, align 4
+  call void @llvm.dbg.declare(metadata i32* %Ehsan, metadata !13, metadata !14), !dbg !15
+  store i32 100, i32* %Ehsan, align 4, !dbg !15
+  call void @llvm.dbg.declare(metadata [20 x i32]* %a, metadata !16, metadata !14), !dbg !20
+  call void @llvm.dbg.declare(metadata i32* %b, metadata !21, metadata !14), !dbg !22
+  store i32 1000, i32* %b, align 4, !dbg !22
+  call void @llvm.dbg.declare(metadata i32* %x, metadata !23, metadata !14), !dbg !24
+  store i32 0, i32* %x, align 4, !dbg !24
+  call void @llvm.dbg.declare(metadata i32* %hasan, metadata !25, metadata !14), !dbg !26
+  store i32 12, i32* %hasan, align 4, !dbg !26
+  %4 = load i32, i32* %x, align 4, !dbg !27
+  store i32 %4, i32* %Ehsan, align 4, !dbg !28
+  %5 = load i32, i32* %hasan, align 4, !dbg !29
+  store i32 %5, i32* %Ehsan, align 4, !dbg !30
+  %6 = getelementptr inbounds %ident_t, %ident_t* %.kmpc_loc.addr, i32 0, i32 4, !dbg !31
+  store i8* getelementptr inbounds ([27 x i8], [27 x i8]* @1, i32 0, i32 0), i8** %6, align 8, !dbg !31
+  call void (%ident_t*, i32, void (i32*, i32*, ...)*, ...) @__kmpc_fork_call(%ident_t* %.kmpc_loc.addr, i32 3, void (i32*, i32*, ...)* bitcast (void (i32*, i32*, [20 x i32]*, i32*, i32*)* @.omp_outlined. to void (i32*, i32*, ...)*), [20 x i32]* %a, i32* %b, i32* %x), !dbg !31
+  %7 = getelementptr inbounds %ident_t, %ident_t* %.kmpc_loc.addr, i32 0, i32 4, !dbg !32
+  store i8* getelementptr inbounds ([27 x i8], [27 x i8]* @4, i32 0, i32 0), i8** %7, align 8, !dbg !32
+  call void @__kmpc_barrier(%ident_t* %.kmpc_loc.addr, i32 %3), !dbg !32
+  %call = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([17 x i8], [17 x i8]* @.str.1, i32 0, i32 0)), !dbg !33
+  ret i32 0, !dbg !34
 }
 
 ; Function Attrs: nounwind readnone
 declare void @llvm.dbg.declare(metadata, metadata, metadata) #1
 
 ; Function Attrs: nounwind uwtable
-define internal void @.omp_outlined.(i32* noalias, i32* noalias, [20 x i32]* dereferenceable(80), i32* dereferenceable(4), i32* dereferenceable(4)) #0 !dbg !27 {
-  %6 = alloca i32*, align 8
-  %7 = alloca i32*, align 8
-  %8 = alloca [20 x i32]*, align 8
-  %9 = alloca i32*, align 8
-  %10 = alloca i32*, align 8
-  %11 = alloca i32, align 4
-  %12 = alloca i32, align 4
-  %13 = alloca i32, align 4
-  %14 = alloca i32, align 4
-  %15 = alloca i32, align 4
-  %16 = alloca i32, align 4
-  %17 = alloca %ident_t, align 8
-  %18 = bitcast %ident_t* %17 to i8*
-  %19 = bitcast %ident_t* @0 to i8*
-  call void @llvm.memcpy.p0i8.p0i8.i64(i8* %18, i8* %19, i64 24, i32 8, i1 false)
-  store i32* %0, i32** %6, align 8
-  call void @llvm.dbg.declare(metadata i32** %6, metadata !35, metadata !17), !dbg !36
-  store i32* %1, i32** %7, align 8
-  call void @llvm.dbg.declare(metadata i32** %7, metadata !37, metadata !17), !dbg !36
-  store [20 x i32]* %2, [20 x i32]** %8, align 8
-  call void @llvm.dbg.declare(metadata [20 x i32]** %8, metadata !38, metadata !17), !dbg !36
-  store i32* %3, i32** %9, align 8
-  call void @llvm.dbg.declare(metadata i32** %9, metadata !39, metadata !17), !dbg !36
-  store i32* %4, i32** %10, align 8
-  call void @llvm.dbg.declare(metadata i32** %10, metadata !40, metadata !17), !dbg !36
-  %20 = load [20 x i32]*, [20 x i32]** %8, align 8, !dbg !41
-  %21 = load i32*, i32** %9, align 8, !dbg !41
-  %22 = load i32*, i32** %10, align 8, !dbg !41
-  call void @llvm.dbg.declare(metadata i32* %11, metadata !42, metadata !17), !dbg !36
-  call void @llvm.dbg.declare(metadata i32* %12, metadata !43, metadata !17), !dbg !36
-  store i32 0, i32* %12, align 4, !dbg !44
-  call void @llvm.dbg.declare(metadata i32* %13, metadata !45, metadata !17), !dbg !36
-  store i32 19, i32* %13, align 4, !dbg !44
-  call void @llvm.dbg.declare(metadata i32* %14, metadata !46, metadata !17), !dbg !36
-  store i32 1, i32* %14, align 4, !dbg !44
-  call void @llvm.dbg.declare(metadata i32* %15, metadata !47, metadata !17), !dbg !36
-  store i32 0, i32* %15, align 4, !dbg !44
-  call void @llvm.dbg.declare(metadata i32* %16, metadata !48, metadata !17), !dbg !36
-  %23 = getelementptr inbounds %ident_t, %ident_t* %17, i32 0, i32 4, !dbg !41
-  store i8* getelementptr inbounds ([27 x i8], [27 x i8]* @1, i32 0, i32 0), i8** %23, align 8, !dbg !41
-  %24 = load i32*, i32** %6, align 8, !dbg !41
-  %25 = load i32, i32* %24, align 4, !dbg !41
-  call void @__kmpc_for_static_init_4(%ident_t* %17, i32 %25, i32 34, i32* %15, i32* %12, i32* %13, i32* %14, i32 1, i32 1), !dbg !41
-  %26 = load i32, i32* %13, align 4, !dbg !44
-  %27 = icmp sgt i32 %26, 19, !dbg !44
-  br i1 %27, label %28, label %29, !dbg !44
+define internal void @.omp_outlined.(i32* noalias %.global_tid., i32* noalias %.bound_tid., [20 x i32]* dereferenceable(80) %a, i32* dereferenceable(4) %b, i32* dereferenceable(4) %x) #0 !dbg !35 {
+entry:
+  %.global_tid..addr = alloca i32*, align 8
+  %.bound_tid..addr = alloca i32*, align 8
+  %a.addr = alloca [20 x i32]*, align 8
+  %b.addr = alloca i32*, align 8
+  %x.addr = alloca i32*, align 8
+  %.omp.iv = alloca i32, align 4
+  %.omp.lb = alloca i32, align 4
+  %.omp.ub = alloca i32, align 4
+  %.omp.stride = alloca i32, align 4
+  %.omp.is_last = alloca i32, align 4
+  %i = alloca i32, align 4
+  %.kmpc_loc.addr = alloca %ident_t, align 8
+  %0 = bitcast %ident_t* %.kmpc_loc.addr to i8*
+  %1 = bitcast %ident_t* @0 to i8*
+  call void @llvm.memcpy.p0i8.p0i8.i64(i8* %0, i8* %1, i64 24, i32 8, i1 false)
+  store i32* %.global_tid., i32** %.global_tid..addr, align 8
+  call void @llvm.dbg.declare(metadata i32** %.global_tid..addr, metadata !43, metadata !14), !dbg !44
+  store i32* %.bound_tid., i32** %.bound_tid..addr, align 8
+  call void @llvm.dbg.declare(metadata i32** %.bound_tid..addr, metadata !45, metadata !14), !dbg !44
+  store [20 x i32]* %a, [20 x i32]** %a.addr, align 8
+  call void @llvm.dbg.declare(metadata [20 x i32]** %a.addr, metadata !46, metadata !14), !dbg !44
+  store i32* %b, i32** %b.addr, align 8
+  call void @llvm.dbg.declare(metadata i32** %b.addr, metadata !47, metadata !14), !dbg !44
+  store i32* %x, i32** %x.addr, align 8
+  call void @llvm.dbg.declare(metadata i32** %x.addr, metadata !48, metadata !14), !dbg !44
+  %2 = load [20 x i32]*, [20 x i32]** %a.addr, align 8, !dbg !49
+  %3 = load i32*, i32** %b.addr, align 8, !dbg !49
+  %4 = load i32*, i32** %x.addr, align 8, !dbg !49
+  call void @llvm.dbg.declare(metadata i32* %.omp.iv, metadata !50, metadata !14), !dbg !44
+  call void @llvm.dbg.declare(metadata i32* %.omp.lb, metadata !51, metadata !14), !dbg !44
+  store i32 0, i32* %.omp.lb, align 4, !dbg !52
+  call void @llvm.dbg.declare(metadata i32* %.omp.ub, metadata !53, metadata !14), !dbg !44
+  store i32 19, i32* %.omp.ub, align 4, !dbg !52
+  call void @llvm.dbg.declare(metadata i32* %.omp.stride, metadata !54, metadata !14), !dbg !44
+  store i32 1, i32* %.omp.stride, align 4, !dbg !52
+  call void @llvm.dbg.declare(metadata i32* %.omp.is_last, metadata !55, metadata !14), !dbg !44
+  store i32 0, i32* %.omp.is_last, align 4, !dbg !52
+  call void @llvm.dbg.declare(metadata i32* %i, metadata !56, metadata !14), !dbg !44
+  %5 = getelementptr inbounds %ident_t, %ident_t* %.kmpc_loc.addr, i32 0, i32 4, !dbg !49
+  store i8* getelementptr inbounds ([27 x i8], [27 x i8]* @1, i32 0, i32 0), i8** %5, align 8, !dbg !49
+  %6 = load i32*, i32** %.global_tid..addr, align 8, !dbg !49
+  %7 = load i32, i32* %6, align 4, !dbg !49
+  call void @__kmpc_for_static_init_4(%ident_t* %.kmpc_loc.addr, i32 %7, i32 34, i32* %.omp.is_last, i32* %.omp.lb, i32* %.omp.ub, i32* %.omp.stride, i32 1, i32 1), !dbg !49
+  %8 = load i32, i32* %.omp.ub, align 4, !dbg !52
+  %cmp = icmp sgt i32 %8, 19, !dbg !52
+  br i1 %cmp, label %cond.true, label %cond.false, !dbg !52
 
-; <label>:28:                                     ; preds = %5
-  br label %31, !dbg !49
+cond.true:                                        ; preds = %entry
+  br label %cond.end, !dbg !57
 
-; <label>:29:                                     ; preds = %5
-  %30 = load i32, i32* %13, align 4, !dbg !51
-  br label %31, !dbg !51
+cond.false:                                       ; preds = %entry
+  %9 = load i32, i32* %.omp.ub, align 4, !dbg !59
+  br label %cond.end, !dbg !59
 
-; <label>:31:                                     ; preds = %29, %28
-  %32 = phi i32 [ 19, %28 ], [ %30, %29 ], !dbg !53
-  store i32 %32, i32* %13, align 4, !dbg !53
-  %33 = load i32, i32* %12, align 4, !dbg !53
-  store i32 %33, i32* %11, align 4, !dbg !53
-  br label %34, !dbg !55
+cond.end:                                         ; preds = %cond.false, %cond.true
+  %cond = phi i32 [ 19, %cond.true ], [ %9, %cond.false ], !dbg !61
+  store i32 %cond, i32* %.omp.ub, align 4, !dbg !61
+  %10 = load i32, i32* %.omp.lb, align 4, !dbg !61
+  store i32 %10, i32* %.omp.iv, align 4, !dbg !61
+  br label %omp.inner.for.cond, !dbg !63
 
-; <label>:34:                                     ; preds = %52, %31
-  %35 = load i32, i32* %11, align 4, !dbg !56
-  %36 = load i32, i32* %13, align 4, !dbg !56
-  %37 = icmp sle i32 %35, %36, !dbg !36
-  br i1 %37, label %38, label %55, !dbg !58
+omp.inner.for.cond:                               ; preds = %omp.inner.for.inc, %cond.end
+  %11 = load i32, i32* %.omp.iv, align 4, !dbg !64
+  %12 = load i32, i32* %.omp.ub, align 4, !dbg !64
+  %cmp1 = icmp sle i32 %11, %12, !dbg !44
+  br i1 %cmp1, label %omp.inner.for.body, label %omp.inner.for.end, !dbg !66
 
-; <label>:38:                                     ; preds = %34
-  %39 = load i32, i32* %11, align 4, !dbg !59
-  %40 = mul nsw i32 %39, 1, !dbg !61
-  %41 = add nsw i32 0, %40, !dbg !61
-  store i32 %41, i32* %16, align 4, !dbg !61
-  %42 = load i32, i32* %21, align 4, !dbg !62
-  %43 = load i32, i32* %16, align 4, !dbg !64
-  %44 = add nsw i32 %42, %43, !dbg !65
-  %45 = load i32, i32* %16, align 4, !dbg !66
-  %46 = sext i32 %45 to i64, !dbg !67
-  %47 = getelementptr inbounds [20 x i32], [20 x i32]* %20, i64 0, i64 %46, !dbg !67
-  store i32 %44, i32* %47, align 4, !dbg !68
-  %48 = getelementptr inbounds %ident_t, %ident_t* %17, i32 0, i32 4, !dbg !69
-  store i8* getelementptr inbounds ([27 x i8], [27 x i8]* @2, i32 0, i32 0), i8** %48, align 8, !dbg !69
-  call void @__kmpc_critical(%ident_t* %17, i32 %25, [8 x i32]* @.gomp_critical_user_.var), !dbg !69
-  %49 = load i32, i32* %22, align 4, !dbg !70
-  %50 = add nsw i32 %49, 1, !dbg !70
-  store i32 %50, i32* %22, align 4, !dbg !70
-  call void @__kmpc_end_critical(%ident_t* %17, i32 %25, [8 x i32]* @.gomp_critical_user_.var), !dbg !72
-  br label %51, !dbg !73
+omp.inner.for.body:                               ; preds = %omp.inner.for.cond
+  %13 = load i32, i32* %.omp.iv, align 4, !dbg !67
+  %mul = mul nsw i32 %13, 1, !dbg !69
+  %add = add nsw i32 0, %mul, !dbg !69
+  store i32 %add, i32* %i, align 4, !dbg !69
+  %14 = load i32, i32* %3, align 4, !dbg !70
+  %15 = load i32, i32* %i, align 4, !dbg !72
+  %add2 = add nsw i32 %14, %15, !dbg !73
+  %16 = load i32, i32* %i, align 4, !dbg !74
+  %idxprom = sext i32 %16 to i64, !dbg !75
+  %arrayidx = getelementptr inbounds [20 x i32], [20 x i32]* %2, i64 0, i64 %idxprom, !dbg !75
+  store i32 %add2, i32* %arrayidx, align 4, !dbg !76
+  %17 = getelementptr inbounds %ident_t, %ident_t* %.kmpc_loc.addr, i32 0, i32 4, !dbg !77
+  store i8* getelementptr inbounds ([27 x i8], [27 x i8]* @2, i32 0, i32 0), i8** %17, align 8, !dbg !77
+  call void @__kmpc_critical(%ident_t* %.kmpc_loc.addr, i32 %7, [8 x i32]* @.gomp_critical_user_.var), !dbg !77
+  %18 = load i32, i32* %4, align 4, !dbg !78
+  %inc = add nsw i32 %18, 1, !dbg !78
+  store i32 %inc, i32* %4, align 4, !dbg !78
+  call void @__kmpc_end_critical(%ident_t* %.kmpc_loc.addr, i32 %7, [8 x i32]* @.gomp_critical_user_.var), !dbg !80
+  br label %omp.body.continue, !dbg !81
 
-; <label>:51:                                     ; preds = %38
-  br label %52, !dbg !74
+omp.body.continue:                                ; preds = %omp.inner.for.body
+  br label %omp.inner.for.inc, !dbg !82
 
-; <label>:52:                                     ; preds = %51
-  %53 = load i32, i32* %11, align 4, !dbg !75
-  %54 = add nsw i32 %53, 1, !dbg !77
-  store i32 %54, i32* %11, align 4, !dbg !77
-  br label %34, !dbg !78, !llvm.loop !79
+omp.inner.for.inc:                                ; preds = %omp.body.continue
+  %19 = load i32, i32* %.omp.iv, align 4, !dbg !83
+  %add3 = add nsw i32 %19, 1, !dbg !85
+  store i32 %add3, i32* %.omp.iv, align 4, !dbg !85
+  br label %omp.inner.for.cond, !dbg !86, !llvm.loop !87
 
-; <label>:55:                                     ; preds = %34
-  br label %56, !dbg !80
+omp.inner.for.end:                                ; preds = %omp.inner.for.cond
+  br label %omp.loop.exit, !dbg !88
 
-; <label>:56:                                     ; preds = %55
-  %57 = getelementptr inbounds %ident_t, %ident_t* %17, i32 0, i32 4, !dbg !81
-  store i8* getelementptr inbounds ([27 x i8], [27 x i8]* @3, i32 0, i32 0), i8** %57, align 8, !dbg !81
-  call void @__kmpc_for_static_fini(%ident_t* %17, i32 %25), !dbg !81
-  ret void, !dbg !82
+omp.loop.exit:                                    ; preds = %omp.inner.for.end
+  %20 = getelementptr inbounds %ident_t, %ident_t* %.kmpc_loc.addr, i32 0, i32 4, !dbg !89
+  store i8* getelementptr inbounds ([27 x i8], [27 x i8]* @3, i32 0, i32 0), i8** %20, align 8, !dbg !89
+  call void @__kmpc_for_static_fini(%ident_t* %.kmpc_loc.addr, i32 %7), !dbg !89
+  ret void, !dbg !90
 }
 
 ; Function Attrs: argmemonly nounwind
@@ -197,73 +209,81 @@ attributes #3 = { "disable-tail-calls"="false" "less-precise-fpmad"="false" "no-
 !10 = distinct !DISubprogram(name: "main", scope: !1, file: !1, line: 6, type: !11, isLocal: false, isDefinition: true, scopeLine: 6, isOptimized: false, unit: !0, variables: !2)
 !11 = !DISubroutineType(types: !12)
 !12 = !{!6}
-!13 = !DILocalVariable(name: "a", scope: !10, file: !1, line: 7, type: !14)
-!14 = !DICompositeType(tag: DW_TAG_array_type, baseType: !6, size: 640, align: 32, elements: !15)
-!15 = !{!16}
-!16 = !DISubrange(count: 20)
-!17 = !DIExpression()
-!18 = !DILocation(line: 7, column: 6, scope: !10)
-!19 = !DILocalVariable(name: "b", scope: !10, file: !1, line: 8, type: !6)
+!13 = !DILocalVariable(name: "Ehsan", scope: !10, file: !1, line: 7, type: !6)
+!14 = !DIExpression()
+!15 = !DILocation(line: 7, column: 6, scope: !10)
+!16 = !DILocalVariable(name: "a", scope: !10, file: !1, line: 8, type: !17)
+!17 = !DICompositeType(tag: DW_TAG_array_type, baseType: !6, size: 640, align: 32, elements: !18)
+!18 = !{!19}
+!19 = !DISubrange(count: 20)
 !20 = !DILocation(line: 8, column: 6, scope: !10)
-!21 = !DILocalVariable(name: "x", scope: !10, file: !1, line: 9, type: !6)
+!21 = !DILocalVariable(name: "b", scope: !10, file: !1, line: 9, type: !6)
 !22 = !DILocation(line: 9, column: 6, scope: !10)
-!23 = !DILocation(line: 10, column: 10, scope: !10)
-!24 = !DILocation(line: 17, column: 10, scope: !10)
-!25 = !DILocation(line: 18, column: 1, scope: !10)
-!26 = !DILocation(line: 19, column: 1, scope: !10)
-!27 = distinct !DISubprogram(name: ".omp_outlined.", scope: !1, file: !1, line: 10, type: !28, isLocal: true, isDefinition: true, scopeLine: 11, flags: DIFlagPrototyped, isOptimized: false, unit: !0, variables: !2)
-!28 = !DISubroutineType(types: !29)
-!29 = !{null, !30, !30, !33, !34, !34}
-!30 = !DIDerivedType(tag: DW_TAG_const_type, baseType: !31)
-!31 = !DIDerivedType(tag: DW_TAG_restrict_type, baseType: !32)
-!32 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !6, size: 64, align: 64)
-!33 = !DIDerivedType(tag: DW_TAG_reference_type, baseType: !14, size: 64, align: 64)
-!34 = !DIDerivedType(tag: DW_TAG_reference_type, baseType: !6, size: 64, align: 64)
-!35 = !DILocalVariable(name: ".global_tid.", arg: 1, scope: !27, type: !30, flags: DIFlagArtificial | DIFlagObjectPointer)
-!36 = !DILocation(line: 0, scope: !27)
-!37 = !DILocalVariable(name: ".bound_tid.", arg: 2, scope: !27, type: !30, flags: DIFlagArtificial)
-!38 = !DILocalVariable(name: "a", arg: 3, scope: !27, type: !33, flags: DIFlagArtificial)
-!39 = !DILocalVariable(name: "b", arg: 4, scope: !27, type: !34, flags: DIFlagArtificial)
-!40 = !DILocalVariable(name: "x", arg: 5, scope: !27, type: !34, flags: DIFlagArtificial)
-!41 = !DILocation(line: 11, column: 2, scope: !27)
-!42 = !DILocalVariable(name: ".omp.iv", scope: !27, type: !6, flags: DIFlagArtificial)
-!43 = !DILocalVariable(name: ".omp.lb", scope: !27, type: !6, flags: DIFlagArtificial)
-!44 = !DILocation(line: 11, column: 7, scope: !27)
-!45 = !DILocalVariable(name: ".omp.ub", scope: !27, type: !6, flags: DIFlagArtificial)
-!46 = !DILocalVariable(name: ".omp.stride", scope: !27, type: !6, flags: DIFlagArtificial)
-!47 = !DILocalVariable(name: ".omp.is_last", scope: !27, type: !6, flags: DIFlagArtificial)
-!48 = !DILocalVariable(name: "i", scope: !27, type: !6, flags: DIFlagArtificial)
-!49 = !DILocation(line: 11, column: 7, scope: !50)
-!50 = !DILexicalBlockFile(scope: !27, file: !1, discriminator: 1)
-!51 = !DILocation(line: 11, column: 7, scope: !52)
-!52 = !DILexicalBlockFile(scope: !27, file: !1, discriminator: 2)
-!53 = !DILocation(line: 11, column: 7, scope: !54)
-!54 = !DILexicalBlockFile(scope: !27, file: !1, discriminator: 3)
-!55 = !DILocation(line: 11, column: 2, scope: !54)
-!56 = !DILocation(line: 11, column: 7, scope: !57)
-!57 = !DILexicalBlockFile(scope: !27, file: !1, discriminator: 4)
-!58 = !DILocation(line: 11, column: 2, scope: !57)
-!59 = !DILocation(line: 11, column: 7, scope: !60)
-!60 = !DILexicalBlockFile(scope: !27, file: !1, discriminator: 5)
-!61 = !DILocation(line: 11, column: 25, scope: !60)
-!62 = !DILocation(line: 13, column: 8, scope: !63)
-!63 = distinct !DILexicalBlock(scope: !27, file: !1, line: 12, column: 2)
-!64 = !DILocation(line: 13, column: 10, scope: !63)
-!65 = !DILocation(line: 13, column: 9, scope: !63)
-!66 = !DILocation(line: 13, column: 5, scope: !63)
-!67 = !DILocation(line: 13, column: 3, scope: !63)
-!68 = !DILocation(line: 13, column: 7, scope: !63)
-!69 = !DILocation(line: 14, column: 11, scope: !63)
-!70 = !DILocation(line: 15, column: 4, scope: !71)
-!71 = distinct !DILexicalBlock(scope: !63, file: !1, line: 14, column: 11)
-!72 = !DILocation(line: 15, column: 3, scope: !71)
-!73 = !DILocation(line: 16, column: 2, scope: !63)
-!74 = !DILocation(line: 10, column: 10, scope: !27)
-!75 = !DILocation(line: 11, column: 7, scope: !76)
-!76 = !DILexicalBlockFile(scope: !27, file: !1, discriminator: 6)
-!77 = !DILocation(line: 0, scope: !50)
-!78 = !DILocation(line: 10, column: 10, scope: !50)
-!79 = distinct !{!79, !41}
-!80 = !DILocation(line: 10, column: 10, scope: !52)
-!81 = !DILocation(line: 10, column: 10, scope: !54)
-!82 = !DILocation(line: 16, column: 2, scope: !50)
+!23 = !DILocalVariable(name: "x", scope: !10, file: !1, line: 10, type: !6)
+!24 = !DILocation(line: 10, column: 6, scope: !10)
+!25 = !DILocalVariable(name: "hasan", scope: !10, file: !1, line: 11, type: !6)
+!26 = !DILocation(line: 11, column: 6, scope: !10)
+!27 = !DILocation(line: 12, column: 8, scope: !10)
+!28 = !DILocation(line: 12, column: 7, scope: !10)
+!29 = !DILocation(line: 13, column: 8, scope: !10)
+!30 = !DILocation(line: 13, column: 7, scope: !10)
+!31 = !DILocation(line: 15, column: 10, scope: !10)
+!32 = !DILocation(line: 22, column: 10, scope: !10)
+!33 = !DILocation(line: 23, column: 1, scope: !10)
+!34 = !DILocation(line: 24, column: 1, scope: !10)
+!35 = distinct !DISubprogram(name: ".omp_outlined.", scope: !1, file: !1, line: 15, type: !36, isLocal: true, isDefinition: true, scopeLine: 16, flags: DIFlagPrototyped, isOptimized: false, unit: !0, variables: !2)
+!36 = !DISubroutineType(types: !37)
+!37 = !{null, !38, !38, !41, !42, !42}
+!38 = !DIDerivedType(tag: DW_TAG_const_type, baseType: !39)
+!39 = !DIDerivedType(tag: DW_TAG_restrict_type, baseType: !40)
+!40 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !6, size: 64, align: 64)
+!41 = !DIDerivedType(tag: DW_TAG_reference_type, baseType: !17, size: 64, align: 64)
+!42 = !DIDerivedType(tag: DW_TAG_reference_type, baseType: !6, size: 64, align: 64)
+!43 = !DILocalVariable(name: ".global_tid.", arg: 1, scope: !35, type: !38, flags: DIFlagArtificial | DIFlagObjectPointer)
+!44 = !DILocation(line: 0, scope: !35)
+!45 = !DILocalVariable(name: ".bound_tid.", arg: 2, scope: !35, type: !38, flags: DIFlagArtificial)
+!46 = !DILocalVariable(name: "a", arg: 3, scope: !35, type: !41, flags: DIFlagArtificial)
+!47 = !DILocalVariable(name: "b", arg: 4, scope: !35, type: !42, flags: DIFlagArtificial)
+!48 = !DILocalVariable(name: "x", arg: 5, scope: !35, type: !42, flags: DIFlagArtificial)
+!49 = !DILocation(line: 16, column: 2, scope: !35)
+!50 = !DILocalVariable(name: ".omp.iv", scope: !35, type: !6, flags: DIFlagArtificial)
+!51 = !DILocalVariable(name: ".omp.lb", scope: !35, type: !6, flags: DIFlagArtificial)
+!52 = !DILocation(line: 16, column: 7, scope: !35)
+!53 = !DILocalVariable(name: ".omp.ub", scope: !35, type: !6, flags: DIFlagArtificial)
+!54 = !DILocalVariable(name: ".omp.stride", scope: !35, type: !6, flags: DIFlagArtificial)
+!55 = !DILocalVariable(name: ".omp.is_last", scope: !35, type: !6, flags: DIFlagArtificial)
+!56 = !DILocalVariable(name: "i", scope: !35, type: !6, flags: DIFlagArtificial)
+!57 = !DILocation(line: 16, column: 7, scope: !58)
+!58 = !DILexicalBlockFile(scope: !35, file: !1, discriminator: 1)
+!59 = !DILocation(line: 16, column: 7, scope: !60)
+!60 = !DILexicalBlockFile(scope: !35, file: !1, discriminator: 2)
+!61 = !DILocation(line: 16, column: 7, scope: !62)
+!62 = !DILexicalBlockFile(scope: !35, file: !1, discriminator: 3)
+!63 = !DILocation(line: 16, column: 2, scope: !62)
+!64 = !DILocation(line: 16, column: 7, scope: !65)
+!65 = !DILexicalBlockFile(scope: !35, file: !1, discriminator: 4)
+!66 = !DILocation(line: 16, column: 2, scope: !65)
+!67 = !DILocation(line: 16, column: 7, scope: !68)
+!68 = !DILexicalBlockFile(scope: !35, file: !1, discriminator: 5)
+!69 = !DILocation(line: 16, column: 25, scope: !68)
+!70 = !DILocation(line: 18, column: 8, scope: !71)
+!71 = distinct !DILexicalBlock(scope: !35, file: !1, line: 17, column: 2)
+!72 = !DILocation(line: 18, column: 10, scope: !71)
+!73 = !DILocation(line: 18, column: 9, scope: !71)
+!74 = !DILocation(line: 18, column: 5, scope: !71)
+!75 = !DILocation(line: 18, column: 3, scope: !71)
+!76 = !DILocation(line: 18, column: 7, scope: !71)
+!77 = !DILocation(line: 19, column: 11, scope: !71)
+!78 = !DILocation(line: 20, column: 4, scope: !79)
+!79 = distinct !DILexicalBlock(scope: !71, file: !1, line: 19, column: 11)
+!80 = !DILocation(line: 20, column: 3, scope: !79)
+!81 = !DILocation(line: 21, column: 2, scope: !71)
+!82 = !DILocation(line: 15, column: 10, scope: !35)
+!83 = !DILocation(line: 16, column: 7, scope: !84)
+!84 = !DILexicalBlockFile(scope: !35, file: !1, discriminator: 6)
+!85 = !DILocation(line: 0, scope: !58)
+!86 = !DILocation(line: 15, column: 10, scope: !58)
+!87 = distinct !{!87, !49}
+!88 = !DILocation(line: 15, column: 10, scope: !60)
+!89 = !DILocation(line: 15, column: 10, scope: !62)
+!90 = !DILocation(line: 21, column: 2, scope: !58)

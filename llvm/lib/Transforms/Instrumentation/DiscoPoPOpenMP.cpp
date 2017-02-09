@@ -61,6 +61,7 @@
 #include "llvm/IR/Intrinsics.h"
 
 
+
 using namespace llvm;
 using namespace std;
 using LID = int32_t;
@@ -110,6 +111,9 @@ namespace {
     //Function *StoreCheckFunction;
     Instruction *Inst;
 
+    map<string, MDNode*> Structs;
+    map<string, Value*> VarNames;
+
     DiscoPoPOpenMP() : FunctionPass(ID) {
       initializeDiscoPoPOpenMPPass(*PassRegistry::getPassRegistry());
     }
@@ -126,6 +130,11 @@ namespace {
 
     void setupDataTypes();
     void setupCallbacks();
+
+    string determineVariableName(Instruction* I);
+    string getOrInsertVarName(string varName, IRBuilder<>& builder);
+    Type* pointsToStruct(PointerType* PTy);
+    string findStructMemberName(MDNode* structNode, unsigned idx, IRBuilder<>& builder);
 
     void instrumentLoadInst(Instruction *toInstrument);
     void instrumentStoreInst(Instruction *toInstrument);
@@ -165,12 +174,6 @@ void DiscoPoPOpenMP::setupDataTypes() {
 
 
 void DiscoPoPOpenMP::setupCallbacks() {
-    /* function name
-     * return value type
-     * arg types
-     * NULL
-     */
-
   DPOMPInitialize = cast<Function>(ThisModule->getOrInsertFunction("__DiscoPoPOpenMPInitialize", 
       Void,
       // CharPtr,
@@ -185,7 +188,7 @@ void DiscoPoPOpenMP::setupCallbacks() {
     // Int32,
     Int32,
     Int64,
-    //CharPtr,
+    CharPtr,
     //CharPtr,
     (Type*)0));
 
@@ -194,7 +197,7 @@ void DiscoPoPOpenMP::setupCallbacks() {
     // Int32,
     Int32,
     Int64,
-            //CharPtr,
+    CharPtr,
             //CharPtr,
     (Type*)0));
 
@@ -237,8 +240,8 @@ bool DiscoPoPOpenMP::instrument(Value *Ptr, Value *InstVal,
 
 
 void DiscoPoPOpenMP::insertInitializeInst(Function &F){
-  if (F.hasName() && F.getName().equals("main")){
-    int32_t lid = 0;  
+  int32_t lid=0;
+  if (F.hasName() && F.getName().equals("main")){ 
 
     for (inst_iterator i = inst_begin(F), e = inst_end(F); i != e; ++i)  
     {   
@@ -260,7 +263,7 @@ void DiscoPoPOpenMP::insertFinalizeInst(Instruction *before){
 
 void DiscoPoPOpenMP::instrumentStoreInst(Instruction *toInstrument)
 {
-  errs()<<"store instruction found: " << ++StoresInstrumented<<"\n";
+  
   int32_t lid=getLID(toInstrument);
   if (lid==0)
   {
@@ -274,13 +277,23 @@ void DiscoPoPOpenMP::instrumentStoreInst(Instruction *toInstrument)
   Value* memAddr = PtrToIntInst::CreatePointerCast(cast<StoreInst>(toInstrument)->getPointerOperand(),
     Int64, "", toInstrument);
   args.push_back(memAddr); 
+
+  IRBuilder<> builder(toInstrument);
+  string varName =determineVariableName(toInstrument);
+  if (varName=="")
+  {
+    varName="NO NAME";
+  }
+  errs()<<"The varname is:"<<varName<<"\n";
+  Value *vName = builder.CreateGlobalStringPtr(varName.c_str(), ".str");
+  args.push_back(vName);
+
+
   CallInst::Create(DPOMPWrite,args,"",toInstrument);
-  errs()<<"End of "<<StoresInstrumented<<" store instruction! \n";
 }
 
 
 void DiscoPoPOpenMP::instrumentLoadInst(Instruction *toInstrument){
-  errs()<<"Load instruction found: " << ++LoadsInstrumented<<"\n";
   int32_t lid=getLID(toInstrument);
   if (lid==0)
   {
@@ -292,8 +305,13 @@ void DiscoPoPOpenMP::instrumentLoadInst(Instruction *toInstrument){
   Value* memAddr = PtrToIntInst::CreatePointerCast(cast<LoadInst>(toInstrument)->getPointerOperand(),
     Int64, "", toInstrument);
   args.push_back(memAddr); 
+
+  IRBuilder<> builder(toInstrument);
+  string varName =determineVariableName(toInstrument);
+  Value *vName = builder.CreateGlobalStringPtr(varName.c_str(), ".str");
+  args.push_back(vName);
+
   CallInst::Create(DPOMPRead, args, "", toInstrument);
-  errs()<<"End of "<<LoadsInstrumented<<" load instruction! \n";
 }
 
 bool DiscoPoPOpenMP::runOnFunction(Function &F) {
@@ -307,11 +325,18 @@ bool DiscoPoPOpenMP::runOnFunction(Function &F) {
     if (isa<LoadInst>(I))// || isa<StoreInst>(I) || isa<AtomicCmpXchgInst>(I) || isa<AtomicRMWInst>(I))
     {
       instrumentLoadInst(I);
-      errs()<<"The line Id is: " << decodeLID(getLID(I))<<"\n";
     }
     else if (isa<StoreInst>(I))
       instrumentStoreInst(I);
+    else if(isa<AtomicCmpXchgInst>(I))
+       errs()<<"ATOMIC DETECTED! \n";
+    else if (isa<ReturnInst>(I)) {
+        if (F.hasName() && F.getName().equals("main")) {   // returning from main
+                insertFinalizeInst(I);
+            }
+      }
   }
+
   return false;
 }
 
@@ -477,6 +502,162 @@ string DiscoPoPOpenMP::get_exe_dir() {
   else {
     return "";     
   }
+}
+
+string DiscoPoPOpenMP::determineVariableName(Instruction* I) {
+  
+
+//   MDNode *meta = I->getMetadata("dbg");
+//   if (DILocation *Loc = I->getDebugLoc()) { // Here I is an LLVM instruction
+//   unsigned Line = Loc->getLine();
+//   StringRef File = Loc->getFilename();
+//   StringRef Dir = Loc->getDirectory();
+//   errs()<<"The Dir is:"<<Dir<<"\n";
+//   errs()<<"The filename is:"<<File<<"\n";
+//   errs()<<"The line number is:"<<Line<<"\n";
+// }
+
+  
+  // DILocation *Loc = I->getDebugLoc();
+  // MDNode *meta=Loc->getScope();
+  //DIVariable div(meta->getOperand());
+
+  // StringRef File= div.getName();
+  // DIType dit=div.getType(); 
+
+  assert(I && "Instruction cannot be NULL \n");
+  int index = isa<StoreInst>(I) ? 1 : 0;
+  errs()<<"The index is:"<<index<<"\n";
+  Value* operand = I->getOperand(index);
+
+  // StringRef VarName="";
+  // DIVariable *DV;
+  // DbgDeclareInst *DDI;
+  // //DbgDeclareInst *DDI = dyn_cast<DbgDeclareInst>(I);
+  // //Value* operand= DDI->getAddress();
+   errs() <<"000000000000VARNAME: "<<operand->getName()<<"\n";
+
+  // if (isa<DbgDeclareInst>(I)) {
+  //     DDI=dyn_cast<DbgDeclareInst>(I);
+  //     DV = DDI->getVariable();
+  //     VarName = DV->getName();
+  //     errs() <<"VARNAME1"<<VarName<<"\n";
+  // }
+  // errs() <<"VARNAME1"<<VarName<<"\n";
+ 
+  if (operand->hasName())
+  {
+    errs() <<"Var name provided!\n";
+    // DILocalVariable *DV = DDI->getVariable();
+    // VarName = DV->getName();
+    // errs() <<"VARNAME1"<<VarName<<"\n";
+    // return VarName;
+  }
+  
+  IRBuilder<> builder(I);
+
+  if (operand == NULL) {
+    errs() <<"VARNAME2"<<operand->getName()<<"\n";
+    return getOrInsertVarName("", builder);
+  }
+
+  if (operand->hasName()) {
+    errs() <<"VARNAME3"<<operand->getName()<<"\n";
+    //// we've found a global variable
+    if (isa<GlobalVariable>(*operand)) {
+      //MOHAMMAD ADDED THIS FOR CHECKING
+      return string(operand->getName());
+    }
+    if (isa<GetElementPtrInst>(*operand)) {
+      errs() <<"VARNAME4"<<operand->getName()<<"\n";
+      GetElementPtrInst* gep = cast<GetElementPtrInst>(operand);
+      Value* ptrOperand = gep->getPointerOperand();
+      PointerType *PTy = cast<PointerType>(ptrOperand->getType());
+
+      // we've found a struct/class
+      Type* structType = pointsToStruct(PTy);
+      if (structType && gep->getNumOperands() > 2) {
+        Value* constValue = gep->getOperand(2);
+        if (constValue && isa<ConstantInt>(*constValue)) {
+          ConstantInt* idxPtr = cast<ConstantInt>(gep->getOperand(2));
+          uint64_t memberIdx = *(idxPtr->getValue().getRawData());
+
+          string strName(structType->getStructName().data());
+          map<string, MDNode*>::iterator it = Structs.find(strName);
+          if (it != Structs.end()) {
+            std::string ret = findStructMemberName(it->second, memberIdx, builder);
+            if (ret.size() > 0)
+              return ret;
+            else
+              return getOrInsertVarName("", builder);
+            //return ret;
+          }
+        }
+      }
+
+      // we've found an array
+      if (PTy->getElementType()->getTypeID() == Type::ArrayTyID && isa<GetElementPtrInst>(*ptrOperand)) {
+        errs() <<"VARNAME5"<<operand->getName()
+        <<"\n";
+        return determineVariableName((Instruction*)ptrOperand);
+      }
+      return determineVariableName((Instruction*)gep);
+    }
+    return string(operand->getName().data());
+    //return getOrInsertVarName(string(operand->getName().data()), builder);
+  }
+
+  if (isa<LoadInst>(*operand) || isa<StoreInst>(*operand)) {
+    errs()<<"This is called \n";
+    return determineVariableName((Instruction*)(operand));
+  }
+  // if we cannot determine the name, then return *
+  // errs() <<"NO VARNAME ATTACHED!"<<operand->getName()<<"\n";
+  return "NO VARNAME ATTACHED";//getOrInsertVarName("*", builder);
+}
+
+string DiscoPoPOpenMP::getOrInsertVarName(string varName, IRBuilder<>& builder) {
+  Value* valName = NULL;
+  std::string vName = varName;
+  map<string, Value*>::iterator pair = VarNames.find(varName);
+  if (pair == VarNames.end()) {
+    valName = builder.CreateGlobalStringPtr(StringRef(varName.c_str()), ".str");
+
+    VarNames[varName] = valName;
+  }
+  else {
+    vName = pair->first;
+  }
+
+  return vName;
+}
+
+Type* DiscoPoPOpenMP::pointsToStruct(PointerType* PTy) {
+  assert(PTy);
+  Type* structType = PTy;
+  if (PTy->getTypeID() == Type::PointerTyID) {
+    while (structType->getTypeID() == Type::PointerTyID) {
+      structType = cast<PointerType>(structType)->getElementType();
+    }
+  }
+  return structType->getTypeID() == Type::StructTyID ? structType : NULL;
+}
+
+string DiscoPoPOpenMP::findStructMemberName(MDNode* structNode, unsigned idx, IRBuilder<>& builder) {
+  assert(structNode);
+  assert(structNode->getOperand(10));
+  MDNode* memberListNodes = cast<MDNode>(structNode->getOperand(10));
+  if (idx < memberListNodes->getNumOperands()) {
+    assert(memberListNodes->getOperand(idx));
+    MDNode* member = cast<MDNode>(memberListNodes->getOperand(idx));
+    if (member->getOperand(3)) {
+      //getOrInsertVarName(string(member->getOperand(3)->getName().data()), builder);
+      //return string(member->getOperand(3)->getName().data());
+      getOrInsertVarName(dyn_cast<MDString>(member->getOperand(3))->getString(), builder);
+      return dyn_cast<MDString>(member->getOperand(3))->getString();
+    }
+  }
+  return NULL;
 }
 
 
