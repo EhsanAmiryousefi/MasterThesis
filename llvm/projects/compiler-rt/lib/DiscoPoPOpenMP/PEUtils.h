@@ -1,5 +1,5 @@
-#ifndef _PE_UTIL_H_
-#define _PE_UTIL_H_
+#ifndef _DpOMP_UTIL_H_
+#define _DpOMP_UTIL_H_
 
 #include <stdint.h>
 #include <string>

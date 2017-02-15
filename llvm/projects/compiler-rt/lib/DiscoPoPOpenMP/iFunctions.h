@@ -1,5 +1,5 @@
-#ifndef _PE_IFUNCTIONS_H_
-#define _PE_IFUNCTIONS_H_
+#ifndef _DpOMP_IFUNCTIONS_H_
+#define _DpOMP_IFUNCTIONS_H_
 
 #include <algorithm>
 #include <atomic>
@@ -39,7 +39,7 @@ struct DepsMatrix {
         std::atomic_flag newThreadLock;
 
     public:
-        DepsMatrix() :memAccessLock(ATOMIC_FLAG_INIT), newThreadLock(ATOMIC_FLAG_INIT)
+        DepsMatrix() : memAccessLock(ATOMIC_FLAG_INIT), newThreadLock(ATOMIC_FLAG_INIT)
         {
             matrixAll = new std::map<pid_t, std::map<pid_t, std::atomic<int64_t> > >;
             matrixLoops = new std::map<std::string, std::map<pid_t, std::map<pid_t, std::atomic<int64_t> > > >;
@@ -60,7 +60,7 @@ struct DepsMatrix {
         inline void addNewTid(pid_t tid){
             while (newThreadLock.test_and_set(std::memory_order_acquire));
             listOfTidKeys->push_back(tid);
-            cout << "New Thread: " << tid << endl;
+            // cout << "New Thread: " << tid << endl;
             newThreadLock.clear(std::memory_order_release);
         }
 
@@ -74,11 +74,11 @@ struct DepsMatrix {
             sort(listOfTidKeys->begin(), listOfTidKeys->end());
             //Printing Whole matrix
             cout << "Printing whole matrix" << endl;
-            for(auto it1=listOfTidKeys->begin()+1; it1 != listOfTidKeys->end(); ++it1)
+            for(auto it1=listOfTidKeys->begin(); it1 != listOfTidKeys->end(); ++it1)
             {
                 cout << *it1 << " ";
                 if( (*matrixAll).count(*it1) ){
-                    for(auto it2=listOfTidKeys->begin()+1; it2 != listOfTidKeys->end(); ++it2){
+                    for(auto it2=listOfTidKeys->begin(); it2 != listOfTidKeys->end(); ++it2){
                         if((*matrixAll)[*it1].count(*it2)){
                             *out << (*matrixAll)[*it1][*it2] << " ";
                         }
@@ -95,13 +95,13 @@ struct DepsMatrix {
             }
             *out << endl;
             // Printing each loop's matrix
-            cout << "Printing loops matrix" << endl;
+            cout<< endl << "Printing loops matrix" << endl;
             for(auto iter = (*matrixLoops).begin(); iter != (*matrixLoops).end(); iter++){
                 *out << (*loopParentMap)[iter->first] << " |--> " << iter->first << endl;
-                for(auto it1=listOfTidKeys->begin()+1; it1 != listOfTidKeys->end(); ++it1)
+                for(auto it1=listOfTidKeys->begin(); it1 != listOfTidKeys->end(); ++it1)
                 {
                     if( (*matrixLoops)[iter->first].count(*it1) ){
-                        for(auto it2=listOfTidKeys->begin()+1; it2 != listOfTidKeys->end(); ++it2){
+                        for(auto it2=listOfTidKeys->begin(); it2 != listOfTidKeys->end(); ++it2){
                             if( (*matrixLoops)[iter->first][*it1].count(*it2) ){
                                 *out << (*matrixLoops)[iter->first][*it1][*it2] << " ";
                             }
@@ -111,7 +111,7 @@ struct DepsMatrix {
                         *out << endl;
                     }
                     else{
-                        for(auto itn=listOfTidKeys->begin()+1; itn != listOfTidKeys->end(); ++itn)
+                        for(auto itn=listOfTidKeys->begin(); itn != listOfTidKeys->end(); ++itn)
                             *out << 0 << " ";
                         *out << endl;
                     }
@@ -137,7 +137,7 @@ void readRuntimeInfo();
 extern "C"{
     //void __pe_load(ADDR addr, char* fileName, int32_t varSize, int32_t loopID, int32_t parentLoopID)
 void __DiscoPoPOpenMPRead(ADDR addr, char* fileName, int32_t varSize, int32_t loopID, int32_t parentLoopID);
-void __DiscoPoPOpenMPWrite(int32_t lid, ADDR addr, char* varName);
+void __DiscoPoPOpenMPWrite(ADDR addr);
 void __DiscoPoPOpenMPFinalize();
 void __DiscoPoPOpenMPInitialize();
 }

@@ -1,5 +1,5 @@
-#ifndef _PE_SHADOW_MEMORY_H_
-#define _PE_SHADOW_MEMORY_H_
+#ifndef _DpOMP_SHADOW_MEMORY_H_
+#define _DpOMP_SHADOW_MEMORY_H_
 
 #include "signature.h"
 #include <stdint.h>

@@ -1,24 +1,17 @@
 #include <stdio.h>
+#include <thread>
 #include "iFunctions.h"
 #include "omp.h"
+
+
 using namespace std;
 using namespace peutil;
 
 bool DpOMP_DEBUG = false;                          // debug flag
 
-#ifdef __linux__                    // headers only available on Linux
-#include <unistd.h>
-#include <linux/limits.h>
-#endif
-
-
-
 namespace __DpOMP {
 
     
-    map<int, int> *PIDs = nullptr;
-
-
     bool peInited = false;                          // library initialization flag
     int32_t SIG_NUM_ELEM = 6000000;
     int32_t BF_NUM_ELEM = 32;
@@ -32,14 +25,11 @@ namespace __DpOMP {
 
     /******* BEGIN: parallelization section *******/
 
-    atomic<uint8_t> targetThreads(0);               // this variable is used to map system thread-ids to our thread-ids
+    int numberOfHwThreads(0);               // this variable is used to map system thread-ids to our thread-ids
     pid_t mainTid;                                  // main program thread ID
-    thread_local pid_t targetThreadId = -1;         // system thread id for each thread
+    thread_local pid_t currentThreadId = -1;         // system thread id for each thread
 
     /******* END: parallelization section *******/
-
-
-
 
 /******* Helper functions *******/
 void outputDeps() {
@@ -48,11 +38,11 @@ void outputDeps() {
         cout << "BEGIN: Printing Output.txt file... \n";
     }
     // print out all dps
-    depsMatrix->print(out, targetThreads-1);
+    depsMatrix->print(out, numberOfHwThreads);
 }
 
 void readRuntimeInfo() {
-    ifstream conf(get_exe_dir() + "/pe.conf");
+    ifstream conf(get_exe_dir() + "/DpOMP.conf");
     string line;
     if (conf.is_open()) {
         auto func = [](char c){ return (c == ' ');};
@@ -95,7 +85,13 @@ void readRuntimeInfo() {
 /******* END Helper functions *******/
 
 
-
+void initThreadPool(int numberOfThreads)
+{
+    for (int i = 0; i < numberOfThreads; i++)
+    {
+        depsMatrix->addNewTid(i);
+    }
+}
 
 /******* Instrumentation functions *******/
 
@@ -103,11 +99,15 @@ void readRuntimeInfo() {
 extern "C"{
 
 void __DiscoPoPOpenMPInitialize(){
-    cout <<"DiscoPoPOpenMPInitialize begin!"<<"\n";
-    pid_t systid = syscall(SYS_gettid);
+    cout <<"DiscoPoPOpenMPInitialize is about to start...!"<<"\n";
+    // pid_t systid = syscall(SYS_gettid);
     if (!peInited) {
+        cout <<"DiscoPoPOpenMPInitialize is executed...!"<<"\n";
         // This part should be executed only once.
-        mainTid = systid;
+        // numberOfHwThreads = std::thread::hardware_concurrency();
+        numberOfHwThreads=omp_get_max_threads();
+        cout<<"No.of detected hardware threads:"<<numberOfHwThreads<<endl;
+        mainTid = omp_get_thread_num();;
         cout << "mainTid: " << mainTid << endl;
         readRuntimeInfo();
         depsMatrix = new DepsMatrix();
@@ -119,46 +119,62 @@ void __DiscoPoPOpenMPInitialize(){
         if (DpOMP_DEBUG) {
             cout << "PE initialized" << endl;
         }
+        initThreadPool(numberOfHwThreads);
     }
-    if (targetThreadId < 0){
-        targetThreadId = systid;
-        targetThreads++;
-        depsMatrix->addNewTid(systid);
-    }
+    // if (currentThreadId < 0){
+
+    //     currentThreadId = omp_get_thread_num();
+    //     targetThreads = 32;
+    //     cout << "The Number of threads are: " << omp_get_num_threads() << endl;
+    //     depsMatrix->addNewTid(currentThreadId);
+    // }
+}
+
+
+
+void __CollectThreadInfo()
+{
+    cout<<"__CollectThreadInfo called"<<endl;
+        currentThreadId = omp_get_thread_num();
+        numberOfHwThreads = omp_get_num_threads();
+        cout << "The Number of threads are: " << numberOfHwThreads << endl;
+        for (int i = 0; i < numberOfHwThreads; ++i)
+        {
+            depsMatrix->addNewTid(i);
+        }
 }
 //
-void __DiscoPoPOpenMPRead(ADDR addr, char* fileName, int32_t varSize, int32_t loopID, int32_t parentLoopID) {
-    // cout <<"__DiscoPoPOpenMPRead begin! \n";
+void __DiscoPoPOpenMPRead(ADDR addr, char* fileName, 
+    int32_t varSize, int32_t loopID, int32_t parentLoopID) {
+   // cout <<"__DiscoPoPOpenMPRead begin! \n";
     // *out<<"[READ]"<<varName<<"---->[Line Id] "<<decodeLID(lid)<<"[ADDR]"<<addr
     // <<" [ThreadID]"<<omp_get_thread_num()<<"\n";
+    currentThreadId=omp_get_thread_num();
+    // cout <<"Read from Thread:"<<currentThreadId<<endl;
+
     pid_t lastWriteTid = WSig->membershipCheck(addr);
     if (lastWriteTid) {
         // RAW
-        bool lastRead = RSig->membershipCheck(addr, targetThreadId);
-        if((lastWriteTid != targetThreadId) && lastRead==false ){
-            depsMatrix->set(lastWriteTid, targetThreadId, string(fileName), varSize, loopID, parentLoopID);
+        bool lastRead = RSig->membershipCheck(addr, currentThreadId);
+        if((lastWriteTid != currentThreadId) && lastRead==false ){
+            
+            depsMatrix->set(lastWriteTid, currentThreadId, string(fileName), varSize, loopID, parentLoopID);
         }
     }
-    RSig->insert(addr, targetThreadId);
+    RSig->insert(addr, currentThreadId);
+
     
 }
 //, char* fName, char* varName
-void __DiscoPoPOpenMPWrite(int32_t lid, ADDR addr, char* varName) {
+void __DiscoPoPOpenMPWrite(ADDR addr) {
     // cout<<"__DiscoPoPOpenMPWrite invoked \n";
     //   *out<<"[WRITE]"<<varName<<"---->[Line Id] "<<decodeLID(lid)<<" [ADDR]"<<addr
     // <<" [ThreadID]"<<omp_get_thread_num()<<"\n";
-    WSig->insert(addr, targetThreadId);
+    // cout <<"Write from Thread:"<<omp_get_thread_num()<<endl;
+    WSig->insert(addr, omp_get_thread_num());
     RSig->clearAccesses(addr);
 }
 
-void __DiscoPoPOpenMPCallBefore(int index) {
-
-}
-
-void __DiscoPoPOpenMPCallAfter(int index, int lastCall) {
-
-   
-}
 
 void __DiscoPoPOpenMPFinalize() {
 

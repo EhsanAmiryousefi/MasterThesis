@@ -59,7 +59,8 @@
 #include "llvm/Analysis/TargetFolder.h"
 #include "llvm/Analysis/TargetLibraryInfo.h"
 #include "llvm/IR/Intrinsics.h"
-
+#include "llvm/Analysis/LoopInfo.h"
+#include "boost/algorithm/string.hpp"
 
 
 using namespace llvm;
@@ -102,8 +103,9 @@ namespace {
     PointerType *CharPtr;
 
     int32_t fileID;
+    int32_t ompRegionsUID;
 
-    Function *DPOMPRead, *DPOMPWrite,*DPOMPInitialize,*DPOMPFinalize;
+    Function *DPOMPRead, *DPOMPWrite,*DPOMPInitialize,*DPOMPFinalize,*DPOMPThreadCollector;
 
     IRBuilder<> *Builder;
     const DataLayout *TD;
@@ -140,6 +142,7 @@ namespace {
     void instrumentStoreInst(Instruction *toInstrument);
     void insertInitializeInst(Function &F);
     void insertFinalizeInst(Instruction *before);
+    void collectThreadInfo(Instruction *toInstrument);
 
 
     int getLID(Instruction* BI);
@@ -179,6 +182,11 @@ void DiscoPoPOpenMP::setupCallbacks() {
       // CharPtr,
       (Type*)0));
 
+   DPOMPThreadCollector = cast<Function>(ThisModule->getOrInsertFunction("__CollectThreadInfo", 
+      Void,
+      // CharPtr,
+      (Type*)0));
+
     DPOMPFinalize = cast<Function>(ThisModule->getOrInsertFunction("__DiscoPoPOpenMPFinalize", 
       Void,
       (Type*)0));
@@ -189,41 +197,24 @@ void DiscoPoPOpenMP::setupCallbacks() {
     CharPtr,
     Int32,
     Int32,
-    Int32
+    Int32,
     (Type*)0));
 
   DPOMPWrite = cast<Function>(ThisModule->getOrInsertFunction("__DiscoPoPOpenMPWrite",
     Void,
-    // Int32,
-    Int32,
     Int64,
-    CharPtr,
-            //CharPtr,
     (Type*)0));
-
-    // DPOMPWrite = cast<Function>(ThisModule->getOrInsertFunction("__DiscoPoPOpenMPWrite",
-    //         Void,
-    //         Int32,
-    //         Int32,
-    //         Int64,
-    //         CharPtr,
-    //         CharPtr,
-    //         (Type*)0));
-
-    // DPOMPCallBefore = cast<Function>(ThisModule->getOrInsertFunction("__DiscoPoPOpenMPCallBefore",
-    //         Void,
-    //         Int32,
-    //         (Type*)0));
-
-    // DPOMPCallAfter = cast<Function>(ThisModule->getOrInsertFunction("__DiscoPoPOpenMPCallAfter",
-    //         Void,
-    //         Int32,
-    //         Int32,
-    //         (Type*)0));
 }
+
+void DiscoPoPOpenMP::collectThreadInfo(Instruction *toInstrument)
+{
+  CallInst::Create(DPOMPThreadCollector,NULL,"",toInstrument);
+}
+
 
 bool DiscoPoPOpenMP::doInitialization(Module &M) {
 
+  ompRegionsUID=0;
   ThisModuleContext = &(M.getContext());
   ThisModule = &M;
   setupDataTypes();
@@ -263,54 +254,127 @@ void DiscoPoPOpenMP::insertFinalizeInst(Instruction *before){
 
 void DiscoPoPOpenMP::instrumentStoreInst(Instruction *toInstrument)
 {
-  
-  int32_t lid=getLID(toInstrument);
-  if (lid==0)
-  {
-    errs()<<"store instruction no. " << StoresInstrumented<<" exited since there is no line number!"<<"\n";
-    return;
-  }
- 
+
+  StoreInst *SI = cast<StoreInst>(toInstrument);
+  Value *addr = PtrToIntInst::CreatePointerCast(SI->getPointerOperand(), Int64, "", SI);
   vector<Value*> args;
-  args.push_back(ConstantInt::get(Int32,lid));
-  //Memory location refrenced by the instruction
-  Value* memAddr = PtrToIntInst::CreatePointerCast(cast<StoreInst>(toInstrument)->getPointerOperand(),
-    Int64, "", toInstrument);
-  args.push_back(memAddr); 
+  args.push_back(addr);
 
-  IRBuilder<> builder(toInstrument);
-  string varName =determineVariableName(toInstrument);
-  if (varName=="")
-  {
-    varName="NO NAME";
-  }
-  errs()<<"The varname is:"<<varName<<"\n";
-  Value *vName = builder.CreateGlobalStringPtr(varName.c_str(), ".str");
-  args.push_back(vName);
+  if(toInstrument->getParent()->getParent()->getName().str() != "main"){
+    // errs()<<"The parent is:"<<toInstrument->getParent()->getParent()->getName().str()<<"\n";
+    CallInst::Create(DPOMPWrite,args,"",toInstrument);
+}
+  //Line ID TODO:
+  //  int32_t lid=getLID(toInstrument);
+  // if (lid==0)
+  // {
+  //   // errs()<<"store instruction no. " << StoresInstrumented<<" exited since there is no line number!"<<"\n";
+  //   return;
+  // }
 
+ 
+  // vector<Value*> args;
+  // args.push_back(ConstantInt::get(Int32,lid));
+  // //Memory location refrenced by the instruction
+  // Value* memAddr = PtrToIntInst::CreatePointerCast(cast<StoreInst>(toInstrument)->getPointerOperand(),
+  //   Int64, "", toInstrument);
+  // args.push_back(memAddr); 
 
-  CallInst::Create(DPOMPWrite,args,"",toInstrument);
+  // IRBuilder<> builder(toInstrument);
+  // string varName =determineVariableName(toInstrument);
+  // // if (varName=="")
+  // // {
+  // //   varName="NO NAME";
+  // // }
+  // // errs()<<"The varname is:"<<varName<<"\n";
+  // Value *vName = builder.CreateGlobalStringPtr(varName.c_str(), ".str");
+  // args.push_back(vName);
+  // CallInst::Create(DPOMPWrite,args,"",toInstrument);
 }
 
 
 void DiscoPoPOpenMP::instrumentLoadInst(Instruction *toInstrument){
-  int32_t lid=getLID(toInstrument);
-  if (lid==0)
-  {
-    errs()<<"Load instruction no. " << LoadsInstrumented<<" exited since there is no line number!"<<"\n";
-    return;
-  }
+  // int32_t lid=getLID(toInstrument);
+  // if (lid==0)
+  // {
+  //   errs()<<"Load instruction no. " << LoadsInstrumented<<" exited since there is no line number!"<<"\n";
+  //   return;
+  // }
+  // vector<Value*> args;
+  
+  // Value* memAddr = PtrToIntInst::CreatePointerCast(cast<LoadInst>(toInstrument)->getPointerOperand(),
+  //   Int64, "", toInstrument);
+  // args.push_back(memAddr); 
+
+  // IRBuilder<> builder(toInstrument);
+  // string varName =determineVariableName(toInstrument);
+  // Value *vName = builder.CreateGlobalStringPtr(varName.c_str(), ".str");
+  // args.push_back(vName);
+  // // vairable size
+  // Value *vSize = ConstantInt::get(Int32, cast<LoadInst>(toInstrument)->getAlignment());
+
+  // args.push_back(vSize);
+  // args.push_back(ConstantInt::get(Int32, 2));
+  // args.push_back(ConstantInt::get(Int32, 3));
+
+  //New implementation
   vector<Value*> args;
-  args.push_back(ConstantInt::get(Int32, lid));
-  Value* memAddr = PtrToIntInst::CreatePointerCast(cast<LoadInst>(toInstrument)->getPointerOperand(),
-    Int64, "", toInstrument);
-  args.push_back(memAddr); 
+  LoadInst *LI = cast<LoadInst>(toInstrument);
+  IRBuilder<> IRB(toInstrument);
+  LLVMContext& C = toInstrument->getContext();
+  // memAddr
+  Value *addr = PtrToIntInst::CreatePointerCast(LI->getPointerOperand(), Int64, "", LI);
+  args.push_back(addr);
 
-  IRBuilder<> builder(toInstrument);
-  string varName =determineVariableName(toInstrument);
-  Value *vName = builder.CreateGlobalStringPtr(varName.c_str(), ".str");
-  args.push_back(vName);
+  // Get the closest loop where instruction lives in.
+  // (L == NULL) if instruction is not in any loop.
+  // Loop *L = LoopI.getLoopFor(toInstrument->getParent());
+  // Value *currLoopID;
+  // Value *parentLoopID;
+  
+  
 
+  //TODO: Complete this part with extarcting the code regions
+  int currrRegionId;
+  StringRef regName=toInstrument->getParent()->getParent()->getName().str(); 
+  Value *absolutePathFileName = IRB.CreateGlobalStringPtr(regName, ".str");
+  StringRef regExp=".omp";
+  Value *currentRegion=toInstrument->getParent()->getParent();
+  if(boost::algorithm::starts_with(regName, regExp))
+  {
+    // errs()<<"An OpenMP Region is found:"<<regName<<"\n";
+    if (DILocation *Loc = toInstrument->getDebugLoc()) 
+      { // Here I is an LLVM instruction
+        StringRef File = "", Dir = "";
+        //TODO:If we need line number or no
+        //lno = Loc->getLine();
+        File = Loc->getFilename();
+        Dir = Loc->getDirectory();
+        absolutePathFileName=IRB.CreateGlobalStringPtr((Dir.str() + "/" + File.str() + "::" + regName.str().c_str(), ".str"));
+      }
+      if(toInstrument->getParent()->getParent()->getMetadata("omp.region.ID")==NULL)
+      {
+        // MDNode *A = toInstrument->getMetadata("dbg");
+        Metadata *Ops[1] = {ConstantAsMetadata::get(ConstantInt::get(Int32, ompRegionsUID++))}; 
+        llvm::MDNode *N = llvm::MDNode::get(C, Ops);
+        toInstrument->getParent()->getParent()->setMetadata("omp.region.ID", N);
+        currrRegionId =(toInstrument->getParent()->getParent()->getMetadata("omp.region.ID")->getOperand(0)).get()->getMetadataID();
+        errs() << ompRegionsUID-1 << "Omp region number: " << currentRegion->getName()<<"currentRegionId: " << currrRegionId << "\n";
+      }
+     // currrRegionId= toInstrument->getParent()->getParent()->getMetadata("omp.region.ID")->getOperand(0); 
+      currrRegionId =(toInstrument->getParent()->getParent()->getMetadata("omp.region.ID")->getOperand(0)).get()->getMetadataID();
+  }  
+
+  args.push_back(absolutePathFileName);
+  args.push_back(ConstantInt::get(Int32, currrRegionId));
+  args.push_back(ConstantInt::get(Int32, -1));
+  //////
+  
+  //vairable size
+  Value *vSize = ConstantInt::get(Int32, LI->getAlignment());
+  args.push_back(vSize);
+
+  
   CallInst::Create(DPOMPRead, args, "", toInstrument);
 }
 
@@ -335,6 +399,11 @@ bool DiscoPoPOpenMP::runOnFunction(Function &F) {
                 insertFinalizeInst(I);
             }
       }
+    else if (isa<ReturnInst>(I)) {
+      if (F.hasName() && F.getName().equals("@.omp_outlined.")) {   // returning from main
+              collectThreadInfo(I);
+          }
+    }
   }
 
   return false;
@@ -527,7 +596,7 @@ string DiscoPoPOpenMP::determineVariableName(Instruction* I) {
 
   assert(I && "Instruction cannot be NULL \n");
   int index = isa<StoreInst>(I) ? 1 : 0;
-  errs()<<"The index is:"<<index<<"\n";
+  // errs()<<"The index is:"<<index<<"\n";
   Value* operand = I->getOperand(index);
 
   // StringRef VarName="";
@@ -535,7 +604,7 @@ string DiscoPoPOpenMP::determineVariableName(Instruction* I) {
   // DbgDeclareInst *DDI;
   // //DbgDeclareInst *DDI = dyn_cast<DbgDeclareInst>(I);
   // //Value* operand= DDI->getAddress();
-   errs() <<"000000000000VARNAME: "<<operand->getName()<<"\n";
+   // errs() <<"VARNAME: "<<operand->getName()<<"\n";
 
   // if (isa<DbgDeclareInst>(I)) {
   //     DDI=dyn_cast<DbgDeclareInst>(I);
@@ -545,31 +614,31 @@ string DiscoPoPOpenMP::determineVariableName(Instruction* I) {
   // }
   // errs() <<"VARNAME1"<<VarName<<"\n";
  
-  if (operand->hasName())
-  {
-    errs() <<"Var name provided!\n";
-    // DILocalVariable *DV = DDI->getVariable();
-    // VarName = DV->getName();
-    // errs() <<"VARNAME1"<<VarName<<"\n";
-    // return VarName;
-  }
+  // if (operand->hasName())
+  // {
+  //   // errs() <<"Var name provided!\n";
+  //   // DILocalVariable *DV = DDI->getVariable();
+  //   // VarName = DV->getName();
+  //   // errs() <<"VARNAME1"<<VarName<<"\n";
+  //   // return VarName;
+  // }
   
   IRBuilder<> builder(I);
 
   if (operand == NULL) {
-    errs() <<"VARNAME2"<<operand->getName()<<"\n";
+    // errs() <<"VARNAME2"<<operand->getName()<<"\n";
     return getOrInsertVarName("", builder);
   }
 
   if (operand->hasName()) {
-    errs() <<"VARNAME3"<<operand->getName()<<"\n";
+    // errs() <<"VARNAME3"<<operand->getName()<<"\n";
     //// we've found a global variable
     if (isa<GlobalVariable>(*operand)) {
       //MOHAMMAD ADDED THIS FOR CHECKING
       return string(operand->getName());
     }
     if (isa<GetElementPtrInst>(*operand)) {
-      errs() <<"VARNAME4"<<operand->getName()<<"\n";
+      // errs() <<"VARNAME4"<<operand->getName()<<"\n";
       GetElementPtrInst* gep = cast<GetElementPtrInst>(operand);
       Value* ptrOperand = gep->getPointerOperand();
       PointerType *PTy = cast<PointerType>(ptrOperand->getType());
@@ -597,8 +666,8 @@ string DiscoPoPOpenMP::determineVariableName(Instruction* I) {
 
       // we've found an array
       if (PTy->getElementType()->getTypeID() == Type::ArrayTyID && isa<GetElementPtrInst>(*ptrOperand)) {
-        errs() <<"VARNAME5"<<operand->getName()
-        <<"\n";
+        // errs() <<"VARNAME5"<<operand->getName()
+        // <<"\n";
         return determineVariableName((Instruction*)ptrOperand);
       }
       return determineVariableName((Instruction*)gep);
@@ -608,7 +677,7 @@ string DiscoPoPOpenMP::determineVariableName(Instruction* I) {
   }
 
   if (isa<LoadInst>(*operand) || isa<StoreInst>(*operand)) {
-    errs()<<"This is called \n";
+    // errs()<<"This is called \n";
     return determineVariableName((Instruction*)(operand));
   }
   // if we cannot determine the name, then return *

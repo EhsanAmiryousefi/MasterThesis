@@ -2,6 +2,11 @@ include_directories(..)
 
 # Runtime library sources and build flags.
 set(DiscoPoPOpenMP_SOURCES
+  murmur.cpp
+  bitvector.cpp
+  bloom.cpp
+  #shadow.cpp
+  signature.cpp
   iFunctions.cpp
   )
   
