@@ -1,0 +1,1 @@
+1	/home/amiryousefi/llvmTemp/Codes/NAS/NPB3.3-OMP-C/IS/is.c

@@ -7,11 +7,15 @@
 using namespace std;
 using namespace peutil;
 
-bool DpOMP_DEBUG = false;                          // debug flag
+bool DpOMP_DEBUG = true;                          // debug flag
 
 namespace __DpOMP {
 
-    
+    int32_t regIdCounter=0;
+    int32_t currentRegID=0;
+    thread_local string currentRegName = "";
+
+
     bool peInited = false;                          // library initialization flag
     int32_t SIG_NUM_ELEM = 6000000;
     int32_t BF_NUM_ELEM = 32;
@@ -99,15 +103,15 @@ void initThreadPool(int numberOfThreads)
 extern "C"{
 
 void __DiscoPoPOpenMPInitialize(){
-    cout <<"DiscoPoPOpenMPInitialize is about to start...!"<<"\n";
+    // cout <<"DiscoPoPOpenMPInitialize is about to start...!"<<"\n";
     // pid_t systid = syscall(SYS_gettid);
     if (!peInited) {
-        cout <<"DiscoPoPOpenMPInitialize is executed...!"<<"\n";
+        // cout <<"DiscoPoPOpenMPInitialize is executed...!"<<"\n";
         // This part should be executed only once.
         // numberOfHwThreads = std::thread::hardware_concurrency();
         numberOfHwThreads=omp_get_max_threads();
         cout<<"No.of detected hardware threads:"<<numberOfHwThreads<<endl;
-        mainTid = omp_get_thread_num();;
+        mainTid = omp_get_thread_num();
         cout << "mainTid: " << mainTid << endl;
         readRuntimeInfo();
         depsMatrix = new DepsMatrix();
@@ -146,7 +150,7 @@ void __CollectThreadInfo()
 //
 void __DiscoPoPOpenMPRead(ADDR addr, char* fileName, 
     int32_t varSize, int32_t loopID, int32_t parentLoopID) {
-   // cout <<"__DiscoPoPOpenMPRead begin! \n";
+    // cout <<"__DiscoPoPOpenMPRead begin! \n";
     // *out<<"[READ]"<<varName<<"---->[Line Id] "<<decodeLID(lid)<<"[ADDR]"<<addr
     // <<" [ThreadID]"<<omp_get_thread_num()<<"\n";
     currentThreadId=omp_get_thread_num();
@@ -158,7 +162,7 @@ void __DiscoPoPOpenMPRead(ADDR addr, char* fileName,
         bool lastRead = RSig->membershipCheck(addr, currentThreadId);
         if((lastWriteTid != currentThreadId) && lastRead==false ){
             
-            depsMatrix->set(lastWriteTid, currentThreadId, string(fileName), varSize, loopID, parentLoopID);
+            depsMatrix->set(lastWriteTid, currentThreadId, currentRegName, varSize, 0, parentLoopID);
         }
     }
     RSig->insert(addr, currentThreadId);
@@ -167,18 +171,32 @@ void __DiscoPoPOpenMPRead(ADDR addr, char* fileName,
 }
 //, char* fName, char* varName
 void __DiscoPoPOpenMPWrite(ADDR addr) {
-    // cout<<"__DiscoPoPOpenMPWrite invoked \n";
+     // cout<<"__DiscoPoPOpenMPWrite invoked \n";
     //   *out<<"[WRITE]"<<varName<<"---->[Line Id] "<<decodeLID(lid)<<" [ADDR]"<<addr
     // <<" [ThreadID]"<<omp_get_thread_num()<<"\n";
     // cout <<"Write from Thread:"<<omp_get_thread_num()<<endl;
+    //cout<<"__DiscoPoPOpenMPWrite invoked \n";
     WSig->insert(addr, omp_get_thread_num());
     RSig->clearAccesses(addr);
+    
+
+}
+void __DiscoPoPOpenMPBeforeCall(char* regionName)
+{
+    // cout<<"RegName--->"<<regionName<<endl;
+    currentRegName = regionName;
+    regIdCounter++;
+}
+
+void __DiscoPoPOpenMPAfterCall()
+{
+
 }
 
 
 void __DiscoPoPOpenMPFinalize() {
 
-     cout<<"__DiscoPoPOpenMPFinalize invoked \n";
+     // cout<<"__DiscoPoPOpenMPFinalize invoked \n";
     if (DpOMP_DEBUG) {
         cout << "Program terminated! clearing up" << endl;
     }
@@ -186,6 +204,7 @@ void __DiscoPoPOpenMPFinalize() {
     outputDeps();
 
     delete depsMatrix;
+    
 
     out->flush();
     out->close();

@@ -26,7 +26,10 @@ void ReadSignature::clearAccesses(int64_t elem) {
 ///////////////////////////////////////////////////////
 
 void WriteSignature::insert(int64_t elem, pid_t systid) {
+
+    
     uint64_t pos = SimpleMurmurHash64A(&elem, 8, (0xdeadbeef * 16)) % numSlot;
+    // cout<<"Write enter"<<elem<<endl;
     OneLevel_sigMem[pos].store(systid);
 }
 

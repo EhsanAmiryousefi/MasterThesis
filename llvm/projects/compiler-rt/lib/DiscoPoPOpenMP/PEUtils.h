@@ -32,7 +32,10 @@ inline vector<string>* split(string input, char delim) {
 
 inline bool fexists(const string& filename) {
     ifstream ifile(filename.c_str());
-    return ifile;
+    if(ifile.fail()){
+        return false;
+    }
+    return true;
 }
 
 inline string get_exe_dir() {

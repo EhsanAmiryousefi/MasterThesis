@@ -1,0 +1,49 @@
+#!/bin/bash
+# script that that runs each register allocation 5 times and saves the results ina separate file.
+# You can find each executable file under ./llvm/APP/app.S.regalloc.Time
+# 25.2.2016 Created by Mohammad
+
+sudo make bt CLASS=A
+sudo make cg CLASS=A
+sudo make ep CLASS=A
+sudo make ft CLASS=A
+sudo make is CLASS=A
+sudo make lu CLASS=A
+sudo make mg CLASS=A
+sudo make sp CLASS=A
+
+sudo make bt CLASS=B
+sudo make cg CLASS=B
+sudo make ep CLASS=B
+sudo make ft CLASS=B
+sudo make is CLASS=B
+sudo make lu CLASS=B
+sudo make mg CLASS=B
+sudo make sp CLASS=B
+
+sudo make bt CLASS=C
+sudo make cg CLASS=C
+sudo make ep CLASS=C
+sudo make ft CLASS=C
+sudo make is CLASS=C
+sudo make lu CLASS=C
+sudo make mg CLASS=C
+sudo make sp CLASS=C
+
+sudo make bt CLASS=W
+sudo make cg CLASS=W
+sudo make ep CLASS=W
+sudo make ft CLASS=W
+sudo make is CLASS=W
+sudo make lu CLASS=W
+sudo make mg CLASS=W
+sudo make sp CLASS=W
+
+sudo make bt CLASS=S
+sudo make cg CLASS=S
+sudo make ep CLASS=S
+sudo make ft CLASS=S
+sudo make is CLASS=S
+sudo make lu CLASS=S
+sudo make mg CLASS=S
+sudo make sp CLASS=S

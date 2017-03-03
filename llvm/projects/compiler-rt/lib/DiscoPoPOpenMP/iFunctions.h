@@ -30,29 +30,30 @@ namespace __DpOMP{
 struct DepsMatrix {
     private:
         std::map<pid_t, std::map<pid_t, std::atomic<int64_t> > > * matrixAll;
-        std::map<std::string, std::map<pid_t, std::map<pid_t, std::atomic<int64_t> > > > * matrixLoops;
+        std::map<std::string, std::map<pid_t, std::map<pid_t, std::atomic<int64_t> > > > * matrixRegions;
 
-        std::map<std::string, std::atomic<int32_t> > * loopParentMap;
+        std::map<std::string, std::atomic<int32_t> > * regionIdsMap;
         std::vector<pid_t>* listOfTidKeys;
 
         std::atomic_flag memAccessLock;
         std::atomic_flag newThreadLock;
 
     public:
-        DepsMatrix() : memAccessLock(ATOMIC_FLAG_INIT), newThreadLock(ATOMIC_FLAG_INIT)
+        DepsMatrix() : memAccessLock ATOMIC_FLAG_INIT, newThreadLock ATOMIC_FLAG_INIT
         {
             matrixAll = new std::map<pid_t, std::map<pid_t, std::atomic<int64_t> > >;
-            matrixLoops = new std::map<std::string, std::map<pid_t, std::map<pid_t, std::atomic<int64_t> > > >;
-            loopParentMap = new std::map<std::string, std::atomic<int32_t> >;
+            matrixRegions = new std::map<std::string, std::map<pid_t, std::map<pid_t, std::atomic<int64_t> > > >;
+            regionIdsMap = new std::map<std::string, std::atomic<int32_t> >;
             listOfTidKeys = new std::vector<pid_t>;
         }
-        inline void set(pid_t row, pid_t column, std::string prefixFName, int32_t volume, int32_t loopID, int32_t parentLoopID){
+        inline void set(pid_t row, pid_t column, std::string prefixFName, int32_t volume, int32_t regionId, int32_t parentRegionID){
             while (memAccessLock.test_and_set(std::memory_order_acquire));  // acquire lock; // spin
             (*matrixAll)[row][column] += volume;
-            if(loopID >= 0){
-                std::string loopKey = prefixFName + "::" + std::to_string(loopID);
-                (*matrixLoops)[loopKey][row][column] += volume;
-                (*loopParentMap)[loopKey] = parentLoopID;
+            if(regionId >= 0){
+                std::string regionKey = prefixFName + "::" + std::to_string(regionId);
+                //cout << "---------" << prefixFName << "\n";
+                (*matrixRegions)[regionKey][row][column] += volume;
+                (*regionIdsMap)[regionKey] = regionId;
             }
             memAccessLock.clear(std::memory_order_release);
         }
@@ -66,6 +67,7 @@ struct DepsMatrix {
 
         inline void print(ofstream *out, int32_t maxSize){
             *out << "# of threads: " << maxSize << endl;
+            *out << "The overall communication matrix between threads "  << endl;
 
             // for(auto it = (*matrixAll).begin(); it != (*matrixAll).end(); ++it) {
             //     listOfTidKeys->push_back(it->first);
@@ -73,7 +75,7 @@ struct DepsMatrix {
             // }
             sort(listOfTidKeys->begin(), listOfTidKeys->end());
             //Printing Whole matrix
-            cout << "Printing whole matrix" << endl;
+            cout << "Printing whole matrix..." << endl;
             for(auto it1=listOfTidKeys->begin(); it1 != listOfTidKeys->end(); ++it1)
             {
                 cout << *it1 << " ";
@@ -95,15 +97,15 @@ struct DepsMatrix {
             }
             *out << endl;
             // Printing each loop's matrix
-            cout<< endl << "Printing loops matrix" << endl;
-            for(auto iter = (*matrixLoops).begin(); iter != (*matrixLoops).end(); iter++){
-                *out << (*loopParentMap)[iter->first] << " |--> " << iter->first << endl;
+            cout<< endl << "Printing Region's matrices..." << endl;
+            for(auto iter = (*matrixRegions).begin(); iter != (*matrixRegions).end(); iter++){
+                *out << (*regionIdsMap)[iter->first] << " |--> " << iter->first << endl;
                 for(auto it1=listOfTidKeys->begin(); it1 != listOfTidKeys->end(); ++it1)
                 {
-                    if( (*matrixLoops)[iter->first].count(*it1) ){
+                    if( (*matrixRegions)[iter->first].count(*it1) ){
                         for(auto it2=listOfTidKeys->begin(); it2 != listOfTidKeys->end(); ++it2){
-                            if( (*matrixLoops)[iter->first][*it1].count(*it2) ){
-                                *out << (*matrixLoops)[iter->first][*it1][*it2] << " ";
+                            if( (*matrixRegions)[iter->first][*it1].count(*it2) ){
+                                *out << (*matrixRegions)[iter->first][*it1][*it2] << " ";
                             }
                             else
                                 *out << 0 << " ";
@@ -136,7 +138,7 @@ void readRuntimeInfo();
 /******* Instrumentation functions *******/
 extern "C"{
     //void __pe_load(ADDR addr, char* fileName, int32_t varSize, int32_t loopID, int32_t parentLoopID)
-void __DiscoPoPOpenMPRead(ADDR addr, char* fileName, int32_t varSize, int32_t loopID, int32_t parentLoopID);
+void __DiscoPoPOpenMPRead(ADDR addr, char* fileName, int32_t varSize, int32_t regionId, int32_t parentRegionID);
 void __DiscoPoPOpenMPWrite(ADDR addr);
 void __DiscoPoPOpenMPFinalize();
 void __DiscoPoPOpenMPInitialize();

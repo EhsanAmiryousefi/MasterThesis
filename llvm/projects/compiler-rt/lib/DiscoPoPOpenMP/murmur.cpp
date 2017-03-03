@@ -8,6 +8,7 @@
 // non-native version will be less than optimal.
 
 #include "murmur.h"
+#include <stdio.h>
 
 #define	FORCE_INLINE inline static
 
@@ -273,8 +274,9 @@ void MurmurHash3_x64_128 ( const void * key, const int len,
 }
 
 //-----------------------------------------------------------------------------
-
+//(0xdeadbeef * 16)) % numSlot
 uint64_t SimpleMurmurHash64A ( const void * key, int len, unsigned int seed ) {
+		// printf("murmur is here!\n");
         const uint64_t m = 0xc6a4a7935bd1e995;
         const int r = 47;
 
@@ -282,6 +284,8 @@ uint64_t SimpleMurmurHash64A ( const void * key, int len, unsigned int seed ) {
 
         const uint64_t * data = (const uint64_t *)key;
         const uint64_t * end = data + (len/8);
+
+        // printf("murmur is here! %d \n", data);
 
         while(data != end) {
             uint64_t k = *data++;
@@ -293,7 +297,7 @@ uint64_t SimpleMurmurHash64A ( const void * key, int len, unsigned int seed ) {
             h ^= k;
             h *= m;
         }
-
+        
         const unsigned char * data2 = (const unsigned char*)data;
 
         switch(len & 7) {
@@ -306,10 +310,10 @@ uint64_t SimpleMurmurHash64A ( const void * key, int len, unsigned int seed ) {
             case 1: h ^= uint64_t(data2[0]);
             h *= m;
         };
-
+        
         h ^= h >> r;
         h *= m;
         h ^= h >> r;
-
+        // printf("murmur is here!\n");
         return h;
     }

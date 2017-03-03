@@ -60,7 +60,7 @@
 #include "llvm/Analysis/TargetLibraryInfo.h"
 #include "llvm/IR/Intrinsics.h"
 #include "llvm/Analysis/LoopInfo.h"
-#include "boost/algorithm/string.hpp"
+#include "llvm/IR/MDBuilder.h"
 
 
 using namespace llvm;
@@ -97,15 +97,19 @@ namespace {
 
     int StoresInstrumented;
     int LoadsInstrumented;
+
+    int countCalls;
     // Basic types
     Type *Void;
     IntegerType *Int32, *Int64;
     PointerType *CharPtr;
 
-    int32_t fileID;
-    int32_t ompRegionsUID;
+    int32_t functionStartLineNumber;
 
-    Function *DPOMPRead, *DPOMPWrite,*DPOMPInitialize,*DPOMPFinalize,*DPOMPThreadCollector;
+    int32_t fileID;
+    int64_t ompRegionsUID;
+
+    Function *DPOMPRead, *DPOMPWrite,*DPOMPInitialize,*DPOMPFinalize,*DPOMPThreadCollector,*DPOMPBeforeCall,*DPOMPAfterCall;
 
     IRBuilder<> *Builder;
     const DataLayout *TD;
@@ -133,6 +137,8 @@ namespace {
     void setupDataTypes();
     void setupCallbacks();
 
+    bool isaCallOrInvoke(Instruction* BI);
+
     string determineVariableName(Instruction* I);
     string getOrInsertVarName(string varName, IRBuilder<>& builder);
     Type* pointsToStruct(PointerType* PTy);
@@ -143,6 +149,7 @@ namespace {
     void insertInitializeInst(Function &F);
     void insertFinalizeInst(Instruction *before);
     void collectThreadInfo(Instruction *toInstrument);
+    void instrumentCallInst(Instruction *toInstrument,StringRef regName);
 
 
     int getLID(Instruction* BI);
@@ -204,6 +211,15 @@ void DiscoPoPOpenMP::setupCallbacks() {
     Void,
     Int64,
     (Type*)0));
+
+  DPOMPBeforeCall =cast<Function>(ThisModule->getOrInsertFunction("__DiscoPoPOpenMPBeforeCall",
+  Void,
+  CharPtr,
+  (Type*)0));
+
+  DPOMPAfterCall=cast<Function>(ThisModule->getOrInsertFunction("__DiscoPoPOpenMPAfterCall",
+    Void,
+    (Type*)0));
 }
 
 void DiscoPoPOpenMP::collectThreadInfo(Instruction *toInstrument)
@@ -214,6 +230,7 @@ void DiscoPoPOpenMP::collectThreadInfo(Instruction *toInstrument)
 
 bool DiscoPoPOpenMP::doInitialization(Module &M) {
 
+  countCalls=0;
   ompRegionsUID=0;
   ThisModuleContext = &(M.getContext());
   ThisModule = &M;
@@ -237,6 +254,8 @@ void DiscoPoPOpenMP::insertInitializeInst(Function &F){
     for (inst_iterator i = inst_begin(F), e = inst_end(F); i != e; ++i)  
     {   
       Instruction *I = &*i;
+      // DILocation *diLoc= I->getDebugLoc();
+      // lid=diLoc->getLine();
       lid = getLID(I);
       if (lid>0&&!isa<PHINode>(I)){ 
         CallInst::Create(DPOMPInitialize,"", I);
@@ -244,6 +263,10 @@ void DiscoPoPOpenMP::insertInitializeInst(Function &F){
       }
     }
   }
+
+  // if (DILocation *Loc = I->getDebugLoc()) { // Here I is an LLVM instruction
+  //     functionStartLineNumber = Loc->getLine();
+
   assert((lid > 0) && "Function entry is not instrumented because LID are all invalid for the entry block.");
 }
 
@@ -259,11 +282,17 @@ void DiscoPoPOpenMP::instrumentStoreInst(Instruction *toInstrument)
   Value *addr = PtrToIntInst::CreatePointerCast(SI->getPointerOperand(), Int64, "", SI);
   vector<Value*> args;
   args.push_back(addr);
+ 
+  CallInst::Create(DPOMPWrite,args,"",toInstrument);
+  // StringRef regName=toInstrument->getParent()->getParent()->getName().str(); 
 
-  if(toInstrument->getParent()->getParent()->getName().str() != "main"){
-    // errs()<<"The parent is:"<<toInstrument->getParent()->getParent()->getName().str()<<"\n";
-    CallInst::Create(DPOMPWrite,args,"",toInstrument);
-}
+  
+
+  // if(regName.startswith(".omp")){
+  //   // errs()<<"The parent is:"<<toInstrument->getParent()->getParent()->getName().str()<<"\n";
+  //  CallInst::Create(DPOMPWrite,args,"",toInstrument);
+  // }
+ 
   //Line ID TODO:
   //  int32_t lid=getLID(toInstrument);
   // if (lid==0)
@@ -294,93 +323,141 @@ void DiscoPoPOpenMP::instrumentStoreInst(Instruction *toInstrument)
 
 
 void DiscoPoPOpenMP::instrumentLoadInst(Instruction *toInstrument){
-  // int32_t lid=getLID(toInstrument);
-  // if (lid==0)
-  // {
-  //   errs()<<"Load instruction no. " << LoadsInstrumented<<" exited since there is no line number!"<<"\n";
-  //   return;
-  // }
-  // vector<Value*> args;
-  
-  // Value* memAddr = PtrToIntInst::CreatePointerCast(cast<LoadInst>(toInstrument)->getPointerOperand(),
-  //   Int64, "", toInstrument);
-  // args.push_back(memAddr); 
-
-  // IRBuilder<> builder(toInstrument);
-  // string varName =determineVariableName(toInstrument);
-  // Value *vName = builder.CreateGlobalStringPtr(varName.c_str(), ".str");
-  // args.push_back(vName);
-  // // vairable size
-  // Value *vSize = ConstantInt::get(Int32, cast<LoadInst>(toInstrument)->getAlignment());
-
-  // args.push_back(vSize);
-  // args.push_back(ConstantInt::get(Int32, 2));
-  // args.push_back(ConstantInt::get(Int32, 3));
 
   //New implementation
   vector<Value*> args;
   LoadInst *LI = cast<LoadInst>(toInstrument);
   IRBuilder<> IRB(toInstrument);
-  LLVMContext& C = toInstrument->getContext();
+  // LLVMContext& C = toInstrument->getContext();
   // memAddr
   Value *addr = PtrToIntInst::CreatePointerCast(LI->getPointerOperand(), Int64, "", LI);
-  args.push_back(addr);
-
-  // Get the closest loop where instruction lives in.
-  // (L == NULL) if instruction is not in any loop.
-  // Loop *L = LoopI.getLoopFor(toInstrument->getParent());
-  // Value *currLoopID;
-  // Value *parentLoopID;
-  
-  
-
-  //TODO: Complete this part with extarcting the code regions
-  int currrRegionId;
-  StringRef regName=toInstrument->getParent()->getParent()->getName().str(); 
-  Value *absolutePathFileName = IRB.CreateGlobalStringPtr(regName, ".str");
-  StringRef regExp=".omp";
-  Value *currentRegion=toInstrument->getParent()->getParent();
-  if(boost::algorithm::starts_with(regName, regExp))
-  {
-    // errs()<<"An OpenMP Region is found:"<<regName<<"\n";
-    if (DILocation *Loc = toInstrument->getDebugLoc()) 
-      { // Here I is an LLVM instruction
-        StringRef File = "", Dir = "";
-        //TODO:If we need line number or no
-        //lno = Loc->getLine();
-        File = Loc->getFilename();
-        Dir = Loc->getDirectory();
-        absolutePathFileName=IRB.CreateGlobalStringPtr((Dir.str() + "/" + File.str() + "::" + regName.str().c_str(), ".str"));
-      }
-      if(toInstrument->getParent()->getParent()->getMetadata("omp.region.ID")==NULL)
-      {
-        // MDNode *A = toInstrument->getMetadata("dbg");
-        Metadata *Ops[1] = {ConstantAsMetadata::get(ConstantInt::get(Int32, ompRegionsUID++))}; 
-        llvm::MDNode *N = llvm::MDNode::get(C, Ops);
-        toInstrument->getParent()->getParent()->setMetadata("omp.region.ID", N);
-        currrRegionId =(toInstrument->getParent()->getParent()->getMetadata("omp.region.ID")->getOperand(0)).get()->getMetadataID();
-        errs() << ompRegionsUID-1 << "Omp region number: " << currentRegion->getName()<<"currentRegionId: " << currrRegionId << "\n";
-      }
-     // currrRegionId= toInstrument->getParent()->getParent()->getMetadata("omp.region.ID")->getOperand(0); 
-      currrRegionId =(toInstrument->getParent()->getParent()->getMetadata("omp.region.ID")->getOperand(0)).get()->getMetadataID();
-  }  
-
-  args.push_back(absolutePathFileName);
-  args.push_back(ConstantInt::get(Int32, currrRegionId));
-  args.push_back(ConstantInt::get(Int32, -1));
-  //////
-  
   //vairable size
   Value *vSize = ConstantInt::get(Int32, LI->getAlignment());
-  args.push_back(vSize);
-
   
+    StringRef regName=toInstrument->getParent()->getParent()->getName().str(); 
+    int currrRegionId=-1;
+    string s1 = regName;
+  Value *absolutePathFileName = IRB.CreateGlobalStringPtr(s1, ".str");
+  Function *currentRegion=toInstrument->getParent()->getParent();
+
+
+  //TODO: Complete this part with extarcting the code regions
+
+  //errs()<<"11\n";
+  
+  //int32_t fLID = Loc1
+  //errs()<< decodeLID(Loc1->getLine()) << "\n";
+ // 
+  //inst_iterator I = inst_begin(currentRegion);
+  //errs()<<"----------------------------" << (*I)->getDebugLoc()->getLine() << "\n";
+  
+  // BasicBlock& firstBB = *currentRegion->begin();
+
+  string s = regName;
+    // errs()<< "s: " <<s<< "\n";
+
+  MDNode *mdnode = LI->getMetadata("dbg");
+  StringRef File = "", Dir = "",lno= "";
+  if (mdnode){
+      DILocation *Loc = toInstrument->getDebugLoc();
+      
+      File = Loc->getFilename();
+      Dir = Loc->getDirectory();
+      lno =decodeLID(Loc->getLine());
+      // + "§§" +lno.str()
+      absolutePathFileName=IRB.CreateGlobalStringPtr((Dir.str() + "/" + File.str() + "::" + s + " line: " + to_string(functionStartLineNumber)).c_str(), ".str");
+  }
+  // if(regName.startswith(".omp"))
+  // {
+
+  //   if(currentRegion->getMetadata("omp.region.ID")==NULL)
+  //   {
+  //     MDBuilder MDHelper(currentRegion->getContext());
+  //     SmallVector<Metadata *, 1> Vals;
+  //     Vals.push_back(MDHelper.createString(to_string(ompRegionsUID++)));
+  //     MDNode *N = MDNode::get(currentRegion->getContext(), Vals);
+  //     currentRegion->setMetadata("omp.region.ID", N); 
+  //   }
+  //     currrRegionId = stoi(cast<MDString>(currentRegion->getMetadata("omp.region.ID")->getOperand(0))->getString());
+  //     MDString *Tag = cast<MDString>(currentRegion->getMetadata("omp.region.ID")->getOperand(0));
+  //     // errs()<<regName<< "\n";
+  //     // errs()<< "==RegName: " <<s<< "\n";
+  //     // errs()<<Tag->getString()<<"\n";
+  // }
+  // else if(regName.equals("main"))
+  // {
+  //   // errs()<<"Memory Read in MAIN function...\n";
+  //   if(currentRegion->getMetadata("main.region.ID")==NULL)
+  //   {
+  //     MDBuilder MDHelper(currentRegion->getContext());
+  //     SmallVector<Metadata *, 1> Vals;
+  //     Vals.push_back(MDHelper.createString(to_string(ompRegionsUID++)));
+  //     MDNode *N = MDNode::get(currentRegion->getContext(), Vals);
+  //     currentRegion->setMetadata("main.region.ID", N); 
+  //   }
+  //     currrRegionId = stoi(cast<MDString>(currentRegion->getMetadata("main.region.ID")->getOperand(0))->getString());
+  //     MDString *Tag = cast<MDString>(currentRegion->getMetadata("main.region.ID")->getOperand(0));
+  //     // errs()<<regName<< "\n";
+  //     // errs()<< "==RegName: " <<s<< "\n";
+  //     // errs()<<Tag->getString()<<"\n";
+
+  // }
+  // else 
+  // {
+  //   // errs()<<"Memory Read in OTHER function\n";
+  //   if(currentRegion->getMetadata("external.region.ID")==NULL)
+  //   {
+  //     MDBuilder MDHelper(currentRegion->getContext());
+  //     SmallVector<Metadata *, 1> Vals;
+  //     Vals.push_back(MDHelper.createString(to_string(ompRegionsUID++)));
+  //     MDNode *N = MDNode::get(currentRegion->getContext(), Vals);
+  //     currentRegion->setMetadata("external.region.ID", N); 
+  //   }
+  //     currrRegionId = stoi(cast<MDString>(currentRegion->getMetadata("external.region.ID")->getOperand(0))->getString());
+  //     MDString *Tag = cast<MDString>(currentRegion->getMetadata("external.region.ID")->getOperand(0));
+  //     // errs()<<regName<< "\n";
+  //     // errs()<< "==RegName: " <<s<< "\n";
+  //     // errs()<<Tag->getString()<<"\n";
+  // }
+
+
+  // MDBuilder MDHelper(currentRegion->getContext());
+  // SmallVector<Metadata *, 1> Vals;
+  // Vals.push_back(MDHelper.createString(to_string(ompRegionsUID++)));
+  // MDNode *N = MDNode::get(currentRegion->getContext(), Vals);
+  // currentRegion->setMetadata("omp.region.ID", N); 
+
+  // currrRegionId = stoi(cast<MDString>(currentRegion->getMetadata("omp.region.ID")->getOperand(0))->getString());
+  // MDString *Tag = cast<MDString>(currentRegion->getMetadata("omp.region.ID")->getOperand(0));
+
+  args.push_back(addr);
+  args.push_back(absolutePathFileName);
+  args.push_back(vSize);  
+  args.push_back(ConstantInt::get(Int32, 0));
+  args.push_back(ConstantInt::get(Int32, 0));
   CallInst::Create(DPOMPRead, args, "", toInstrument);
+
 }
 
 bool DiscoPoPOpenMP::runOnFunction(Function &F) {
   determineFileID(F);
   insertInitializeInst(F);
+
+    //int32_t lid = 0;
+
+    for (inst_iterator i = inst_begin(F), e = inst_end(F); i != e; ++i) {
+    Instruction *I = &*i;
+    if (DILocation *Loc = I->getDebugLoc()) { // Here I is an LLVM instruction
+      functionStartLineNumber = Loc->getLine();
+      if (functionStartLineNumber > 0 && !isa<PHINode>(I)) {
+        
+        //errs()<< "000000000000 " << functionStartLineNumber << "\n";
+        break;
+      }
+    }else
+      continue;
+    }
+
 
   // check HANDLE_MEMORY_INST in include/llvm/Instruction.def for memory
   // touching instructions
@@ -391,7 +468,13 @@ bool DiscoPoPOpenMP::runOnFunction(Function &F) {
       instrumentLoadInst(I);
     }
     else if (isa<StoreInst>(I))
-      instrumentStoreInst(I);
+    {
+      if (!(I->getOperand(1)->getName().equals("retval")))
+      {
+        // errs()<<"In Store!"<< I->getOperand(1)->getName()<<"\n";
+        instrumentStoreInst(I);
+      }
+    }
     else if(isa<AtomicCmpXchgInst>(I))
        errs()<<"ATOMIC DETECTED! \n";
     else if (isa<ReturnInst>(I)) {
@@ -399,16 +482,71 @@ bool DiscoPoPOpenMP::runOnFunction(Function &F) {
                 insertFinalizeInst(I);
             }
       }
-    else if (isa<ReturnInst>(I)) {
-      if (F.hasName() && F.getName().equals("@.omp_outlined.")) {   // returning from main
-              collectThreadInfo(I);
-          }
-    }
+    if(isaCallOrInvoke(I)){
+         instrumentCallInst(I, cast<CallInst>(I)->getCalledFunction()->getName());
+      } 
+    // else if (isa<ReturnInst>(I)) {
+    //   if (F.hasName() && F.getName().equals("@.omp_outlined.")) {   // returning from main
+    //           collectThreadInfo(I);
+    //       }
+    // }
   }
 
   return false;
 }
 
+void DiscoPoPOpenMP::instrumentCallInst(Instruction *toInstrument,StringRef regName){
+
+
+  vector<Value*> args;
+  CallInst *CI = cast<CallInst>(toInstrument);
+  IRBuilder<> IRB(toInstrument);
+ 
+  Value *absolutePathFileName = IRB.CreateGlobalStringPtr("No name attached", ".str");
+
+
+
+  MDNode *mdnode = CI->getMetadata("dbg");
+  StringRef File = "", Dir = "",lno= "";
+  if (mdnode){
+      DILocation *Loc = toInstrument->getDebugLoc();
+      
+      File = Loc->getFilename();
+      Dir = Loc->getDirectory();
+      lno =decodeLID(Loc->getLine());
+      // + "§§" +lno.str()
+      absolutePathFileName=IRB.CreateGlobalStringPtr((Dir.str() + "/" + File.str() + "::" +regName.str() + " line: " + lno.str()), ".str");
+  }
+
+  args.push_back(absolutePathFileName);
+
+    //it creates a call "CUInstCallBefore" and inserts it before the toInstrument instruction
+    CallInst::Create(DPOMPBeforeCall, args, "", toInstrument);
+
+    //it first creates a call " " and then inserts it after the toInstrument instruction
+    CallInst::Create(DPOMPAfterCall,"")->insertAfter(toInstrument); 
+
+}
+
+
+bool DiscoPoPOpenMP::isaCallOrInvoke(Instruction* BI) {
+
+  StringRef name="";
+  if ((BI != NULL) && ((isa<CallInst>(BI) && (!isa<DbgDeclareInst>(BI))) || isa<InvokeInst>(BI)))
+  {
+     if (cast<CallInst>(BI)->getCalledFunction())
+      {
+         name = cast<CallInst>(BI)->getCalledFunction()->getName();
+         if (name.startswith("__kmpc"))
+         {
+           // errs()<<"NAME--->"<<name<<"\n";
+           return true;
+         }
+         
+      }
+  }
+  return false; 
+}
 
 int DiscoPoPOpenMP::getLID(Instruction* BI)
 {
