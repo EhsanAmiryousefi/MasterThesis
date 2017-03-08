@@ -82,7 +82,7 @@ void rhs()
   //---------------------------------------------------------------------
   // xi-direction flux differences
   //---------------------------------------------------------------------
-  #pragma omp for schedule(static) nowait
+  #pragma omp for schedule(static) 
   for (k = 1; k < nz - 1; k++) {
     for (j = jst; j < jend; j++) {
       for (i = 0; i < nx; i++) {
@@ -340,7 +340,7 @@ void rhs()
   //---------------------------------------------------------------------
   // zeta-direction flux differences
   //---------------------------------------------------------------------
-  #pragma omp for schedule(static) nowait
+  #pragma omp for schedule(static) 
   for (j = jst; j < jend; j++) {
     for (i = ist; i < iend; i++) {
       for (k = 0; k < nz; k++) {

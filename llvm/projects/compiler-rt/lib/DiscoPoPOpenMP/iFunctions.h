@@ -138,7 +138,7 @@ void readRuntimeInfo();
 /******* Instrumentation functions *******/
 extern "C"{
     //void __pe_load(ADDR addr, char* fileName, int32_t varSize, int32_t loopID, int32_t parentLoopID)
-void __DiscoPoPOpenMPRead(ADDR addr, char* fileName, int32_t varSize, int32_t regionId, int32_t parentRegionID);
+void __DiscoPoPOpenMPRead(ADDR addr, int32_t varSize, int32_t regionId, int32_t parentRegionID);
 void __DiscoPoPOpenMPWrite(ADDR addr);
 void __DiscoPoPOpenMPFinalize();
 void __DiscoPoPOpenMPInitialize();

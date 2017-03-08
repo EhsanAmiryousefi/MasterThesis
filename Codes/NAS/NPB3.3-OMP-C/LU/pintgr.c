@@ -60,7 +60,7 @@ void pintgr()
   #pragma omp parallel default(shared) private(i,j,k) \
                        shared(ki1,ki2,ifin,ibeg,jfin,jbeg,ifin1,jfin1)
   {
-  #pragma omp for nowait
+  #pragma omp for 
   for (j = jbeg; j < jfin; j++) {
     for (i = ibeg; i < ifin; i++) {
       k = ki1;
@@ -98,10 +98,10 @@ void pintgr()
     }
   }
 
-  #pragma omp single nowait
+  #pragma omp single 
   frc1 = dxi * deta * frc1;
 
-  #pragma omp for nowait
+  #pragma omp for 
   for (k = ki1; k < ki2; k++) {
     for (i = ibeg; i < ifin; i++) {
       phi1[k][i] = C2*(  u[k][jbeg][i][4]
@@ -112,7 +112,7 @@ void pintgr()
     }
   }
 
-  #pragma omp for nowait
+  #pragma omp for 
   for (k = ki1; k < ki2; k++) {
     for (i = ibeg; i < ifin; i++) {
       phi2[k][i] = C2*(  u[k][jfin-1][i][4]
@@ -140,10 +140,10 @@ void pintgr()
     }
   }
 
-  #pragma omp single nowait
+  #pragma omp single 
   frc2 = dxi * dzeta * frc2;
 
-  #pragma omp for nowait
+  #pragma omp for 
   for (k = ki1; k < ki2; k++) {
     for (j = jbeg; j < jfin; j++) {
       phi1[k][j] = C2*(  u[k][j][ibeg][4]
@@ -154,7 +154,7 @@ void pintgr()
     }
   }
 
-  #pragma omp for nowait
+  #pragma omp for 
   for (k = ki1; k < ki2; k++) {
     for (j = jbeg; j < jfin; j++) {
       phi2[k][j] = C2*(  u[k][j][ifin-1][4]
@@ -182,7 +182,7 @@ void pintgr()
     }
   }
 
-  #pragma omp single nowait
+  #pragma omp single 
   frc3 = deta * dzeta * frc3;
   } //end parallel
 

@@ -56,7 +56,7 @@ void l2norm (int ldx, int ldy, int ldz, int nx0, int ny0, int nz0,
     sum[m] = 0.0;
   }
 
-  #pragma omp parallel default(shared) private(i,j,k,m,sum_local)
+  #pragma omp parallel private(i,j,k,m,sum_local)
   {
   for (m = 0; m < 5; m++) {
     sum_local[m] = 0.0;

@@ -16,6 +16,7 @@
 #include <utility>
 #include <unistd.h>
 #include <assert.h>
+#include <stack>
 #include "llvm/Transforms/Instrumentation.h"
 #include "llvm/ADT/ilist.h"
 #include "llvm/ADT/Statistic.h"
@@ -63,6 +64,7 @@
 #include "llvm/IR/MDBuilder.h"
 
 
+
 using namespace llvm;
 using namespace std;
 using LID = int32_t;
@@ -85,6 +87,9 @@ cl::opt<string> FileMappingPath("fm-path", cl::init(""),
 
 namespace {
   struct DiscoPoPOpenMP : public FunctionPass {
+
+
+  
     static char ID;
 
     #define LIDSIZE 14    // Number of bits for holding LID
@@ -149,7 +154,9 @@ namespace {
     void insertInitializeInst(Function &F);
     void insertFinalizeInst(Instruction *before);
     void collectThreadInfo(Instruction *toInstrument);
-    void instrumentCallInst(Instruction *toInstrument,StringRef regName);
+    void instrumentBeforeCallInst(Instruction *toInstrument);
+    void instrumentAfterCallInst(Instruction *toInstrument);
+
 
 
     int getLID(Instruction* BI);
@@ -201,7 +208,6 @@ void DiscoPoPOpenMP::setupCallbacks() {
   DPOMPRead = cast<Function>(ThisModule->getOrInsertFunction("__DiscoPoPOpenMPRead",
     Void,
     Int64,
-    CharPtr,
     Int32,
     Int32,
     Int32,
@@ -218,7 +224,7 @@ void DiscoPoPOpenMP::setupCallbacks() {
   (Type*)0));
 
   DPOMPAfterCall=cast<Function>(ThisModule->getOrInsertFunction("__DiscoPoPOpenMPAfterCall",
-    Void,
+    Void, 
     (Type*)0));
 }
 
@@ -248,26 +254,22 @@ bool DiscoPoPOpenMP::instrument(Value *Ptr, Value *InstVal,
 
 
 void DiscoPoPOpenMP::insertInitializeInst(Function &F){
-  int32_t lid=0;
-  if (F.hasName() && F.getName().equals("main")){ 
-
-    for (inst_iterator i = inst_begin(F), e = inst_end(F); i != e; ++i)  
-    {   
-      Instruction *I = &*i;
-      // DILocation *diLoc= I->getDebugLoc();
-      // lid=diLoc->getLine();
-      lid = getLID(I);
-      if (lid>0&&!isa<PHINode>(I)){ 
-        CallInst::Create(DPOMPInitialize,"", I);
-        break;
-      }
+  BasicBlock &entryBB = F.getEntryBlock();
+  StringRef fn = F.getName();
+    
+    // We always want to insert __dp_func_entry at the beginning
+    // of the basic block, 
+  if (fn.equals("main"))
+    {  
+    for (BasicBlock::iterator BI = entryBB.begin(), EI = entryBB.end(); BI != EI; ++BI) {
+        Instruction *I = &*BI;
+        if (!isa<PHINode>(BI)) {
+          CallInst::Create(DPOMPInitialize,"", I);
+            break;
+        }
     }
   }
-
-  // if (DILocation *Loc = I->getDebugLoc()) { // Here I is an LLVM instruction
-  //     functionStartLineNumber = Loc->getLine();
-
-  assert((lid > 0) && "Function entry is not instrumented because LID are all invalid for the entry block.");
+    assert((lid > 0) && "Function entry is not instrumented because LID are all invalid for the entry block.");
 }
 
 
@@ -284,41 +286,7 @@ void DiscoPoPOpenMP::instrumentStoreInst(Instruction *toInstrument)
   args.push_back(addr);
  
   CallInst::Create(DPOMPWrite,args,"",toInstrument);
-  // StringRef regName=toInstrument->getParent()->getParent()->getName().str(); 
-
-  
-
-  // if(regName.startswith(".omp")){
-  //   // errs()<<"The parent is:"<<toInstrument->getParent()->getParent()->getName().str()<<"\n";
-  //  CallInst::Create(DPOMPWrite,args,"",toInstrument);
-  // }
  
-  //Line ID TODO:
-  //  int32_t lid=getLID(toInstrument);
-  // if (lid==0)
-  // {
-  //   // errs()<<"store instruction no. " << StoresInstrumented<<" exited since there is no line number!"<<"\n";
-  //   return;
-  // }
-
- 
-  // vector<Value*> args;
-  // args.push_back(ConstantInt::get(Int32,lid));
-  // //Memory location refrenced by the instruction
-  // Value* memAddr = PtrToIntInst::CreatePointerCast(cast<StoreInst>(toInstrument)->getPointerOperand(),
-  //   Int64, "", toInstrument);
-  // args.push_back(memAddr); 
-
-  // IRBuilder<> builder(toInstrument);
-  // string varName =determineVariableName(toInstrument);
-  // // if (varName=="")
-  // // {
-  // //   varName="NO NAME";
-  // // }
-  // // errs()<<"The varname is:"<<varName<<"\n";
-  // Value *vName = builder.CreateGlobalStringPtr(varName.c_str(), ".str");
-  // args.push_back(vName);
-  // CallInst::Create(DPOMPWrite,args,"",toInstrument);
 }
 
 
@@ -333,40 +301,12 @@ void DiscoPoPOpenMP::instrumentLoadInst(Instruction *toInstrument){
   Value *addr = PtrToIntInst::CreatePointerCast(LI->getPointerOperand(), Int64, "", LI);
   //vairable size
   Value *vSize = ConstantInt::get(Int32, LI->getAlignment());
-  
-    StringRef regName=toInstrument->getParent()->getParent()->getName().str(); 
-    int currrRegionId=-1;
-    string s1 = regName;
-  Value *absolutePathFileName = IRB.CreateGlobalStringPtr(s1, ".str");
-  Function *currentRegion=toInstrument->getParent()->getParent();
-
-
-  //TODO: Complete this part with extarcting the code regions
-
-  //errs()<<"11\n";
-  
-  //int32_t fLID = Loc1
-  //errs()<< decodeLID(Loc1->getLine()) << "\n";
- // 
-  //inst_iterator I = inst_begin(currentRegion);
-  //errs()<<"----------------------------" << (*I)->getDebugLoc()->getLine() << "\n";
-  
-  // BasicBlock& firstBB = *currentRegion->begin();
-
-  string s = regName;
-    // errs()<< "s: " <<s<< "\n";
-
-  MDNode *mdnode = LI->getMetadata("dbg");
-  StringRef File = "", Dir = "",lno= "";
-  if (mdnode){
-      DILocation *Loc = toInstrument->getDebugLoc();
-      
-      File = Loc->getFilename();
-      Dir = Loc->getDirectory();
-      lno =decodeLID(Loc->getLine());
-      // + "§§" +lno.str()
-      absolutePathFileName=IRB.CreateGlobalStringPtr((Dir.str() + "/" + File.str() + "::" + s + " line: " + to_string(functionStartLineNumber)).c_str(), ".str");
-  }
+ 
+  args.push_back(addr);
+  args.push_back(vSize);  
+  args.push_back(ConstantInt::get(Int32, 0));
+  args.push_back(ConstantInt::get(Int32, 0));
+  CallInst::Create(DPOMPRead, args, "", toInstrument);
   // if(regName.startswith(".omp"))
   // {
 
@@ -430,18 +370,20 @@ void DiscoPoPOpenMP::instrumentLoadInst(Instruction *toInstrument){
   // currrRegionId = stoi(cast<MDString>(currentRegion->getMetadata("omp.region.ID")->getOperand(0))->getString());
   // MDString *Tag = cast<MDString>(currentRegion->getMetadata("omp.region.ID")->getOperand(0));
 
-  args.push_back(addr);
-  args.push_back(absolutePathFileName);
-  args.push_back(vSize);  
-  args.push_back(ConstantInt::get(Int32, 0));
-  args.push_back(ConstantInt::get(Int32, 0));
-  CallInst::Create(DPOMPRead, args, "", toInstrument);
+ 
 
 }
 
 bool DiscoPoPOpenMP::runOnFunction(Function &F) {
   determineFileID(F);
-  insertInitializeInst(F);
+  // only instrument functions belonging to project source files
+    if (!fileID)
+        return false;
+          // Instrument the entry of the function.
+    // Each function entry is instrumented, and the first
+    // executed function will initialize shadow memory.
+    // See the definition of __dp_func_entry() for detail.
+    insertInitializeInst(F);
 
     //int32_t lid = 0;
 
@@ -457,6 +399,9 @@ bool DiscoPoPOpenMP::runOnFunction(Function &F) {
     }else
       continue;
     }
+
+
+
 
 
   // check HANDLE_MEMORY_INST in include/llvm/Instruction.def for memory
@@ -483,49 +428,62 @@ bool DiscoPoPOpenMP::runOnFunction(Function &F) {
             }
       }
     if(isaCallOrInvoke(I)){
-         instrumentCallInst(I, cast<CallInst>(I)->getCalledFunction()->getName());
+         instrumentBeforeCallInst(I);
+         instrumentAfterCallInst(I);
       } 
     // else if (isa<ReturnInst>(I)) {
     //   if (F.hasName() && F.getName().equals("@.omp_outlined.")) {   // returning from main
     //           collectThreadInfo(I);
     //       }
     // }
+      // if(isa<TerminatorInst>(I))
+      // {
+      //   errs()<<"End of Function "<<i->getParent()->getParent()->getName()<<"\n";
+      //   instrumentAfterCallInst(I);
+      // }
   }
+
 
   return false;
 }
 
-void DiscoPoPOpenMP::instrumentCallInst(Instruction *toInstrument,StringRef regName){
+void DiscoPoPOpenMP::instrumentBeforeCallInst(Instruction *toInstrument){
 
 
-  vector<Value*> args;
+  vector<Value*> beforeCallArgs;
   CallInst *CI = cast<CallInst>(toInstrument);
   IRBuilder<> IRB(toInstrument);
  
-  Value *absolutePathFileName = IRB.CreateGlobalStringPtr("No name attached", ".str");
-
-
+  Value *absolutePathFileName = IRB.CreateGlobalStringPtr("Main Thread", ".str");
+  StringRef regName = cast<CallInst>(toInstrument)->getCalledFunction()->getName();
+  StringRef fileNameAsKey="";
 
   MDNode *mdnode = CI->getMetadata("dbg");
-  StringRef File = "", Dir = "",lno= "";
+  
   if (mdnode){
+    StringRef File = "", Dir = "",lno= "";
       DILocation *Loc = toInstrument->getDebugLoc();
       
       File = Loc->getFilename();
       Dir = Loc->getDirectory();
       lno =decodeLID(Loc->getLine());
       // + "§§" +lno.str()
+
+      fileNameAsKey= (Dir.str() + "/" + File.str() + "::" +regName.str() + " line: " + lno.str());
       absolutePathFileName=IRB.CreateGlobalStringPtr((Dir.str() + "/" + File.str() + "::" +regName.str() + " line: " + lno.str()), ".str");
   }
 
-  args.push_back(absolutePathFileName);
+    beforeCallArgs.push_back(absolutePathFileName);
 
-    //it creates a call "CUInstCallBefore" and inserts it before the toInstrument instruction
-    CallInst::Create(DPOMPBeforeCall, args, "", toInstrument);
+      //it creates a call "CUInstCallBefore" and inserts it before the toInstrument instruction
+    CallInst::Create(DPOMPBeforeCall, beforeCallArgs, "", toInstrument);
 
-    //it first creates a call " " and then inserts it after the toInstrument instruction
-    CallInst::Create(DPOMPAfterCall,"")->insertAfter(toInstrument); 
+}
 
+void DiscoPoPOpenMP::instrumentAfterCallInst(Instruction *toInstrument)
+{
+ 
+  CallInst::Create(DPOMPAfterCall,"")->insertAfter(toInstrument); 
 }
 
 
@@ -537,12 +495,17 @@ bool DiscoPoPOpenMP::isaCallOrInvoke(Instruction* BI) {
      if (cast<CallInst>(BI)->getCalledFunction())
       {
          name = cast<CallInst>(BI)->getCalledFunction()->getName();
-         if (name.startswith("__kmpc"))
+         if (name.startswith("__kmpc") && !(name.startswith("__kmpc_end")))
          {
            // errs()<<"NAME--->"<<name<<"\n";
            return true;
          }
-         
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+         // else if (name.startswith("__kmpc_end"))
+         // {
+         //   /* code */
+         // }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       }
   }
   return false; 

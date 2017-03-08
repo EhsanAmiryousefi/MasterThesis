@@ -76,11 +76,11 @@ FLINKFLAGS = -O3 -fopenmp -mcmodel=medium
 # This is the C compiler used for C programs
 #---------------------------------------------------------------------------
 ifdef binaries
-	CC = gcc	
-#CC = /home/amiryousefi/buildforinstm/bin/clang
+#	CC = gcc	
+	CC = /home/amiryousefi/buildforinstm/bin/clang
 else
-	CC = gcc	
-#CC = /home/amiryousefi/buildforinstm/bin/clang
+#	CC = gcc	
+	CC = /home/amiryousefi/buildforinstm/bin/clang
 endif
 
 # This links C programs; usually the same as ${CC}
@@ -89,7 +89,7 @@ ifdef binaries
     CLINK = $(CC)
     CLINK_R = ld -r
 else
-	CLINK = ld#/home/amiryousefi/buildforinstm/bin/llvm-link
+	CLINK = /home/amiryousefi/buildforinstm/bin/llvm-link
 	CLINK_R = $(CLINK)
 endif
 
@@ -98,13 +98,13 @@ endif
 #---------------------------------------------------------------------------
 
 ifdef binaries
-    C_LIB = -lm # -L /home/amiryousefi/buildforinstm/projects/openmp
+    C_LIB = -lm -L /home/amiryousefi/buildforinstm/projects/openmp
 endif
 
 #---------------------------------------------------------------------------
 # These macros are passed to the compiler 
 #---------------------------------------------------------------------------
-C_INC =  -I ../common# -I /home/amiryousefi/buildforinstm/projects/openmp/runtime/src
+C_INC =  -I ../common -I /home/amiryousefi/buildforinstm/projects/openmp/runtime/src
 
 #---------------------------------------------------------------------------
 # Global *compile time* flags for C programs
@@ -122,9 +122,9 @@ C_INC =  -I ../common# -I /home/amiryousefi/buildforinstm/projects/openmp/runtim
 # files larger than 2GB.
 #---------------------------------------------------------------------------
 ifdef binaries
-	CFLAGS  = -g -O0 -fopenmp #-emit-llvm -mllvm -fm-path -mllvm ./FileMapping.txt
+	CFLAGS  = -g -O0 -fopenmp -emit-llvm -mllvm -fm-path -mllvm ./FileMapping.txt
 else
-    CFLAGS	= -g -O0 -fopenmp #-emit-llvm -mllvm -fm-path -mllvm ./FileMapping.txt
+    CFLAGS	= -g -O0 -fopenmp -emit-llvm -mllvm -fm-path -mllvm ./FileMapping.txt
 endif
 
 #---------------------------------------------------------------------------

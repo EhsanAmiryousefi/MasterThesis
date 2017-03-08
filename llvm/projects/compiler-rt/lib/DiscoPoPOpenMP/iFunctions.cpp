@@ -11,10 +11,11 @@ bool DpOMP_DEBUG = true;                          // debug flag
 
 namespace __DpOMP {
 
-    int32_t regIdCounter=0;
     int32_t currentRegID=0;
-    thread_local string currentRegName = "";
+    thread_local string currentRegName = "Main Thread";
+    stack<string> *parentRegionStack;
 
+    std::atomic_flag stackLock; 
 
     bool peInited = false;                          // library initialization flag
     int32_t SIG_NUM_ELEM = 6000000;
@@ -44,7 +45,6 @@ void outputDeps() {
     // print out all dps
     depsMatrix->print(out, numberOfHwThreads);
 }
-
 void readRuntimeInfo() {
     ifstream conf(get_exe_dir() + "/DpOMP.conf");
     string line;
@@ -94,6 +94,7 @@ void initThreadPool(int numberOfThreads)
     for (int i = 0; i < numberOfThreads; i++)
     {
         depsMatrix->addNewTid(i);
+        parentRegionStack[i].push("Main Thread");
     }
 }
 
@@ -103,35 +104,40 @@ void initThreadPool(int numberOfThreads)
 extern "C"{
 
 void __DiscoPoPOpenMPInitialize(){
-    // cout <<"DiscoPoPOpenMPInitialize is about to start...!"<<"\n";
+    cout <<"DiscoPoPOpenMPInitialize is about to start...!"<<"\n";
     // pid_t systid = syscall(SYS_gettid);
     if (!peInited) {
         // cout <<"DiscoPoPOpenMPInitialize is executed...!"<<"\n";
         // This part should be executed only once.
         // numberOfHwThreads = std::thread::hardware_concurrency();
         numberOfHwThreads=omp_get_max_threads();
+        
+        cout<<"============================================================================================================"<<endl;    
         cout<<"No.of detected hardware threads:"<<numberOfHwThreads<<endl;
+        cout<<"============================================================================================================"<<endl;
         mainTid = omp_get_thread_num();
+
         cout << "mainTid: " << mainTid << endl;
+
         readRuntimeInfo();
         depsMatrix = new DepsMatrix();
         RSig = new ReadSignature(SIG_NUM_ELEM, BF_NUM_ELEM, BF_FP_RATE);
         WSig = new WriteSignature(SIG_NUM_ELEM);
         out = new ofstream();
         out->open("Output.txt", ios::out);
+
+        parentRegionStack = new stack<string>[numberOfHwThreads];  
+        initThreadPool(numberOfHwThreads);
+       
+
         peInited = true;
+        // cout<<"§§§§§§§§§§§§§§§§parentRegionStack initialized value: "<<parentRegionStack[omp_get_thread_num()].top()<<endl;
+
         if (DpOMP_DEBUG) {
             cout << "PE initialized" << endl;
         }
-        initThreadPool(numberOfHwThreads);
+      
     }
-    // if (currentThreadId < 0){
-
-    //     currentThreadId = omp_get_thread_num();
-    //     targetThreads = 32;
-    //     cout << "The Number of threads are: " << omp_get_num_threads() << endl;
-    //     depsMatrix->addNewTid(currentThreadId);
-    // }
 }
 
 
@@ -148,9 +154,9 @@ void __CollectThreadInfo()
         }
 }
 //
-void __DiscoPoPOpenMPRead(ADDR addr, char* fileName, 
+void __DiscoPoPOpenMPRead(ADDR addr, 
     int32_t varSize, int32_t loopID, int32_t parentLoopID) {
-    // cout <<"__DiscoPoPOpenMPRead begin! \n";
+     // cout <<"__DiscoPoPOpenMPRead begin! \n";
     // *out<<"[READ]"<<varName<<"---->[Line Id] "<<decodeLID(lid)<<"[ADDR]"<<addr
     // <<" [ThreadID]"<<omp_get_thread_num()<<"\n";
     currentThreadId=omp_get_thread_num();
@@ -171,7 +177,7 @@ void __DiscoPoPOpenMPRead(ADDR addr, char* fileName,
 }
 //, char* fName, char* varName
 void __DiscoPoPOpenMPWrite(ADDR addr) {
-     // cout<<"__DiscoPoPOpenMPWrite invoked \n";
+      // cout<<"__DiscoPoPOpenMPWrite invoked \n";
     //   *out<<"[WRITE]"<<varName<<"---->[Line Id] "<<decodeLID(lid)<<" [ADDR]"<<addr
     // <<" [ThreadID]"<<omp_get_thread_num()<<"\n";
     // cout <<"Write from Thread:"<<omp_get_thread_num()<<endl;
@@ -181,16 +187,64 @@ void __DiscoPoPOpenMPWrite(ADDR addr) {
     
 
 }
-void __DiscoPoPOpenMPBeforeCall(char* regionName)
+void __DiscoPoPOpenMPBeforeCall(char const* regionName)
 {
     // cout<<"RegName--->"<<regionName<<endl;
-    currentRegName = regionName;
-    regIdCounter++;
+    //cout<<"BEFORE CALL_CURR_REG: "<<parentRegionStack.top()<<endl;
+    // currentRegName = regionName;
+
+
+    // while (stackLock.test_and_set(std::memory_order_acquire));  
+    // cout<<"============================================================================================================"<<endl;   
+
+
+    parentRegionStack[omp_get_thread_num()].push(regionName);
+    currentRegName = parentRegionStack[omp_get_thread_num()].top();
+
+
+    // cout<<"----------->>>>>>>>THREAD:  "<<omp_get_thread_num()<<endl;
+    // cout<<"SIZE OF STACK BEFORE CALL--------: "<<parentRegionStack[omp_get_thread_num()].size()<<endl;
+
+    // string s=parentRegionStack[omp_get_thread_num()].top();
+    // cout<<"REGION NAME:====> "<<s<<endl;
+    // cout<<"RegName--->"<<regionName<<endl;
+    // cout<<"============================================================================================================"<<endl;   
+    // stackLock.clear(std::memory_order_release);
+
+
+
+    //parentRegionStack.push(regionName);
+    //cout<<"BEFORE CALL: "<<parentRegionStack.top()<<"THREAD:"<<omp_get_thread_num()<<endl;
+    // stackLock.clear(std::memory_order_release);
 }
 
 void __DiscoPoPOpenMPAfterCall()
 {
+    // currentRegName = parentRegionStack.top();
+    // while (stackLock.test_and_set(std::memory_order_acquire));  
+    if (!parentRegionStack[omp_get_thread_num()].empty())
+    {
+        // while (stackLock.test_and_set(std::memory_order_acquire));  
+        // cout<<"#########################################################"<<endl;   
+        // // cout<<"AFTER CALL: "<<parentRegionStack.top()<<"THREAD:"<<omp_get_thread_num()<<endl;
+        // cout<<"----------->>>>>>>>THREAD:  "<<omp_get_thread_num()<<endl;
+        // cout<<"SIZE OF STACK AFTER CALL--------: "<<parentRegionStack[omp_get_thread_num()].size()<<endl;
 
+        // string s=parentRegionStack[omp_get_thread_num()].top();
+        // cout<<"REGION NAME:====>"<<s<<endl;
+
+        // cout<<"#########################################################"<<endl;   
+
+        // stackLock.clear(std::memory_order_release);
+
+        parentRegionStack[omp_get_thread_num()].pop();
+
+        if(parentRegionStack[omp_get_thread_num()].empty())
+                cout<<"=========================STACK IS EMPTY!"<<endl;
+            else
+                currentRegName = parentRegionStack[omp_get_thread_num()].top();
+    }
+    // stackLock.clear(std::memory_order_release);
 }
 
 
@@ -199,6 +253,18 @@ void __DiscoPoPOpenMPFinalize() {
      // cout<<"__DiscoPoPOpenMPFinalize invoked \n";
     if (DpOMP_DEBUG) {
         cout << "Program terminated! clearing up" << endl;
+    }
+
+
+
+    for (int i = 0; i < numberOfHwThreads; i++)
+    {
+        while(!parentRegionStack[i].empty())
+        {
+            cout<<"ERROR NOT FREE STACK!========>"<<i<<endl;
+            cout<<"SIZE IS:"<<parentRegionStack[i].size()<<endl;
+            parentRegionStack[i].pop();
+        }
     }
 
     outputDeps();

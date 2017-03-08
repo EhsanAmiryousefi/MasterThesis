@@ -139,7 +139,7 @@ static void vecset(int n, double v[], int iv[], int *nzv, int i, double val);
 //---------------------------------------------------------------------
 
 
-int  main()
+int  main(int argc, char *argv[])
 {
   printf("Main entered \n");
   int i, j, k, it;

@@ -16,12 +16,12 @@
 #define DT_DEFAULT     0.5
 
 #define CONVERTDOUBLE  false
-#define COMPILETIME "03 Mar 2017"
+#define COMPILETIME "06 Mar 2017"
 #define NPBVERSION "3.3.1"
 #define CS1 "(none)"
 #define CS2 "(none)"
 #define CS3 "(none)"
-#define CS4 "-I ../common# -I /home/amiryousefi/buildfor..."
+#define CS4 "-I ../common -I /home/amiryousefi/buildfori..."
 #define CS5 "(none)"
 #define CS6 "(none)"
 #define CS7 "randdp"
