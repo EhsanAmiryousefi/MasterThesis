@@ -47,11 +47,12 @@ struct DepsMatrix {
             listOfTidKeys = new std::vector<pid_t>;
         }
         inline void set(pid_t row, pid_t column, std::string prefixFName, int32_t volume, int32_t regionId, int32_t parentRegionID){
+            // cout << "---------------------------------------------------------------" << prefixFName << "\n";
             while (memAccessLock.test_and_set(std::memory_order_acquire));  // acquire lock; // spin
             (*matrixAll)[row][column] += volume;
             if(regionId >= 0){
-                std::string regionKey = prefixFName + "::" + std::to_string(regionId);
-                //cout << "---------" << prefixFName << "\n";
+                std::string regionKey = prefixFName; //+ "::" + std::to_string(regionId);
+                // cout << "---------" << prefixFName << "\n";
                 (*matrixRegions)[regionKey][row][column] += volume;
                 (*regionIdsMap)[regionKey] = regionId;
             }
@@ -138,8 +139,8 @@ void readRuntimeInfo();
 /******* Instrumentation functions *******/
 extern "C"{
     //void __pe_load(ADDR addr, char* fileName, int32_t varSize, int32_t loopID, int32_t parentLoopID)
-void __DiscoPoPOpenMPRead(ADDR addr, int32_t varSize, int32_t regionId, int32_t parentRegionID);
-void __DiscoPoPOpenMPWrite(ADDR addr);
+void __DiscoPoPOpenMPRead(ADDR addr, int32_t varSize, int32_t regionId, int32_t parentRegionID, char* varName);
+void __DiscoPoPOpenMPWrite(ADDR addr, char* varName);
 void __DiscoPoPOpenMPFinalize();
 void __DiscoPoPOpenMPInitialize();
 }

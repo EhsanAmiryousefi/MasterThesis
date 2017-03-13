@@ -5,57 +5,73 @@ target triple = "x86_64-unknown-linux-gnu"
 
 %ident_t = type { i32, i32, i32, i32, i8* }
 
-@.str = private unnamed_addr constant [23 x i8] c";unknown;unknown;0;0;;\00", align 1
-@0 = private unnamed_addr constant %ident_t { i32 0, i32 2, i32 0, i32 0, i8* getelementptr inbounds ([23 x i8], [23 x i8]* @.str, i32 0, i32 0) }, align 8
-@1 = private unnamed_addr constant [27 x i8] c";sourcefile.c;main;24;19;;\00"
+@.str = private unnamed_addr constant [39 x i8] c"outer parallel region Thread ID == %d\0A\00", align 1
+@.str.1 = private unnamed_addr constant [23 x i8] c";unknown;unknown;0;0;;\00", align 1
+@0 = private unnamed_addr constant %ident_t { i32 0, i32 2, i32 0, i32 0, i8* getelementptr inbounds ([23 x i8], [23 x i8]* @.str.1, i32 0, i32 0) }, align 8
+@1 = private unnamed_addr constant [27 x i8] c";sourcefile.c;main;29;21;;\00"
+@2 = private unnamed_addr constant [27 x i8] c";sourcefile.c;main;33;23;;\00"
 @.gomp_critical_user_.var = common global [8 x i32] zeroinitializer
-@2 = private unnamed_addr constant [27 x i8] c";sourcefile.c;main;31;21;;\00"
-@3 = private unnamed_addr constant [27 x i8] c";sourcefile.c;main;31;45;;\00"
-@4 = private unnamed_addr constant [27 x i8] c";sourcefile.c;main;22;17;;\00"
-@5 = private unnamed_addr constant [27 x i8] c";sourcefile.c;main;15;13;;\00"
-@.str.1 = private unnamed_addr constant [12 x i8] c"Main Thread\00"
-@.str.2 = private unnamed_addr constant [79 x i8] c"/home/amiryousefi/MasterThesis/Codes/sourcefile.c::__kmpc_fork_call line: 0:15\00"
-@.str.3 = private unnamed_addr constant [12 x i8] c"Main Thread\00"
-@.str.4 = private unnamed_addr constant [79 x i8] c"/home/amiryousefi/MasterThesis/Codes/sourcefile.c::__kmpc_fork_call line: 0:22\00"
-@.str.5 = private unnamed_addr constant [12 x i8] c"Main Thread\00"
-@.str.6 = private unnamed_addr constant [78 x i8] c"/home/amiryousefi/MasterThesis/Codes/sourcefile.c::__kmpc_critical line: 0:24\00"
-@.str.7 = private unnamed_addr constant [12 x i8] c"Main Thread\00"
-@.str.8 = private unnamed_addr constant [87 x i8] c"/home/amiryousefi/MasterThesis/Codes/sourcefile.c::__kmpc_for_static_init_4 line: 0:31\00"
-@.str.9 = private unnamed_addr constant [12 x i8] c"Main Thread\00"
-@.str.10 = private unnamed_addr constant [85 x i8] c"/home/amiryousefi/MasterThesis/Codes/sourcefile.c::__kmpc_for_static_fini line: 0:31\00"
-@.str.11 = private unnamed_addr constant [12 x i8] c"Main Thread\00"
-@.str.12 = private unnamed_addr constant [77 x i8] c"/home/amiryousefi/MasterThesis/Codes/sourcefile.c::__kmpc_barrier line: 0:31\00"
+@3 = private unnamed_addr constant [27 x i8] c";sourcefile.c;main;29;55;;\00"
+@.str.2 = private unnamed_addr constant [10 x i8] c"blablabla\00"
+@.str.3 = private unnamed_addr constant [20 x i8] c"NO VARNAME ATTACHED\00"
+@.str.4 = private unnamed_addr constant [12 x i8] c"Main Thread\00"
+@.str.5 = private unnamed_addr constant [28 x i8] c".omp_outlined.  line No: 30\00"
+@.str.6 = private unnamed_addr constant [18 x i8] c".global_tid..addr\00"
+@.str.7 = private unnamed_addr constant [17 x i8] c".bound_tid..addr\00"
+@.str.8 = private unnamed_addr constant [15 x i8] c"blablabla.addr\00"
+@.str.9 = private unnamed_addr constant [15 x i8] c"blablabla.addr\00"
+@.str.10 = private unnamed_addr constant [8 x i8] c".omp.lb\00"
+@.str.11 = private unnamed_addr constant [8 x i8] c".omp.ub\00"
+@.str.12 = private unnamed_addr constant [12 x i8] c".omp.stride\00"
+@.str.13 = private unnamed_addr constant [13 x i8] c".omp.is_last\00"
+@.str.14 = private unnamed_addr constant [20 x i8] c"NO VARNAME ATTACHED\00"
+@.str.15 = private unnamed_addr constant [18 x i8] c".global_tid..addr\00"
+@.str.16 = private unnamed_addr constant [18 x i8] c".global_tid..addr\00"
+@.str.17 = private unnamed_addr constant [8 x i8] c".omp.ub\00"
+@.str.18 = private unnamed_addr constant [8 x i8] c".omp.ub\00"
+@.str.19 = private unnamed_addr constant [8 x i8] c".omp.ub\00"
+@.str.20 = private unnamed_addr constant [8 x i8] c".omp.lb\00"
+@.str.21 = private unnamed_addr constant [8 x i8] c".omp.iv\00"
+@.str.22 = private unnamed_addr constant [8 x i8] c".omp.iv\00"
+@.str.23 = private unnamed_addr constant [8 x i8] c".omp.ub\00"
+@.str.24 = private unnamed_addr constant [8 x i8] c".omp.iv\00"
+@.str.25 = private unnamed_addr constant [2 x i8] c"i\00"
+@.str.26 = private unnamed_addr constant [15 x i8] c"blablabla.addr\00"
+@.str.27 = private unnamed_addr constant [2 x i8] c"c\00"
+@.str.28 = private unnamed_addr constant [20 x i8] c"NO VARNAME ATTACHED\00"
+@.str.29 = private unnamed_addr constant [15 x i8] c"blablabla.addr\00"
+@.str.30 = private unnamed_addr constant [15 x i8] c"blablabla.addr\00"
+@.str.31 = private unnamed_addr constant [8 x i8] c".omp.iv\00"
+@.str.32 = private unnamed_addr constant [8 x i8] c".omp.iv\00"
+@.str.33 = private unnamed_addr constant [20 x i8] c"NO VARNAME ATTACHED\00"
 
 ; Function Attrs: nounwind uwtable
 define i32 @main() #0 !dbg !6 {
 entry:
   call void @__DiscoPoPOpenMPInitialize()
   %retval = alloca i32, align 4
-  %number = alloca i32, align 4
   %i = alloca i32, align 4
-  %a = alloca i32, align 4
+  %blablabla = alloca i32, align 4
   %.kmpc_loc.addr = alloca %ident_t, align 8
   %0 = bitcast %ident_t* %.kmpc_loc.addr to i8*
   %1 = bitcast %ident_t* @0 to i8*
   call void @llvm.memcpy.p0i8.p0i8.i64(i8* %0, i8* %1, i64 24, i32 8, i1 false)
   store i32 0, i32* %retval, align 4
-  call void @llvm.dbg.declare(metadata i32* %number, metadata !10, metadata !11), !dbg !12
-  call void @llvm.dbg.declare(metadata i32* %i, metadata !13, metadata !11), !dbg !14
-  call void @omp_set_num_threads(i32 4), !dbg !15
-  call void @omp_set_nested(i32 1), !dbg !16
-  call void @llvm.dbg.declare(metadata i32* %a, metadata !17, metadata !11), !dbg !18
-  %2 = ptrtoint i32* %a to i64
-  call void @__DiscoPoPOpenMPWrite(i64 %2)
-  store i32 10, i32* %a, align 4, !dbg !18
-  %3 = getelementptr inbounds %ident_t, %ident_t* %.kmpc_loc.addr, i32 0, i32 4, !dbg !19
+  call void @llvm.dbg.declare(metadata i32* %i, metadata !10, metadata !11), !dbg !12
+  call void @omp_set_num_threads(i32 4), !dbg !13
+  call void @llvm.dbg.declare(metadata i32* %blablabla, metadata !14, metadata !11), !dbg !15
+  %call = call i32 @omp_get_thread_num(), !dbg !16
+  %call1 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([39 x i8], [39 x i8]* @.str, i32 0, i32 0), i32 %call), !dbg !17
+  %2 = ptrtoint i32* %blablabla to i64
+  call void @__DiscoPoPOpenMPWrite(i64 %2, i8* getelementptr inbounds ([10 x i8], [10 x i8]* @.str.2, i32 0, i32 0))
+  store i32 10000, i32* %blablabla, align 4, !dbg !19
+  %3 = getelementptr inbounds %ident_t, %ident_t* %.kmpc_loc.addr, i32 0, i32 4, !dbg !20
   %4 = ptrtoint i8** %3 to i64
-  call void @__DiscoPoPOpenMPWrite(i64 %4)
-  store i8* getelementptr inbounds ([27 x i8], [27 x i8]* @5, i32 0, i32 0), i8** %3, align 8, !dbg !19
-  call void @__DiscoPoPOpenMPBeforeCall(i8* getelementptr inbounds ([79 x i8], [79 x i8]* @.str.2, i32 0, i32 0))
-  call void (%ident_t*, i32, void (i32*, i32*, ...)*, ...) @__kmpc_fork_call(%ident_t* %.kmpc_loc.addr, i32 2, void (i32*, i32*, ...)* bitcast (void (i32*, i32*, i32*, i32*)* @.omp_outlined. to void (i32*, i32*, ...)*), i32* %a, i32* %i), !dbg !19
-  call void @__DiscoPoPOpenMPAfterCall()
+  call void @__DiscoPoPOpenMPWrite(i64 %4, i8* getelementptr inbounds ([20 x i8], [20 x i8]* @.str.3, i32 0, i32 0))
+  store i8* getelementptr inbounds ([27 x i8], [27 x i8]* @1, i32 0, i32 0), i8** %3, align 8, !dbg !20
+  call void (%ident_t*, i32, void (i32*, i32*, ...)*, ...) @__kmpc_fork_call(%ident_t* %.kmpc_loc.addr, i32 1, void (i32*, i32*, ...)* bitcast (void (i32*, i32*, i32*)* @.omp_outlined. to void (i32*, i32*, ...)*), i32* %blablabla), !dbg !20
   call void @__DiscoPoPOpenMPFinalize()
-  ret i32 0, !dbg !20
+  ret i32 0, !dbg !21
 }
 
 ; Function Attrs: nounwind readnone
@@ -63,250 +79,178 @@ declare void @llvm.dbg.declare(metadata, metadata, metadata) #1
 
 declare void @omp_set_num_threads(i32) #2
 
-declare void @omp_set_nested(i32) #2
+declare i32 @printf(i8*, ...) #2
+
+declare i32 @omp_get_thread_num() #2
 
 ; Function Attrs: nounwind uwtable
-define internal void @.omp_outlined.(i32* noalias %.global_tid., i32* noalias %.bound_tid., i32* dereferenceable(4) %a, i32* dereferenceable(4) %i) #0 !dbg !21 {
+define internal void @.omp_outlined.(i32* noalias %.global_tid., i32* noalias %.bound_tid., i32* dereferenceable(4) %blablabla) #0 !dbg !22 {
 entry:
+  call void @__DiscoPoPOpenMPBeforeCall(i8* getelementptr inbounds ([28 x i8], [28 x i8]* @.str.5, i32 0, i32 0))
   %.global_tid..addr = alloca i32*, align 8
   %.bound_tid..addr = alloca i32*, align 8
-  %a.addr = alloca i32*, align 8
-  %i.addr = alloca i32*, align 8
-  %.kmpc_loc.addr = alloca %ident_t, align 8
-  %0 = bitcast %ident_t* %.kmpc_loc.addr to i8*
-  %1 = bitcast %ident_t* @0 to i8*
-  call void @llvm.memcpy.p0i8.p0i8.i64(i8* %0, i8* %1, i64 24, i32 8, i1 false)
-  %2 = ptrtoint i32** %.global_tid..addr to i64
-  call void @__DiscoPoPOpenMPWrite(i64 %2)
-  store i32* %.global_tid., i32** %.global_tid..addr, align 8
-  call void @llvm.dbg.declare(metadata i32** %.global_tid..addr, metadata !28, metadata !11), !dbg !29
-  %3 = ptrtoint i32** %.bound_tid..addr to i64
-  call void @__DiscoPoPOpenMPWrite(i64 %3)
-  store i32* %.bound_tid., i32** %.bound_tid..addr, align 8
-  call void @llvm.dbg.declare(metadata i32** %.bound_tid..addr, metadata !30, metadata !11), !dbg !29
-  %4 = ptrtoint i32** %a.addr to i64
-  call void @__DiscoPoPOpenMPWrite(i64 %4)
-  store i32* %a, i32** %a.addr, align 8
-  call void @llvm.dbg.declare(metadata i32** %a.addr, metadata !31, metadata !11), !dbg !29
-  %5 = ptrtoint i32** %i.addr to i64
-  call void @__DiscoPoPOpenMPWrite(i64 %5)
-  store i32* %i, i32** %i.addr, align 8
-  call void @llvm.dbg.declare(metadata i32** %i.addr, metadata !32, metadata !11), !dbg !29
-  %6 = ptrtoint i32** %a.addr to i64
-  call void @__DiscoPoPOpenMPRead(i64 %6, i32 8, i32 0, i32 0)
-  %7 = load i32*, i32** %a.addr, align 8, !dbg !33
-  %8 = ptrtoint i32** %i.addr to i64
-  call void @__DiscoPoPOpenMPRead(i64 %8, i32 8, i32 0, i32 0)
-  %9 = load i32*, i32** %i.addr, align 8, !dbg !33
-  %10 = ptrtoint i32* %7 to i64
-  call void @__DiscoPoPOpenMPWrite(i64 %10)
-  store i32 12, i32* %7, align 4, !dbg !34
-  %11 = getelementptr inbounds %ident_t, %ident_t* %.kmpc_loc.addr, i32 0, i32 4, !dbg !36
-  %12 = ptrtoint i8** %11 to i64
-  call void @__DiscoPoPOpenMPWrite(i64 %12)
-  store i8* getelementptr inbounds ([27 x i8], [27 x i8]* @4, i32 0, i32 0), i8** %11, align 8, !dbg !36
-  call void @__DiscoPoPOpenMPBeforeCall(i8* getelementptr inbounds ([79 x i8], [79 x i8]* @.str.4, i32 0, i32 0))
-  call void (%ident_t*, i32, void (i32*, i32*, ...)*, ...) @__kmpc_fork_call(%ident_t* %.kmpc_loc.addr, i32 2, void (i32*, i32*, ...)* bitcast (void (i32*, i32*, i32*, i32*)* @.omp_outlined..1 to void (i32*, i32*, ...)*), i32* %7, i32* %9), !dbg !36
-  call void @__DiscoPoPOpenMPAfterCall()
-  ret void, !dbg !37
-}
-
-; Function Attrs: nounwind uwtable
-define internal void @.omp_outlined..1(i32* noalias %.global_tid., i32* noalias %.bound_tid., i32* dereferenceable(4) %a, i32* dereferenceable(4) %i) #0 !dbg !38 {
-entry:
-  %.global_tid..addr = alloca i32*, align 8
-  %.bound_tid..addr = alloca i32*, align 8
-  %a.addr = alloca i32*, align 8
-  %i.addr = alloca i32*, align 8
-  %.kmpc_loc.addr = alloca %ident_t, align 8
-  %0 = bitcast %ident_t* %.kmpc_loc.addr to i8*
-  %1 = bitcast %ident_t* @0 to i8*
-  call void @llvm.memcpy.p0i8.p0i8.i64(i8* %0, i8* %1, i64 24, i32 8, i1 false)
+  %blablabla.addr = alloca i32*, align 8
   %.omp.iv = alloca i32, align 4
   %.omp.lb = alloca i32, align 4
   %.omp.ub = alloca i32, align 4
   %.omp.stride = alloca i32, align 4
   %.omp.is_last = alloca i32, align 4
-  %a1 = alloca i32, align 4
-  %i2 = alloca i32, align 4
-  %b = alloca i32, align 4
+  %i = alloca i32, align 4
+  %.kmpc_loc.addr = alloca %ident_t, align 8
+  %0 = bitcast %ident_t* %.kmpc_loc.addr to i8*
+  %1 = bitcast %ident_t* @0 to i8*
+  call void @llvm.memcpy.p0i8.p0i8.i64(i8* %0, i8* %1, i64 24, i32 8, i1 false)
+  %c = alloca i32, align 4
   %2 = ptrtoint i32** %.global_tid..addr to i64
-  call void @__DiscoPoPOpenMPWrite(i64 %2)
+  call void @__DiscoPoPOpenMPWrite(i64 %2, i8* getelementptr inbounds ([18 x i8], [18 x i8]* @.str.6, i32 0, i32 0))
   store i32* %.global_tid., i32** %.global_tid..addr, align 8
-  call void @llvm.dbg.declare(metadata i32** %.global_tid..addr, metadata !39, metadata !11), !dbg !40
+  call void @llvm.dbg.declare(metadata i32** %.global_tid..addr, metadata !29, metadata !11), !dbg !30
   %3 = ptrtoint i32** %.bound_tid..addr to i64
-  call void @__DiscoPoPOpenMPWrite(i64 %3)
+  call void @__DiscoPoPOpenMPWrite(i64 %3, i8* getelementptr inbounds ([17 x i8], [17 x i8]* @.str.7, i32 0, i32 0))
   store i32* %.bound_tid., i32** %.bound_tid..addr, align 8
-  call void @llvm.dbg.declare(metadata i32** %.bound_tid..addr, metadata !41, metadata !11), !dbg !40
-  %4 = ptrtoint i32** %a.addr to i64
-  call void @__DiscoPoPOpenMPWrite(i64 %4)
-  store i32* %a, i32** %a.addr, align 8
-  call void @llvm.dbg.declare(metadata i32** %a.addr, metadata !42, metadata !11), !dbg !40
-  %5 = ptrtoint i32** %i.addr to i64
-  call void @__DiscoPoPOpenMPWrite(i64 %5)
-  store i32* %i, i32** %i.addr, align 8
-  call void @llvm.dbg.declare(metadata i32** %i.addr, metadata !43, metadata !11), !dbg !40
-  %6 = ptrtoint i32** %a.addr to i64
-  call void @__DiscoPoPOpenMPRead(i64 %6, i32 8, i32 0, i32 0)
-  %7 = load i32*, i32** %a.addr, align 8, !dbg !44
-  %8 = ptrtoint i32** %i.addr to i64
-  call void @__DiscoPoPOpenMPRead(i64 %8, i32 8, i32 0, i32 0)
-  %9 = load i32*, i32** %i.addr, align 8, !dbg !44
-  %10 = getelementptr inbounds %ident_t, %ident_t* %.kmpc_loc.addr, i32 0, i32 4, !dbg !45
-  %11 = ptrtoint i8** %10 to i64
-  call void @__DiscoPoPOpenMPWrite(i64 %11)
-  store i8* getelementptr inbounds ([27 x i8], [27 x i8]* @1, i32 0, i32 0), i8** %10, align 8, !dbg !45
-  %12 = ptrtoint i32** %.global_tid..addr to i64
-  call void @__DiscoPoPOpenMPRead(i64 %12, i32 8, i32 0, i32 0)
-  %13 = load i32*, i32** %.global_tid..addr, align 8, !dbg !45
-  %14 = ptrtoint i32* %13 to i64
-  call void @__DiscoPoPOpenMPRead(i64 %14, i32 4, i32 0, i32 0)
-  %15 = load i32, i32* %13, align 4, !dbg !45
-  call void @__DiscoPoPOpenMPBeforeCall(i8* getelementptr inbounds ([78 x i8], [78 x i8]* @.str.6, i32 0, i32 0))
-  call void @__kmpc_critical(%ident_t* %.kmpc_loc.addr, i32 %15, [8 x i32]* @.gomp_critical_user_.var), !dbg !45
-  call void @__DiscoPoPOpenMPAfterCall()
-  %16 = ptrtoint i32* %7 to i64
-  call void @__DiscoPoPOpenMPRead(i64 %16, i32 4, i32 0, i32 0)
-  %17 = load i32, i32* %7, align 4, !dbg !47
-  %inc = add nsw i32 %17, 1, !dbg !47
-  %18 = ptrtoint i32* %7 to i64
-  call void @__DiscoPoPOpenMPWrite(i64 %18)
-  store i32 %inc, i32* %7, align 4, !dbg !47
-  call void @__kmpc_end_critical(%ident_t* %.kmpc_loc.addr, i32 %15, [8 x i32]* @.gomp_critical_user_.var), !dbg !49
-  call void @llvm.dbg.declare(metadata i32* %.omp.iv, metadata !50, metadata !11), !dbg !52
-  call void @llvm.dbg.declare(metadata i32* %.omp.lb, metadata !53, metadata !11), !dbg !52
-  %19 = ptrtoint i32* %.omp.lb to i64
-  call void @__DiscoPoPOpenMPWrite(i64 %19)
-  store i32 0, i32* %.omp.lb, align 4, !dbg !54
-  call void @llvm.dbg.declare(metadata i32* %.omp.ub, metadata !55, metadata !11), !dbg !52
-  %20 = ptrtoint i32* %.omp.ub to i64
-  call void @__DiscoPoPOpenMPWrite(i64 %20)
-  store i32 19, i32* %.omp.ub, align 4, !dbg !54
-  call void @llvm.dbg.declare(metadata i32* %.omp.stride, metadata !56, metadata !11), !dbg !52
-  %21 = ptrtoint i32* %.omp.stride to i64
-  call void @__DiscoPoPOpenMPWrite(i64 %21)
-  store i32 1, i32* %.omp.stride, align 4, !dbg !54
-  call void @llvm.dbg.declare(metadata i32* %.omp.is_last, metadata !57, metadata !11), !dbg !52
-  %22 = ptrtoint i32* %.omp.is_last to i64
-  call void @__DiscoPoPOpenMPWrite(i64 %22)
-  store i32 0, i32* %.omp.is_last, align 4, !dbg !54
-  call void @llvm.dbg.declare(metadata i32* %a1, metadata !58, metadata !11), !dbg !52
-  %23 = ptrtoint i32* %7 to i64
-  call void @__DiscoPoPOpenMPRead(i64 %23, i32 4, i32 0, i32 0)
-  %24 = load i32, i32* %7, align 4, !dbg !59
-  %25 = ptrtoint i32* %a1 to i64
-  call void @__DiscoPoPOpenMPWrite(i64 %25)
-  store i32 %24, i32* %a1, align 4, !dbg !59
-  call void @llvm.dbg.declare(metadata i32* %i2, metadata !60, metadata !11), !dbg !52
-  %26 = getelementptr inbounds %ident_t, %ident_t* %.kmpc_loc.addr, i32 0, i32 4, !dbg !61
-  %27 = ptrtoint i8** %26 to i64
-  call void @__DiscoPoPOpenMPWrite(i64 %27)
-  store i8* getelementptr inbounds ([27 x i8], [27 x i8]* @2, i32 0, i32 0), i8** %26, align 8, !dbg !61
-  call void @__DiscoPoPOpenMPBeforeCall(i8* getelementptr inbounds ([87 x i8], [87 x i8]* @.str.8, i32 0, i32 0))
-  call void @__kmpc_for_static_init_4(%ident_t* %.kmpc_loc.addr, i32 %15, i32 34, i32* %.omp.is_last, i32* %.omp.lb, i32* %.omp.ub, i32* %.omp.stride, i32 1, i32 1), !dbg !61
-  call void @__DiscoPoPOpenMPAfterCall()
-  %28 = ptrtoint i32* %.omp.ub to i64
-  call void @__DiscoPoPOpenMPRead(i64 %28, i32 4, i32 0, i32 0)
-  %29 = load i32, i32* %.omp.ub, align 4, !dbg !54
-  %cmp = icmp sgt i32 %29, 19, !dbg !54
-  br i1 %cmp, label %cond.true, label %cond.false, !dbg !54
+  call void @llvm.dbg.declare(metadata i32** %.bound_tid..addr, metadata !31, metadata !11), !dbg !30
+  %4 = ptrtoint i32** %blablabla.addr to i64
+  call void @__DiscoPoPOpenMPWrite(i64 %4, i8* getelementptr inbounds ([15 x i8], [15 x i8]* @.str.8, i32 0, i32 0))
+  store i32* %blablabla, i32** %blablabla.addr, align 8
+  call void @llvm.dbg.declare(metadata i32** %blablabla.addr, metadata !32, metadata !11), !dbg !30
+  %5 = ptrtoint i32** %blablabla.addr to i64
+  call void @__DiscoPoPOpenMPRead(i64 %5, i32 8, i32 0, i32 0, i8* getelementptr inbounds ([15 x i8], [15 x i8]* @.str.9, i32 0, i32 0))
+  %6 = load i32*, i32** %blablabla.addr, align 8, !dbg !33
+  call void @llvm.dbg.declare(metadata i32* %.omp.iv, metadata !34, metadata !11), !dbg !30
+  call void @llvm.dbg.declare(metadata i32* %.omp.lb, metadata !35, metadata !11), !dbg !30
+  %7 = ptrtoint i32* %.omp.lb to i64
+  call void @__DiscoPoPOpenMPWrite(i64 %7, i8* getelementptr inbounds ([8 x i8], [8 x i8]* @.str.10, i32 0, i32 0))
+  store i32 0, i32* %.omp.lb, align 4, !dbg !36
+  call void @llvm.dbg.declare(metadata i32* %.omp.ub, metadata !37, metadata !11), !dbg !30
+  %8 = ptrtoint i32* %.omp.ub to i64
+  call void @__DiscoPoPOpenMPWrite(i64 %8, i8* getelementptr inbounds ([8 x i8], [8 x i8]* @.str.11, i32 0, i32 0))
+  store i32 3, i32* %.omp.ub, align 4, !dbg !36
+  call void @llvm.dbg.declare(metadata i32* %.omp.stride, metadata !38, metadata !11), !dbg !30
+  %9 = ptrtoint i32* %.omp.stride to i64
+  call void @__DiscoPoPOpenMPWrite(i64 %9, i8* getelementptr inbounds ([12 x i8], [12 x i8]* @.str.12, i32 0, i32 0))
+  store i32 1, i32* %.omp.stride, align 4, !dbg !36
+  call void @llvm.dbg.declare(metadata i32* %.omp.is_last, metadata !39, metadata !11), !dbg !30
+  %10 = ptrtoint i32* %.omp.is_last to i64
+  call void @__DiscoPoPOpenMPWrite(i64 %10, i8* getelementptr inbounds ([13 x i8], [13 x i8]* @.str.13, i32 0, i32 0))
+  store i32 0, i32* %.omp.is_last, align 4, !dbg !36
+  call void @llvm.dbg.declare(metadata i32* %i, metadata !40, metadata !11), !dbg !30
+  %11 = getelementptr inbounds %ident_t, %ident_t* %.kmpc_loc.addr, i32 0, i32 4, !dbg !33
+  %12 = ptrtoint i8** %11 to i64
+  call void @__DiscoPoPOpenMPWrite(i64 %12, i8* getelementptr inbounds ([20 x i8], [20 x i8]* @.str.14, i32 0, i32 0))
+  store i8* getelementptr inbounds ([27 x i8], [27 x i8]* @1, i32 0, i32 0), i8** %11, align 8, !dbg !33
+  %13 = ptrtoint i32** %.global_tid..addr to i64
+  call void @__DiscoPoPOpenMPRead(i64 %13, i32 8, i32 0, i32 0, i8* getelementptr inbounds ([18 x i8], [18 x i8]* @.str.15, i32 0, i32 0))
+  %14 = load i32*, i32** %.global_tid..addr, align 8, !dbg !33
+  %15 = ptrtoint i32* %14 to i64
+  call void @__DiscoPoPOpenMPRead(i64 %15, i32 4, i32 0, i32 0, i8* getelementptr inbounds ([18 x i8], [18 x i8]* @.str.16, i32 0, i32 0))
+  %16 = load i32, i32* %14, align 4, !dbg !33
+  call void @__kmpc_for_static_init_4(%ident_t* %.kmpc_loc.addr, i32 %16, i32 34, i32* %.omp.is_last, i32* %.omp.lb, i32* %.omp.ub, i32* %.omp.stride, i32 1, i32 1), !dbg !33
+  %17 = ptrtoint i32* %.omp.ub to i64
+  call void @__DiscoPoPOpenMPRead(i64 %17, i32 4, i32 0, i32 0, i8* getelementptr inbounds ([8 x i8], [8 x i8]* @.str.17, i32 0, i32 0))
+  %18 = load i32, i32* %.omp.ub, align 4, !dbg !36
+  %cmp = icmp sgt i32 %18, 3, !dbg !36
+  br i1 %cmp, label %cond.true, label %cond.false, !dbg !36
 
 cond.true:                                        ; preds = %entry
-  br label %cond.end, !dbg !62
+  br label %cond.end, !dbg !41
 
 cond.false:                                       ; preds = %entry
-  %30 = ptrtoint i32* %.omp.ub to i64
-  call void @__DiscoPoPOpenMPRead(i64 %30, i32 4, i32 0, i32 0)
-  %31 = load i32, i32* %.omp.ub, align 4, !dbg !64
-  br label %cond.end, !dbg !64
+  %19 = ptrtoint i32* %.omp.ub to i64
+  call void @__DiscoPoPOpenMPRead(i64 %19, i32 4, i32 0, i32 0, i8* getelementptr inbounds ([8 x i8], [8 x i8]* @.str.18, i32 0, i32 0))
+  %20 = load i32, i32* %.omp.ub, align 4, !dbg !43
+  br label %cond.end, !dbg !43
 
 cond.end:                                         ; preds = %cond.false, %cond.true
-  %cond = phi i32 [ 19, %cond.true ], [ %31, %cond.false ], !dbg !66
-  %32 = ptrtoint i32* %.omp.ub to i64
-  call void @__DiscoPoPOpenMPWrite(i64 %32)
-  store i32 %cond, i32* %.omp.ub, align 4, !dbg !66
-  %33 = ptrtoint i32* %.omp.lb to i64
-  call void @__DiscoPoPOpenMPRead(i64 %33, i32 4, i32 0, i32 0)
-  %34 = load i32, i32* %.omp.lb, align 4, !dbg !66
-  %35 = ptrtoint i32* %.omp.iv to i64
-  call void @__DiscoPoPOpenMPWrite(i64 %35)
-  store i32 %34, i32* %.omp.iv, align 4, !dbg !66
-  br label %omp.inner.for.cond, !dbg !68
+  %cond = phi i32 [ 3, %cond.true ], [ %20, %cond.false ], !dbg !45
+  %21 = ptrtoint i32* %.omp.ub to i64
+  call void @__DiscoPoPOpenMPWrite(i64 %21, i8* getelementptr inbounds ([8 x i8], [8 x i8]* @.str.19, i32 0, i32 0))
+  store i32 %cond, i32* %.omp.ub, align 4, !dbg !45
+  %22 = ptrtoint i32* %.omp.lb to i64
+  call void @__DiscoPoPOpenMPRead(i64 %22, i32 4, i32 0, i32 0, i8* getelementptr inbounds ([8 x i8], [8 x i8]* @.str.20, i32 0, i32 0))
+  %23 = load i32, i32* %.omp.lb, align 4, !dbg !45
+  %24 = ptrtoint i32* %.omp.iv to i64
+  call void @__DiscoPoPOpenMPWrite(i64 %24, i8* getelementptr inbounds ([8 x i8], [8 x i8]* @.str.21, i32 0, i32 0))
+  store i32 %23, i32* %.omp.iv, align 4, !dbg !45
+  br label %omp.inner.for.cond, !dbg !47
 
 omp.inner.for.cond:                               ; preds = %omp.inner.for.inc, %cond.end
-  %36 = ptrtoint i32* %.omp.iv to i64
-  call void @__DiscoPoPOpenMPRead(i64 %36, i32 4, i32 0, i32 0)
-  %37 = load i32, i32* %.omp.iv, align 4, !dbg !70
-  %38 = ptrtoint i32* %.omp.ub to i64
-  call void @__DiscoPoPOpenMPRead(i64 %38, i32 4, i32 0, i32 0)
-  %39 = load i32, i32* %.omp.ub, align 4, !dbg !70
-  %cmp3 = icmp sle i32 %37, %39, !dbg !52
-  br i1 %cmp3, label %omp.inner.for.body, label %omp.inner.for.end, !dbg !72
+  %25 = ptrtoint i32* %.omp.iv to i64
+  call void @__DiscoPoPOpenMPRead(i64 %25, i32 4, i32 0, i32 0, i8* getelementptr inbounds ([8 x i8], [8 x i8]* @.str.22, i32 0, i32 0))
+  %26 = load i32, i32* %.omp.iv, align 4, !dbg !48
+  %27 = ptrtoint i32* %.omp.ub to i64
+  call void @__DiscoPoPOpenMPRead(i64 %27, i32 4, i32 0, i32 0, i8* getelementptr inbounds ([8 x i8], [8 x i8]* @.str.23, i32 0, i32 0))
+  %28 = load i32, i32* %.omp.ub, align 4, !dbg !48
+  %cmp1 = icmp sle i32 %26, %28, !dbg !30
+  br i1 %cmp1, label %omp.inner.for.body, label %omp.inner.for.end, !dbg !50
 
 omp.inner.for.body:                               ; preds = %omp.inner.for.cond
-  %40 = ptrtoint i32* %.omp.iv to i64
-  call void @__DiscoPoPOpenMPRead(i64 %40, i32 4, i32 0, i32 0)
-  %41 = load i32, i32* %.omp.iv, align 4, !dbg !74
-  %mul = mul nsw i32 %41, 1, !dbg !76
-  %add = add nsw i32 0, %mul, !dbg !76
-  %42 = ptrtoint i32* %i2 to i64
-  call void @__DiscoPoPOpenMPWrite(i64 %42)
-  store i32 %add, i32* %i2, align 4, !dbg !76
-  call void @llvm.dbg.declare(metadata i32* %b, metadata !77, metadata !11), !dbg !79
-  %43 = ptrtoint i32* %a1 to i64
-  call void @__DiscoPoPOpenMPRead(i64 %43, i32 4, i32 0, i32 0)
-  %44 = load i32, i32* %a1, align 4, !dbg !80
-  %45 = ptrtoint i32* %b to i64
-  call void @__DiscoPoPOpenMPWrite(i64 %45)
-  store i32 %44, i32* %b, align 4, !dbg !79
-  br label %omp.body.continue, !dbg !81
+  %29 = ptrtoint i32* %.omp.iv to i64
+  call void @__DiscoPoPOpenMPRead(i64 %29, i32 4, i32 0, i32 0, i8* getelementptr inbounds ([8 x i8], [8 x i8]* @.str.24, i32 0, i32 0))
+  %30 = load i32, i32* %.omp.iv, align 4, !dbg !51
+  %mul = mul nsw i32 %30, 1, !dbg !53
+  %add = add nsw i32 0, %mul, !dbg !53
+  %31 = ptrtoint i32* %i to i64
+  call void @__DiscoPoPOpenMPWrite(i64 %31, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @.str.25, i32 0, i32 0))
+  store i32 %add, i32* %i, align 4, !dbg !53
+  call void @llvm.dbg.declare(metadata i32* %c, metadata !54, metadata !11), !dbg !56
+  %32 = ptrtoint i32* %6 to i64
+  call void @__DiscoPoPOpenMPRead(i64 %32, i32 4, i32 0, i32 0, i8* getelementptr inbounds ([15 x i8], [15 x i8]* @.str.26, i32 0, i32 0))
+  %33 = load i32, i32* %6, align 4, !dbg !57
+  %add2 = add nsw i32 %33, 9, !dbg !58
+  %34 = ptrtoint i32* %c to i64
+  call void @__DiscoPoPOpenMPWrite(i64 %34, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @.str.27, i32 0, i32 0))
+  store i32 %add2, i32* %c, align 4, !dbg !56
+  %35 = getelementptr inbounds %ident_t, %ident_t* %.kmpc_loc.addr, i32 0, i32 4, !dbg !59
+  %36 = ptrtoint i8** %35 to i64
+  call void @__DiscoPoPOpenMPWrite(i64 %36, i8* getelementptr inbounds ([20 x i8], [20 x i8]* @.str.28, i32 0, i32 0))
+  store i8* getelementptr inbounds ([27 x i8], [27 x i8]* @2, i32 0, i32 0), i8** %35, align 8, !dbg !59
+  call void @__kmpc_critical(%ident_t* %.kmpc_loc.addr, i32 %16, [8 x i32]* @.gomp_critical_user_.var), !dbg !59
+  %37 = ptrtoint i32* %6 to i64
+  call void @__DiscoPoPOpenMPRead(i64 %37, i32 4, i32 0, i32 0, i8* getelementptr inbounds ([15 x i8], [15 x i8]* @.str.29, i32 0, i32 0))
+  %38 = load i32, i32* %6, align 4, !dbg !60
+  %inc = add nsw i32 %38, 1, !dbg !60
+  %39 = ptrtoint i32* %6 to i64
+  call void @__DiscoPoPOpenMPWrite(i64 %39, i8* getelementptr inbounds ([15 x i8], [15 x i8]* @.str.30, i32 0, i32 0))
+  store i32 %inc, i32* %6, align 4, !dbg !60
+  call void @__kmpc_end_critical(%ident_t* %.kmpc_loc.addr, i32 %16, [8 x i32]* @.gomp_critical_user_.var), !dbg !62
+  br label %omp.body.continue, !dbg !63
 
 omp.body.continue:                                ; preds = %omp.inner.for.body
-  br label %omp.inner.for.inc, !dbg !82
+  br label %omp.inner.for.inc, !dbg !64
 
 omp.inner.for.inc:                                ; preds = %omp.body.continue
-  %46 = ptrtoint i32* %.omp.iv to i64
-  call void @__DiscoPoPOpenMPRead(i64 %46, i32 4, i32 0, i32 0)
-  %47 = load i32, i32* %.omp.iv, align 4, !dbg !83
-  %add4 = add nsw i32 %47, 1, !dbg !85
-  %48 = ptrtoint i32* %.omp.iv to i64
-  call void @__DiscoPoPOpenMPWrite(i64 %48)
-  store i32 %add4, i32* %.omp.iv, align 4, !dbg !85
-  br label %omp.inner.for.cond, !dbg !86, !llvm.loop !87
+  %40 = ptrtoint i32* %.omp.iv to i64
+  call void @__DiscoPoPOpenMPRead(i64 %40, i32 4, i32 0, i32 0, i8* getelementptr inbounds ([8 x i8], [8 x i8]* @.str.31, i32 0, i32 0))
+  %41 = load i32, i32* %.omp.iv, align 4, !dbg !65
+  %add3 = add nsw i32 %41, 1, !dbg !67
+  %42 = ptrtoint i32* %.omp.iv to i64
+  call void @__DiscoPoPOpenMPWrite(i64 %42, i8* getelementptr inbounds ([8 x i8], [8 x i8]* @.str.32, i32 0, i32 0))
+  store i32 %add3, i32* %.omp.iv, align 4, !dbg !67
+  br label %omp.inner.for.cond, !dbg !68, !llvm.loop !69
 
 omp.inner.for.end:                                ; preds = %omp.inner.for.cond
-  br label %omp.loop.exit, !dbg !88
+  br label %omp.loop.exit, !dbg !70
 
 omp.loop.exit:                                    ; preds = %omp.inner.for.end
-  %49 = getelementptr inbounds %ident_t, %ident_t* %.kmpc_loc.addr, i32 0, i32 4, !dbg !89
-  %50 = ptrtoint i8** %49 to i64
-  call void @__DiscoPoPOpenMPWrite(i64 %50)
-  store i8* getelementptr inbounds ([27 x i8], [27 x i8]* @3, i32 0, i32 0), i8** %49, align 8, !dbg !89
-  call void @__DiscoPoPOpenMPBeforeCall(i8* getelementptr inbounds ([85 x i8], [85 x i8]* @.str.10, i32 0, i32 0))
-  call void @__kmpc_for_static_fini(%ident_t* %.kmpc_loc.addr, i32 %15), !dbg !89
+  %43 = getelementptr inbounds %ident_t, %ident_t* %.kmpc_loc.addr, i32 0, i32 4, !dbg !71
+  %44 = ptrtoint i8** %43 to i64
+  call void @__DiscoPoPOpenMPWrite(i64 %44, i8* getelementptr inbounds ([20 x i8], [20 x i8]* @.str.33, i32 0, i32 0))
+  store i8* getelementptr inbounds ([27 x i8], [27 x i8]* @3, i32 0, i32 0), i8** %43, align 8, !dbg !71
+  call void @__kmpc_for_static_fini(%ident_t* %.kmpc_loc.addr, i32 %16), !dbg !71
   call void @__DiscoPoPOpenMPAfterCall()
-  %51 = getelementptr inbounds %ident_t, %ident_t* %.kmpc_loc.addr, i32 0, i32 4, !dbg !90
-  %52 = ptrtoint i8** %51 to i64
-  call void @__DiscoPoPOpenMPWrite(i64 %52)
-  store i8* getelementptr inbounds ([27 x i8], [27 x i8]* @2, i32 0, i32 0), i8** %51, align 8, !dbg !90
-  call void @__DiscoPoPOpenMPBeforeCall(i8* getelementptr inbounds ([77 x i8], [77 x i8]* @.str.12, i32 0, i32 0))
-  call void @__kmpc_barrier(%ident_t* %.kmpc_loc.addr, i32 %15), !dbg !91
-  call void @__DiscoPoPOpenMPAfterCall()
-  ret void, !dbg !93
+  ret void, !dbg !72
 }
 
 ; Function Attrs: argmemonly nounwind
 declare void @llvm.memcpy.p0i8.p0i8.i64(i8* nocapture writeonly, i8* nocapture readonly, i64, i32, i1) #3
 
+declare void @__kmpc_for_static_init_4(%ident_t*, i32, i32, i32*, i32*, i32*, i32*, i32, i32)
+
 declare void @__kmpc_end_critical(%ident_t*, i32, [8 x i32]*)
 
 declare void @__kmpc_critical(%ident_t*, i32, [8 x i32]*)
 
-declare void @__kmpc_for_static_init_4(%ident_t*, i32, i32, i32*, i32*, i32*, i32*, i32, i32)
-
 declare void @__kmpc_for_static_fini(%ident_t*, i32)
-
-declare void @__kmpc_barrier(%ident_t*, i32)
 
 declare void @__kmpc_fork_call(%ident_t*, i32, void (i32*, i32*, ...)*, ...)
 
@@ -316,9 +260,9 @@ declare void @__CollectThreadInfo()
 
 declare void @__DiscoPoPOpenMPFinalize()
 
-declare void @__DiscoPoPOpenMPRead(i64, i32, i32, i32)
+declare void @__DiscoPoPOpenMPRead(i64, i32, i32, i32, i8*)
 
-declare void @__DiscoPoPOpenMPWrite(i64)
+declare void @__DiscoPoPOpenMPWrite(i64, i8*)
 
 declare void @__DiscoPoPOpenMPBeforeCall(i8*)
 
@@ -343,87 +287,66 @@ attributes #3 = { argmemonly nounwind }
 !7 = !DISubroutineType(types: !8)
 !8 = !{!9}
 !9 = !DIBasicType(name: "int", size: 32, align: 32, encoding: DW_ATE_signed)
-!10 = !DILocalVariable(name: "number", scope: !6, file: !1, line: 9, type: !9)
+!10 = !DILocalVariable(name: "i", scope: !6, file: !1, line: 10, type: !9)
 !11 = !DIExpression()
-!12 = !DILocation(line: 9, column: 9, scope: !6)
-!13 = !DILocalVariable(name: "i", scope: !6, file: !1, line: 10, type: !9)
-!14 = !DILocation(line: 10, column: 9, scope: !6)
-!15 = !DILocation(line: 11, column: 5, scope: !6)
-!16 = !DILocation(line: 12, column: 5, scope: !6)
-!17 = !DILocalVariable(name: "a", scope: !6, file: !1, line: 14, type: !9)
-!18 = !DILocation(line: 14, column: 9, scope: !6)
-!19 = !DILocation(line: 15, column: 13, scope: !6)
-!20 = !DILocation(line: 40, column: 5, scope: !6)
-!21 = distinct !DISubprogram(name: ".omp_outlined.", scope: !1, file: !1, line: 15, type: !22, isLocal: true, isDefinition: true, scopeLine: 16, flags: DIFlagPrototyped, isOptimized: false, unit: !0, variables: !2)
-!22 = !DISubroutineType(types: !23)
-!23 = !{null, !24, !24, !27, !27}
-!24 = !DIDerivedType(tag: DW_TAG_const_type, baseType: !25)
-!25 = !DIDerivedType(tag: DW_TAG_restrict_type, baseType: !26)
-!26 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !9, size: 64, align: 64)
-!27 = !DIDerivedType(tag: DW_TAG_reference_type, baseType: !9, size: 64, align: 64)
-!28 = !DILocalVariable(name: ".global_tid.", arg: 1, scope: !21, type: !24, flags: DIFlagArtificial | DIFlagObjectPointer)
-!29 = !DILocation(line: 0, scope: !21)
-!30 = !DILocalVariable(name: ".bound_tid.", arg: 2, scope: !21, type: !24, flags: DIFlagArtificial)
-!31 = !DILocalVariable(name: "a", arg: 3, scope: !21, type: !27, flags: DIFlagArtificial)
-!32 = !DILocalVariable(name: "i", arg: 4, scope: !21, type: !27, flags: DIFlagArtificial)
-!33 = !DILocation(line: 16, column: 5, scope: !21)
-!34 = !DILocation(line: 17, column: 11, scope: !35)
-!35 = distinct !DILexicalBlock(scope: !21, file: !1, line: 16, column: 5)
-!36 = !DILocation(line: 22, column: 17, scope: !35)
-!37 = !DILocation(line: 39, column: 5, scope: !21)
-!38 = distinct !DISubprogram(name: ".omp_outlined..1", scope: !1, file: !1, line: 22, type: !22, isLocal: true, isDefinition: true, scopeLine: 23, flags: DIFlagPrototyped, isOptimized: false, unit: !0, variables: !2)
-!39 = !DILocalVariable(name: ".global_tid.", arg: 1, scope: !38, type: !24, flags: DIFlagArtificial | DIFlagObjectPointer)
-!40 = !DILocation(line: 0, scope: !38)
-!41 = !DILocalVariable(name: ".bound_tid.", arg: 2, scope: !38, type: !24, flags: DIFlagArtificial)
-!42 = !DILocalVariable(name: "a", arg: 3, scope: !38, type: !27, flags: DIFlagArtificial)
-!43 = !DILocalVariable(name: "i", arg: 4, scope: !38, type: !27, flags: DIFlagArtificial)
-!44 = !DILocation(line: 23, column: 9, scope: !38)
-!45 = !DILocation(line: 24, column: 19, scope: !46)
-!46 = distinct !DILexicalBlock(scope: !38, file: !1, line: 23, column: 9)
-!47 = !DILocation(line: 25, column: 12, scope: !48)
-!48 = distinct !DILexicalBlock(scope: !46, file: !1, line: 24, column: 19)
-!49 = !DILocation(line: 25, column: 11, scope: !48)
-!50 = !DILocalVariable(name: ".omp.iv", scope: !51, type: !9, flags: DIFlagArtificial)
-!51 = distinct !DILexicalBlock(scope: !46, file: !1, line: 31, column: 21)
-!52 = !DILocation(line: 0, scope: !51)
-!53 = !DILocalVariable(name: ".omp.lb", scope: !51, type: !9, flags: DIFlagArtificial)
-!54 = !DILocation(line: 32, column: 17, scope: !51)
-!55 = !DILocalVariable(name: ".omp.ub", scope: !51, type: !9, flags: DIFlagArtificial)
-!56 = !DILocalVariable(name: ".omp.stride", scope: !51, type: !9, flags: DIFlagArtificial)
-!57 = !DILocalVariable(name: ".omp.is_last", scope: !51, type: !9, flags: DIFlagArtificial)
-!58 = !DILocalVariable(name: "a", scope: !51, type: !9, flags: DIFlagArtificial)
-!59 = !DILocation(line: 31, column: 42, scope: !51)
-!60 = !DILocalVariable(name: "i", scope: !51, type: !9, flags: DIFlagArtificial)
-!61 = !DILocation(line: 31, column: 21, scope: !46)
-!62 = !DILocation(line: 32, column: 17, scope: !63)
-!63 = !DILexicalBlockFile(scope: !51, file: !1, discriminator: 1)
-!64 = !DILocation(line: 32, column: 17, scope: !65)
-!65 = !DILexicalBlockFile(scope: !51, file: !1, discriminator: 2)
-!66 = !DILocation(line: 32, column: 17, scope: !67)
-!67 = !DILexicalBlockFile(scope: !51, file: !1, discriminator: 3)
-!68 = !DILocation(line: 31, column: 21, scope: !69)
-!69 = !DILexicalBlockFile(scope: !46, file: !1, discriminator: 1)
-!70 = !DILocation(line: 32, column: 17, scope: !71)
-!71 = !DILexicalBlockFile(scope: !51, file: !1, discriminator: 4)
-!72 = !DILocation(line: 31, column: 21, scope: !73)
-!73 = !DILexicalBlockFile(scope: !46, file: !1, discriminator: 2)
-!74 = !DILocation(line: 32, column: 17, scope: !75)
-!75 = !DILexicalBlockFile(scope: !51, file: !1, discriminator: 5)
-!76 = !DILocation(line: 32, column: 26, scope: !75)
-!77 = !DILocalVariable(name: "b", scope: !78, file: !1, line: 35, type: !9)
-!78 = distinct !DILexicalBlock(scope: !51, file: !1, line: 33, column: 13)
-!79 = !DILocation(line: 35, column: 19, scope: !78)
-!80 = !DILocation(line: 35, column: 21, scope: !78)
-!81 = !DILocation(line: 37, column: 13, scope: !78)
-!82 = !DILocation(line: 31, column: 21, scope: !67)
-!83 = !DILocation(line: 32, column: 17, scope: !84)
-!84 = !DILexicalBlockFile(scope: !51, file: !1, discriminator: 6)
-!85 = !DILocation(line: 0, scope: !63)
-!86 = !DILocation(line: 31, column: 21, scope: !71)
-!87 = distinct !{!87, !61}
-!88 = !DILocation(line: 31, column: 21, scope: !75)
-!89 = !DILocation(line: 31, column: 21, scope: !84)
-!90 = !DILocation(line: 31, column: 45, scope: !84)
-!91 = !DILocation(line: 31, column: 45, scope: !92)
-!92 = !DILexicalBlockFile(scope: !84, file: !1, discriminator: 7)
-!93 = !DILocation(line: 38, column: 9, scope: !38)
+!12 = !DILocation(line: 10, column: 9, scope: !6)
+!13 = !DILocation(line: 11, column: 5, scope: !6)
+!14 = !DILocalVariable(name: "blablabla", scope: !6, file: !1, line: 13, type: !9)
+!15 = !DILocation(line: 13, column: 9, scope: !6)
+!16 = !DILocation(line: 17, column: 58, scope: !6)
+!17 = !DILocation(line: 17, column: 8, scope: !18)
+!18 = !DILexicalBlockFile(scope: !6, file: !1, discriminator: 1)
+!19 = !DILocation(line: 21, column: 14, scope: !6)
+!20 = !DILocation(line: 29, column: 21, scope: !6)
+!21 = !DILocation(line: 39, column: 5, scope: !6)
+!22 = distinct !DISubprogram(name: ".omp_outlined.", scope: !1, file: !1, line: 29, type: !23, isLocal: true, isDefinition: true, scopeLine: 30, flags: DIFlagPrototyped, isOptimized: false, unit: !0, variables: !2)
+!23 = !DISubroutineType(types: !24)
+!24 = !{null, !25, !25, !28}
+!25 = !DIDerivedType(tag: DW_TAG_const_type, baseType: !26)
+!26 = !DIDerivedType(tag: DW_TAG_restrict_type, baseType: !27)
+!27 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !9, size: 64, align: 64)
+!28 = !DIDerivedType(tag: DW_TAG_reference_type, baseType: !9, size: 64, align: 64)
+!29 = !DILocalVariable(name: ".global_tid.", arg: 1, scope: !22, type: !25, flags: DIFlagArtificial | DIFlagObjectPointer)
+!30 = !DILocation(line: 0, scope: !22)
+!31 = !DILocalVariable(name: ".bound_tid.", arg: 2, scope: !22, type: !25, flags: DIFlagArtificial)
+!32 = !DILocalVariable(name: "blablabla", arg: 3, scope: !22, type: !28, flags: DIFlagArtificial)
+!33 = !DILocation(line: 30, column: 13, scope: !22)
+!34 = !DILocalVariable(name: ".omp.iv", scope: !22, type: !9, flags: DIFlagArtificial)
+!35 = !DILocalVariable(name: ".omp.lb", scope: !22, type: !9, flags: DIFlagArtificial)
+!36 = !DILocation(line: 30, column: 17, scope: !22)
+!37 = !DILocalVariable(name: ".omp.ub", scope: !22, type: !9, flags: DIFlagArtificial)
+!38 = !DILocalVariable(name: ".omp.stride", scope: !22, type: !9, flags: DIFlagArtificial)
+!39 = !DILocalVariable(name: ".omp.is_last", scope: !22, type: !9, flags: DIFlagArtificial)
+!40 = !DILocalVariable(name: "i", scope: !22, type: !9, flags: DIFlagArtificial)
+!41 = !DILocation(line: 30, column: 17, scope: !42)
+!42 = !DILexicalBlockFile(scope: !22, file: !1, discriminator: 1)
+!43 = !DILocation(line: 30, column: 17, scope: !44)
+!44 = !DILexicalBlockFile(scope: !22, file: !1, discriminator: 2)
+!45 = !DILocation(line: 30, column: 17, scope: !46)
+!46 = !DILexicalBlockFile(scope: !22, file: !1, discriminator: 3)
+!47 = !DILocation(line: 30, column: 13, scope: !46)
+!48 = !DILocation(line: 30, column: 17, scope: !49)
+!49 = !DILexicalBlockFile(scope: !22, file: !1, discriminator: 4)
+!50 = !DILocation(line: 30, column: 13, scope: !49)
+!51 = !DILocation(line: 30, column: 17, scope: !52)
+!52 = !DILexicalBlockFile(scope: !22, file: !1, discriminator: 5)
+!53 = !DILocation(line: 30, column: 29, scope: !52)
+!54 = !DILocalVariable(name: "c", scope: !55, file: !1, line: 32, type: !9)
+!55 = distinct !DILexicalBlock(scope: !22, file: !1, line: 31, column: 13)
+!56 = !DILocation(line: 32, column: 19, scope: !55)
+!57 = !DILocation(line: 32, column: 23, scope: !55)
+!58 = !DILocation(line: 32, column: 32, scope: !55)
+!59 = !DILocation(line: 33, column: 23, scope: !55)
+!60 = !DILocation(line: 34, column: 24, scope: !61)
+!61 = distinct !DILexicalBlock(scope: !55, file: !1, line: 33, column: 23)
+!62 = !DILocation(line: 34, column: 15, scope: !61)
+!63 = !DILocation(line: 36, column: 13, scope: !55)
+!64 = !DILocation(line: 29, column: 21, scope: !22)
+!65 = !DILocation(line: 30, column: 17, scope: !66)
+!66 = !DILexicalBlockFile(scope: !22, file: !1, discriminator: 6)
+!67 = !DILocation(line: 0, scope: !42)
+!68 = !DILocation(line: 29, column: 21, scope: !42)
+!69 = distinct !{!69, !33}
+!70 = !DILocation(line: 29, column: 21, scope: !44)
+!71 = !DILocation(line: 29, column: 21, scope: !46)
+!72 = !DILocation(line: 36, column: 13, scope: !42)
