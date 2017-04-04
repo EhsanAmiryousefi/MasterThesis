@@ -1,0 +1,1283 @@
+===================================================================================
+The overal extracted temporal info to the file...: 
+===================================================================================
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..1 :: line No: 101:::ThreadID: 0
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.0155551
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..1 :: line No: 101:::ThreadID: 1
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.024677
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..1 :: line No: 101:::ThreadID: 10
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.00032711
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..1 :: line No: 101:::ThreadID: 11
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000463009
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..1 :: line No: 101:::ThreadID: 12
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000319958
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..1 :: line No: 101:::ThreadID: 13
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000299931
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..1 :: line No: 101:::ThreadID: 14
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000321865
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..1 :: line No: 101:::ThreadID: 15
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000320196
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..1 :: line No: 101:::ThreadID: 16
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000344992
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..1 :: line No: 101:::ThreadID: 17
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000305176
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..1 :: line No: 101:::ThreadID: 18
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000342131
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..1 :: line No: 101:::ThreadID: 19
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000328064
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..1 :: line No: 101:::ThreadID: 2
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.018867
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..1 :: line No: 101:::ThreadID: 20
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000393867
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..1 :: line No: 101:::ThreadID: 21
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000326872
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..1 :: line No: 101:::ThreadID: 22
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000336885
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..1 :: line No: 101:::ThreadID: 23
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000299931
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..1 :: line No: 101:::ThreadID: 24
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000332117
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..1 :: line No: 101:::ThreadID: 25
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000415802
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..1 :: line No: 101:::ThreadID: 26
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000343084
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..1 :: line No: 101:::ThreadID: 27
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000374079
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..1 :: line No: 101:::ThreadID: 28
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000339985
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..1 :: line No: 101:::ThreadID: 29
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000330925
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..1 :: line No: 101:::ThreadID: 3
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.0207849
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..1 :: line No: 101:::ThreadID: 30
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000346899
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..1 :: line No: 101:::ThreadID: 31
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000319958
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..1 :: line No: 101:::ThreadID: 4
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.0188138
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..1 :: line No: 101:::ThreadID: 5
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.0261569
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..1 :: line No: 101:::ThreadID: 6
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.0260351
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..1 :: line No: 101:::ThreadID: 7
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.025239
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..1 :: line No: 101:::ThreadID: 8
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.017133
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..1 :: line No: 101:::ThreadID: 9
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.024241
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..79 :: line No: 54:::ThreadID: 0
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.107133
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..79 :: line No: 54:::ThreadID: 1
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.115868
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..79 :: line No: 54:::ThreadID: 10
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.104449
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..79 :: line No: 54:::ThreadID: 11
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.116476
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..79 :: line No: 54:::ThreadID: 12
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000289202
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..79 :: line No: 54:::ThreadID: 13
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000283957
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..79 :: line No: 54:::ThreadID: 14
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000311136
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..79 :: line No: 54:::ThreadID: 15
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000303984
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..79 :: line No: 54:::ThreadID: 16
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.00031209
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..79 :: line No: 54:::ThreadID: 17
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000316143
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..79 :: line No: 54:::ThreadID: 18
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000317097
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..79 :: line No: 54:::ThreadID: 19
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000316858
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..79 :: line No: 54:::ThreadID: 2
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.188872
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..79 :: line No: 54:::ThreadID: 20
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000320911
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..79 :: line No: 54:::ThreadID: 21
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000281096
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..79 :: line No: 54:::ThreadID: 22
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000283003
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..79 :: line No: 54:::ThreadID: 23
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000287056
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..79 :: line No: 54:::ThreadID: 24
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000317097
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..79 :: line No: 54:::ThreadID: 25
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000300884
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..79 :: line No: 54:::ThreadID: 26
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000283957
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..79 :: line No: 54:::ThreadID: 27
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000301123
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..79 :: line No: 54:::ThreadID: 28
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000324011
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..79 :: line No: 54:::ThreadID: 29
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000300884
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..79 :: line No: 54:::ThreadID: 3
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.103678
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..79 :: line No: 54:::ThreadID: 30
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000320911
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..79 :: line No: 54:::ThreadID: 31
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.00030303
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..79 :: line No: 54:::ThreadID: 4
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.104847
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..79 :: line No: 54:::ThreadID: 5
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.149998
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..79 :: line No: 54:::ThreadID: 6
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.151424
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..79 :: line No: 54:::ThreadID: 7
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.149858
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..79 :: line No: 54:::ThreadID: 8
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.104198
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..79 :: line No: 54:::ThreadID: 9
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.104806
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/exact_rhs.c: .omp_outlined..45 :: line No: 52:::ThreadID: 0
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.848337
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/exact_rhs.c: .omp_outlined..45 :: line No: 52:::ThreadID: 1
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.855441
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/exact_rhs.c: .omp_outlined..45 :: line No: 52:::ThreadID: 10
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.830162
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/exact_rhs.c: .omp_outlined..45 :: line No: 52:::ThreadID: 11
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.830046
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/exact_rhs.c: .omp_outlined..45 :: line No: 52:::ThreadID: 12
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.830144
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/exact_rhs.c: .omp_outlined..45 :: line No: 52:::ThreadID: 13
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.830125
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/exact_rhs.c: .omp_outlined..45 :: line No: 52:::ThreadID: 14
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.83021
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/exact_rhs.c: .omp_outlined..45 :: line No: 52:::ThreadID: 15
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.830153
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/exact_rhs.c: .omp_outlined..45 :: line No: 52:::ThreadID: 16
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.830007
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/exact_rhs.c: .omp_outlined..45 :: line No: 52:::ThreadID: 17
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.83009
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/exact_rhs.c: .omp_outlined..45 :: line No: 52:::ThreadID: 18
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.830097
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/exact_rhs.c: .omp_outlined..45 :: line No: 52:::ThreadID: 19
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.830116
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/exact_rhs.c: .omp_outlined..45 :: line No: 52:::ThreadID: 2
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.848063
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/exact_rhs.c: .omp_outlined..45 :: line No: 52:::ThreadID: 20
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.830219
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/exact_rhs.c: .omp_outlined..45 :: line No: 52:::ThreadID: 21
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.837853
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/exact_rhs.c: .omp_outlined..45 :: line No: 52:::ThreadID: 22
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.82996
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/exact_rhs.c: .omp_outlined..45 :: line No: 52:::ThreadID: 23
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.830097
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/exact_rhs.c: .omp_outlined..45 :: line No: 52:::ThreadID: 24
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.830073
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/exact_rhs.c: .omp_outlined..45 :: line No: 52:::ThreadID: 25
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.82985
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/exact_rhs.c: .omp_outlined..45 :: line No: 52:::ThreadID: 26
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.829967
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/exact_rhs.c: .omp_outlined..45 :: line No: 52:::ThreadID: 27
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.829955
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/exact_rhs.c: .omp_outlined..45 :: line No: 52:::ThreadID: 28
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.830044
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/exact_rhs.c: .omp_outlined..45 :: line No: 52:::ThreadID: 29
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.829852
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/exact_rhs.c: .omp_outlined..45 :: line No: 52:::ThreadID: 3
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.854918
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/exact_rhs.c: .omp_outlined..45 :: line No: 52:::ThreadID: 30
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.82978
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/exact_rhs.c: .omp_outlined..45 :: line No: 52:::ThreadID: 31
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.830008
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/exact_rhs.c: .omp_outlined..45 :: line No: 52:::ThreadID: 4
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.855413
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/exact_rhs.c: .omp_outlined..45 :: line No: 52:::ThreadID: 5
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.855273
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/exact_rhs.c: .omp_outlined..45 :: line No: 52:::ThreadID: 6
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.85506
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/exact_rhs.c: .omp_outlined..45 :: line No: 52:::ThreadID: 7
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.850332
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/exact_rhs.c: .omp_outlined..45 :: line No: 52:::ThreadID: 8
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.855235
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/exact_rhs.c: .omp_outlined..45 :: line No: 52:::ThreadID: 9
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.855512
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/rhs.c: .omp_outlined..53 :: line No: 52:::ThreadID: 0
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.65393
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/rhs.c: .omp_outlined..53 :: line No: 52:::ThreadID: 1
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.661437
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/rhs.c: .omp_outlined..53 :: line No: 52:::ThreadID: 10
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.635154
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/rhs.c: .omp_outlined..53 :: line No: 52:::ThreadID: 11
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.63519
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/rhs.c: .omp_outlined..53 :: line No: 52:::ThreadID: 12
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.635171
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/rhs.c: .omp_outlined..53 :: line No: 52:::ThreadID: 13
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.63521
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/rhs.c: .omp_outlined..53 :: line No: 52:::ThreadID: 14
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.635172
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/rhs.c: .omp_outlined..53 :: line No: 52:::ThreadID: 15
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.635179
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/rhs.c: .omp_outlined..53 :: line No: 52:::ThreadID: 16
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.635008
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/rhs.c: .omp_outlined..53 :: line No: 52:::ThreadID: 17
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.635144
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/rhs.c: .omp_outlined..53 :: line No: 52:::ThreadID: 18
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.635026
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/rhs.c: .omp_outlined..53 :: line No: 52:::ThreadID: 19
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.635107
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/rhs.c: .omp_outlined..53 :: line No: 52:::ThreadID: 2
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.658836
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/rhs.c: .omp_outlined..53 :: line No: 52:::ThreadID: 20
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.634985
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/rhs.c: .omp_outlined..53 :: line No: 52:::ThreadID: 21
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.634841
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/rhs.c: .omp_outlined..53 :: line No: 52:::ThreadID: 22
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.634915
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/rhs.c: .omp_outlined..53 :: line No: 52:::ThreadID: 23
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.634887
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/rhs.c: .omp_outlined..53 :: line No: 52:::ThreadID: 24
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.635019
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/rhs.c: .omp_outlined..53 :: line No: 52:::ThreadID: 25
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.634604
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/rhs.c: .omp_outlined..53 :: line No: 52:::ThreadID: 26
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.634602
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/rhs.c: .omp_outlined..53 :: line No: 52:::ThreadID: 27
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.634756
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/rhs.c: .omp_outlined..53 :: line No: 52:::ThreadID: 28
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.634933
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/rhs.c: .omp_outlined..53 :: line No: 52:::ThreadID: 29
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.634748
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/rhs.c: .omp_outlined..53 :: line No: 52:::ThreadID: 3
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.660846
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/rhs.c: .omp_outlined..53 :: line No: 52:::ThreadID: 30
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.635
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/rhs.c: .omp_outlined..53 :: line No: 52:::ThreadID: 31
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.634997
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/rhs.c: .omp_outlined..53 :: line No: 52:::ThreadID: 4
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.658581
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/rhs.c: .omp_outlined..53 :: line No: 52:::ThreadID: 5
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.661875
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/rhs.c: .omp_outlined..53 :: line No: 52:::ThreadID: 6
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.653561
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/rhs.c: .omp_outlined..53 :: line No: 52:::ThreadID: 7
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.660941
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/rhs.c: .omp_outlined..53 :: line No: 52:::ThreadID: 8
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.653195
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/rhs.c: .omp_outlined..53 :: line No: 52:::ThreadID: 9
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.66054
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/common/print_results.c: .omp_outlined..3 :: line No: 26:::ThreadID: 0
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000154018
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/common/print_results.c: .omp_outlined..3 :: line No: 26:::ThreadID: 1
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 5.19753e-05
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/common/print_results.c: .omp_outlined..3 :: line No: 26:::ThreadID: 10
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000108957
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/common/print_results.c: .omp_outlined..3 :: line No: 26:::ThreadID: 11
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 5.22137e-05
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/common/print_results.c: .omp_outlined..3 :: line No: 26:::ThreadID: 12
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 5.98431e-05
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/common/print_results.c: .omp_outlined..3 :: line No: 26:::ThreadID: 13
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000281096
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/common/print_results.c: .omp_outlined..3 :: line No: 26:::ThreadID: 14
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 2.7895e-05
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/common/print_results.c: .omp_outlined..3 :: line No: 26:::ThreadID: 15
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 3.60012e-05
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/common/print_results.c: .omp_outlined..3 :: line No: 26:::ThreadID: 16
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000147104
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/common/print_results.c: .omp_outlined..3 :: line No: 26:::ThreadID: 17
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 4.72069e-05
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/common/print_results.c: .omp_outlined..3 :: line No: 26:::ThreadID: 18
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 5.6982e-05
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/common/print_results.c: .omp_outlined..3 :: line No: 26:::ThreadID: 19
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 3.19481e-05
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/common/print_results.c: .omp_outlined..3 :: line No: 26:::ThreadID: 2
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.00014019
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/common/print_results.c: .omp_outlined..3 :: line No: 26:::ThreadID: 20
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 3.19481e-05
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/common/print_results.c: .omp_outlined..3 :: line No: 26:::ThreadID: 21
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.00012207
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/common/print_results.c: .omp_outlined..3 :: line No: 26:::ThreadID: 22
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 9.91821e-05
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/common/print_results.c: .omp_outlined..3 :: line No: 26:::ThreadID: 23
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 1.62125e-05
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/common/print_results.c: .omp_outlined..3 :: line No: 26:::ThreadID: 24
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000164986
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/common/print_results.c: .omp_outlined..3 :: line No: 26:::ThreadID: 25
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 2.5034e-05
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/common/print_results.c: .omp_outlined..3 :: line No: 26:::ThreadID: 26
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000149965
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/common/print_results.c: .omp_outlined..3 :: line No: 26:::ThreadID: 27
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 6.10352e-05
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/common/print_results.c: .omp_outlined..3 :: line No: 26:::ThreadID: 28
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000102043
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/common/print_results.c: .omp_outlined..3 :: line No: 26:::ThreadID: 29
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 2.7895e-05
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/common/print_results.c: .omp_outlined..3 :: line No: 26:::ThreadID: 3
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 4.19617e-05
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/common/print_results.c: .omp_outlined..3 :: line No: 26:::ThreadID: 30
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000154972
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/common/print_results.c: .omp_outlined..3 :: line No: 26:::ThreadID: 31
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 1.5974e-05
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/common/print_results.c: .omp_outlined..3 :: line No: 26:::ThreadID: 4
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 4.07696e-05
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/common/print_results.c: .omp_outlined..3 :: line No: 26:::ThreadID: 5
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000115871
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/common/print_results.c: .omp_outlined..3 :: line No: 26:::ThreadID: 6
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000114918
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/common/print_results.c: .omp_outlined..3 :: line No: 26:::ThreadID: 7
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 4.3869e-05
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/common/print_results.c: .omp_outlined..3 :: line No: 26:::ThreadID: 8
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000104189
+
+
+Region Name:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/common/print_results.c: .omp_outlined..3 :: line No: 26:::ThreadID: 9
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000106812
+
+
+Region Name::::ThreadID: 0
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.665072
+
+
+Region Name::::ThreadID: 1
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 1.03861
+
+
+Region Name::::ThreadID: 10
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 6.81877e-05
+
+
+Region Name::::ThreadID: 11
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 8.79765e-05
+
+
+Region Name::::ThreadID: 12
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 7.98702e-05
+
+
+Region Name::::ThreadID: 13
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 7.70092e-05
+
+
+Region Name::::ThreadID: 14
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 7.70092e-05
+
+
+Region Name::::ThreadID: 15
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000111103
+
+
+Region Name::::ThreadID: 16
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 8.89301e-05
+
+
+Region Name::::ThreadID: 17
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 7.48634e-05
+
+
+Region Name::::ThreadID: 18
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 8.58307e-05
+
+
+Region Name::::ThreadID: 19
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 8.2016e-05
+
+
+Region Name::::ThreadID: 2
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 1.0184
+
+
+Region Name::::ThreadID: 20
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000152111
+
+
+Region Name::::ThreadID: 21
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000112057
+
+
+Region Name::::ThreadID: 22
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000118017
+
+
+Region Name::::ThreadID: 23
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 7.60555e-05
+
+
+Region Name::::ThreadID: 24
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 7.29561e-05
+
+
+Region Name::::ThreadID: 25
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 7.98702e-05
+
+
+Region Name::::ThreadID: 26
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 7.79629e-05
+
+
+Region Name::::ThreadID: 27
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 7.60555e-05
+
+
+Region Name::::ThreadID: 28
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 7.89165e-05
+
+
+Region Name::::ThreadID: 29
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 7.70092e-05
+
+
+Region Name::::ThreadID: 3
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 1.01231
+
+
+Region Name::::ThreadID: 30
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 7.48634e-05
+
+
+Region Name::::ThreadID: 31
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000102043
+
+
+Region Name::::ThreadID: 4
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 1.05111
+
+
+Region Name::::ThreadID: 5
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 1.07371
+
+
+Region Name::::ThreadID: 6
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 1.01954
+
+
+Region Name::::ThreadID: 7
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 1.0701
+
+
+Region Name::::ThreadID: 8
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 1.01186
+
+
+Region Name::::ThreadID: 9
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 1.01579
+
+
+Region Name:€%:::ThreadID: 0
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.859853
+
+
+Region Name:€%:::ThreadID: 1
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.867737
+
+
+Region Name:€%:::ThreadID: 10
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.867254
+
+
+Region Name:€%:::ThreadID: 11
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.866637
+
+
+Region Name:€%:::ThreadID: 12
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.830432
+
+
+Region Name:€%:::ThreadID: 13
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.830351
+
+
+Region Name:€%:::ThreadID: 14
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.830372
+
+
+Region Name:€%:::ThreadID: 15
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.830439
+
+
+Region Name:€%:::ThreadID: 16
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.844601
+
+
+Region Name:€%:::ThreadID: 17
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.844628
+
+
+Region Name:€%:::ThreadID: 18
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.844638
+
+
+Region Name:€%:::ThreadID: 19
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.844554
+
+
+Region Name:€%:::ThreadID: 2
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.860112
+
+
+Region Name:€%:::ThreadID: 20
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.844632
+
+
+Region Name:€%:::ThreadID: 21
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.8745
+
+
+Region Name:€%:::ThreadID: 22
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.874513
+
+
+Region Name:€%:::ThreadID: 23
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.858394
+
+
+Region Name:€%:::ThreadID: 24
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.844632
+
+
+Region Name:€%:::ThreadID: 25
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.858399
+
+
+Region Name:€%:::ThreadID: 26
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.854353
+
+
+Region Name:€%:::ThreadID: 27
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.844504
+
+
+Region Name:€%:::ThreadID: 28
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.846337
+
+
+Region Name:€%:::ThreadID: 29
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.846221
+
+
+Region Name:€%:::ThreadID: 3
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.859961
+
+
+Region Name:€%:::ThreadID: 30
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.844577
+
+
+Region Name:€%:::ThreadID: 31
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.844566
+
+
+Region Name:€%:::ThreadID: 4
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.86588
+
+
+Region Name:€%:::ThreadID: 5
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.860096
+
+
+Region Name:€%:::ThreadID: 6
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.866895
+
+
+Region Name:€%:::ThreadID: 7
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.866778
+
+
+Region Name:€%:::ThreadID: 8
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.860182
+
+
+Region Name:€%:::ThreadID: 9
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.867571
+
+
+Region Name:€^l:::ThreadID: 0
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.700348
+
+
+Region Name:€^l:::ThreadID: 1
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 1.00175
+
+
+Region Name:€^l:::ThreadID: 10
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 8.29697e-05
+
+
+Region Name:€^l:::ThreadID: 11
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 8.10623e-05
+
+
+Region Name:€^l:::ThreadID: 12
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 8.70228e-05
+
+
+Region Name:€^l:::ThreadID: 13
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 8.70228e-05
+
+
+Region Name:€^l:::ThreadID: 14
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 8.89301e-05
+
+
+Region Name:€^l:::ThreadID: 15
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 8.89301e-05
+
+
+Region Name:€^l:::ThreadID: 16
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 8.01086e-05
+
+
+Region Name:€^l:::ThreadID: 17
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000101089
+
+
+Region Name:€^l:::ThreadID: 18
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 8.98838e-05
+
+
+Region Name:€^l:::ThreadID: 19
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 8.2016e-05
+
+
+Region Name:€^l:::ThreadID: 2
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 1.03645
+
+
+Region Name:€^l:::ThreadID: 20
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 8.70228e-05
+
+
+Region Name:€^l:::ThreadID: 21
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 7.79629e-05
+
+
+Region Name:€^l:::ThreadID: 22
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 7.79629e-05
+
+
+Region Name:€^l:::ThreadID: 23
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 7.89165e-05
+
+
+Region Name:€^l:::ThreadID: 24
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 8.39233e-05
+
+
+Region Name:€^l:::ThreadID: 25
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 8.10623e-05
+
+
+Region Name:€^l:::ThreadID: 26
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 7.89165e-05
+
+
+Region Name:€^l:::ThreadID: 27
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 9.17912e-05
+
+
+Region Name:€^l:::ThreadID: 28
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 8.2016e-05
+
+
+Region Name:€^l:::ThreadID: 29
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 8.79765e-05
+
+
+Region Name:€^l:::ThreadID: 3
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.983655
+
+
+Region Name:€^l:::ThreadID: 30
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 8.4877e-05
+
+
+Region Name:€^l:::ThreadID: 31
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 7.89165e-05
+
+
+Region Name:€^l:::ThreadID: 4
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.97095
+
+
+Region Name:€^l:::ThreadID: 5
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 1.04454
+
+
+Region Name:€^l:::ThreadID: 6
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 1.12908
+
+
+Region Name:€^l:::ThreadID: 7
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 1.03472
+
+
+Region Name:€^l:::ThreadID: 8
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.982816
+
+
+Region Name:€^l:::ThreadID: 9
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.966611
+
+
+Region Name:€¶…:::ThreadID: 0
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.714199
+
+
+Region Name:€¶…:::ThreadID: 1
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 1.02773
+
+
+Region Name:€¶…:::ThreadID: 10
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 8.2016e-05
+
+
+Region Name:€¶…:::ThreadID: 11
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000114202
+
+
+Region Name:€¶…:::ThreadID: 12
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000100136
+
+
+Region Name:€¶…:::ThreadID: 13
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 7.60555e-05
+
+
+Region Name:€¶…:::ThreadID: 14
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 9.98974e-05
+
+
+Region Name:€¶…:::ThreadID: 15
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 9.60827e-05
+
+
+Region Name:€¶…:::ThreadID: 16
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 9.60827e-05
+
+
+Region Name:€¶…:::ThreadID: 17
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 8.10623e-05
+
+
+Region Name:€¶…:::ThreadID: 18
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 9.5129e-05
+
+
+Region Name:€¶…:::ThreadID: 19
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 8.29697e-05
+
+
+Region Name:€¶…:::ThreadID: 2
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 1.05907
+
+
+Region Name:€¶…:::ThreadID: 20
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 8.10623e-05
+
+
+Region Name:€¶…:::ThreadID: 21
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 8.17776e-05
+
+
+Region Name:€¶…:::ThreadID: 22
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 8.2016e-05
+
+
+Region Name:€¶…:::ThreadID: 23
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 9.39369e-05
+
+
+Region Name:€¶…:::ThreadID: 24
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 8.10623e-05
+
+
+Region Name:€¶…:::ThreadID: 25
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 8.17776e-05
+
+
+Region Name:€¶…:::ThreadID: 26
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 8.4877e-05
+
+
+Region Name:€¶…:::ThreadID: 27
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 8.79765e-05
+
+
+Region Name:€¶…:::ThreadID: 28
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000102997
+
+
+Region Name:€¶…:::ThreadID: 29
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 8.98838e-05
+
+
+Region Name:€¶…:::ThreadID: 3
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 1.03265
+
+
+Region Name:€¶…:::ThreadID: 30
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 9.29832e-05
+
+
+Region Name:€¶…:::ThreadID: 31
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 8.2016e-05
+
+
+Region Name:€¶…:::ThreadID: 4
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 1.03611
+
+
+Region Name:€¶…:::ThreadID: 5
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 1.07384
+
+
+Region Name:€¶…:::ThreadID: 6
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 1.06018
+
+
+Region Name:€¶…:::ThreadID: 7
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 1.05678
+
+
+Region Name:€¶…:::ThreadID: 8
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 1.03994
+
+
+Region Name:€¶…:::ThreadID: 9
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 1.05168
+
+
+Region Name:°y‚:::ThreadID: 0
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.023629
+
+
+Region Name:°y‚:::ThreadID: 1
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.0361121
+
+
+Region Name:°y‚:::ThreadID: 10
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000108004
+
+
+Region Name:°y‚:::ThreadID: 11
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 7.70092e-05
+
+
+Region Name:°y‚:::ThreadID: 12
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000124931
+
+
+Region Name:°y‚:::ThreadID: 13
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 8.79765e-05
+
+
+Region Name:°y‚:::ThreadID: 14
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 9.08375e-05
+
+
+Region Name:°y‚:::ThreadID: 15
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 8.60691e-05
+
+
+Region Name:°y‚:::ThreadID: 16
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 8.32081e-05
+
+
+Region Name:°y‚:::ThreadID: 17
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 9.10759e-05
+
+
+Region Name:°y‚:::ThreadID: 18
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 8.79765e-05
+
+
+Region Name:°y‚:::ThreadID: 19
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.000111818
+
+
+Region Name:°y‚:::ThreadID: 2
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.0363181
+
+
+Region Name:°y‚:::ThreadID: 20
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 7.60555e-05
+
+
+Region Name:°y‚:::ThreadID: 21
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 7.70092e-05
+
+
+Region Name:°y‚:::ThreadID: 22
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 7.51019e-05
+
+
+Region Name:°y‚:::ThreadID: 23
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 8.01086e-05
+
+
+Region Name:°y‚:::ThreadID: 24
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 8.91685e-05
+
+
+Region Name:°y‚:::ThreadID: 25
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 9.29832e-05
+
+
+Region Name:°y‚:::ThreadID: 26
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 7.48634e-05
+
+
+Region Name:°y‚:::ThreadID: 27
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 7.29561e-05
+
+
+Region Name:°y‚:::ThreadID: 28
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 7.41482e-05
+
+
+Region Name:°y‚:::ThreadID: 29
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 8.98838e-05
+
+
+Region Name:°y‚:::ThreadID: 3
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.024121
+
+
+Region Name:°y‚:::ThreadID: 30
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 8.67844e-05
+
+
+Region Name:°y‚:::ThreadID: 31
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 7.89165e-05
+
+
+Region Name:°y‚:::ThreadID: 4
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.0243521
+
+
+Region Name:°y‚:::ThreadID: 5
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.035578
+
+
+Region Name:°y‚:::ThreadID: 6
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.0358989
+
+
+Region Name:°y‚:::ThreadID: 7
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.035521
+
+
+Region Name:°y‚:::ThreadID: 8
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.0242009
+
+
+Region Name:°y‚:::ThreadID: 9
+[Entering Time]: 1.48942e+09----[Exiting Time]: 1.48942e+09----[Elapsed Time]: 0.024132
+
+

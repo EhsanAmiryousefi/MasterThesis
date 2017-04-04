@@ -8,7 +8,7 @@ int main()
 {
   
     int i;
-    omp_set_num_threads(4);
+    omp_set_num_threads(32);
      // omp_set_nested(1); // 1 - enables nested parallelism; 0 - disables nested parallelism.
     int blablabla;//,c;
 //    #pragma omp parallel // parallel region begins

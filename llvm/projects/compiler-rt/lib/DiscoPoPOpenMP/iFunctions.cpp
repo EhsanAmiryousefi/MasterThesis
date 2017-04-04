@@ -24,6 +24,7 @@ namespace __DpOMP {
 
     DepsMatrix* depsMatrix = nullptr;
     ofstream *out;
+    ofstream *writeTempInfo;
 
     ReadSignature* RSig = nullptr;
     WriteSignature* WSig = nullptr;
@@ -44,6 +45,7 @@ void outputDeps() {
     }
     // print out all dps
     depsMatrix->print(out, numberOfHwThreads);
+    depsMatrix->printTemporalInfo(writeTempInfo);
 }
 void readRuntimeInfo() {
     ifstream conf(get_exe_dir() + "/DpOMP.conf");
@@ -126,9 +128,12 @@ void __DiscoPoPOpenMPInitialize(){
         out = new ofstream();
         out->open("Output.txt", ios::out);
 
+        writeTempInfo= new ofstream();
+        writeTempInfo->open("TemporalInfo.txt", ios::out);
+
         parentRegionStack = new stack<string>[numberOfHwThreads];  
         initThreadPool(numberOfHwThreads);
-        parentRegionStack[0].push("EHSAN THREAD");
+        parentRegionStack[0].push("MAIN THREAD");
         if(omp_get_thread_num() == 0){
             currentRegName = "EHSAN THREAD"; 
         }
@@ -164,10 +169,6 @@ void __DiscoPoPOpenMPRead(ADDR addr,
 
     currentThreadId=omp_get_thread_num();
 
-     while (stackLock.test_and_set(std::memory_order_acquire))
-        ;  
-        // cout <<"++++++++++++READ:  " << " varName "<<varName << " " <<currentThreadId<<"   "<<currentRegName<<endl;
-    stackLock.clear(std::memory_order_release);
 
     pid_t lastWriteTid = WSig->membershipCheck(addr);
     if (lastWriteTid) {
@@ -190,10 +191,10 @@ void __DiscoPoPOpenMPWrite(ADDR addr, char* varName) {
     //   *out<<"[WRITE]"<<varName<<"---->[Line Id] "<<decodeLID(lid)<<" [ADDR]"<<addr
     // <<" [ThreadID]"<<omp_get_thread_num()<<"\n";
     // cout <<"Write from Thread:"<<omp_get_thread_num()<<endl;
-     while (stackLock.test_and_set(std::memory_order_acquire));  
+     // while (stackLock.test_and_set(std::memory_order_acquire));  
   
-     // cout<<"==========Write " << " varName " << varName << " " <<omp_get_thread_num()<<"   "<<currentRegName<<endl;
-     stackLock.clear(std::memory_order_release);
+     // // cout<<"==========Write " << " varName " << varName << " " <<omp_get_thread_num()<<"   "<<currentRegName<<endl;
+     // stackLock.clear(std::memory_order_release);
 
     WSig->insert(addr, omp_get_thread_num());
     RSig->clearAccesses(addr);
@@ -202,91 +203,39 @@ void __DiscoPoPOpenMPWrite(ADDR addr, char* varName) {
 }
 void __DiscoPoPOpenMPBeforeCall(char const* regionName)
 {
-    while (stackLock.test_and_set(std::memory_order_acquire));  
-  
-    // cout<<"BEFORE CALL_CURR_REG: "<<omp_get_thread_num()<<endl;
-    stackLock.clear(std::memory_order_release);
-    // cout<<"RegName--->"<<regionName<<endl;
-    // currentRegName = regionName;
-
-
     // while (stackLock.test_and_set(std::memory_order_acquire));  
-    // cout<<"RegName--->"<<regionName<<endl;
-    // cout<<"============================================================================================================"<<endl;   
-
-
-
-     //while (stackLock.test_and_set(std::memory_order_acquire));  
   
-    //cout<<"BEFORE CALL<<<<<< "<<omp_get_thread_num()<<"   "<<currentRegName<<endl;
-    //stackLock.clear(std::memory_order_release);
-
-   
-
+    // // cout<<"BEFORE CALL_CURR_REG: "<<omp_get_thread_num()<<endl;
+    // stackLock.clear(std::memory_order_release);
     parentRegionStack[omp_get_thread_num()].push(regionName); 
     currentRegName = parentRegionStack[omp_get_thread_num()].top();
 
 
+    // string key=currentRegName+":::ThreadID: "+ to_string(omp_get_thread_num());
+    depsMatrix->setEnterRegionTemporalInfo(currentRegName,omp_get_thread_num());
 
-    while (stackLock.test_and_set(std::memory_order_acquire));  
-  
-    // cout<<"BEFORE CALL:::::: "<<omp_get_thread_num()<<"   "<<currentRegName<<endl;
-    stackLock.clear(std::memory_order_release);
-
-
-    // cout<<"----------->>>>>>>>THREAD:  "<<omp_get_thread_num()<<endl;
-    // cout<<"SIZE OF STACK BEFORE CALL--------: "<<parentRegionStack[omp_get_thread_num()].size()<<endl;
-
-    // string s=parentRegionStack[omp_get_thread_num()].top();
-    // cout<<"REGION NAME:====> "<<s<<endl;
-    // cout<<"RegName--->"<<regionName<<endl;
-    // cout<<"============================================================================================================"<<endl;   
-        // stackLock.clear(std::memory_order_release);
-
-    //parentRegionStack.push(regionName);
-    //cout<<"BEFORE CALL: "<<parentRegionStack.top()<<"THREAD:"<<omp_get_thread_num()<<endl;
-    // stackLock.clear(std::memory_order_release);
 }
 
 void __DiscoPoPOpenMPAfterCall()
 {
-    // currentRegName = parentRegionStack.top();
-    // while (stackLock.test_and_set(std::memory_order_acquire));  
+    currentRegName = parentRegionStack[omp_get_thread_num()].top();
+    // string key=currentRegName+":::ThreadID: "+ to_string(omp_get_thread_num());
+    // string key=currentRegName;
+    depsMatrix->setExitRegionTemporalInfo(currentRegName,omp_get_thread_num());
+
     if (!parentRegionStack[omp_get_thread_num()].empty())
     {
-        // while (stackLock.test_and_set(std::memory_order_acquire));  
-        // cout<<"#########################################################"<<endl;   
-        // // cout<<"AFTER CALL: "<<parentRegionStack.top()<<"THREAD:"<<omp_get_thread_num()<<endl;
-        // cout<<"----------->>>>>>>>THREAD:  "<<omp_get_thread_num()<<endl;
-        // cout<<"SIZE OF STACK AFTER CALL--------: "<<parentRegionStack[omp_get_thread_num()].size()<<endl;
-
-        // string s=parentRegionStack[omp_get_thread_num()].top();
-        // cout<<"REGION NAME:====>"<<s<<endl;
-
-        // cout<<"#########################################################"<<endl;   
-
-        // stackLock.clear(std::memory_order_release);
-
         parentRegionStack[omp_get_thread_num()].pop();
 
           if(parentRegionStack[omp_get_thread_num()].empty())
-                // cout<<"=========================STACK IS EMPTY!"<<endl;
             {
-                 //while (stackLock.test_and_set(std::memory_order_acquire));  
                  currentRegName="NULL";
-                //cout<<"=========================STACK IS EMPTY! "<< omp_get_thread_num() << "  " << currentRegName <<endl;
-                //cout<<"AFTER====    "<<omp_get_thread_num()<<"   "<<currentRegName<<endl;
-                //stackLock.clear(std::memory_order_release);
-
-
             }
             else
+            {
                 currentRegName = parentRegionStack[omp_get_thread_num()].top();
+            }
     }
-
-    // stackLock.clear(std::memory_order_release);
-
-    
 }
 
 
@@ -317,6 +266,11 @@ void __DiscoPoPOpenMPFinalize() {
     out->flush();
     out->close();
 
+    writeTempInfo->flush();
+    writeTempInfo->close();
+
+
+    delete writeTempInfo;
     delete out;
 
     if (DpOMP_DEBUG) {

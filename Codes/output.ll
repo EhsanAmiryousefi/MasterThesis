@@ -25,7 +25,7 @@ entry:
   call void @llvm.memcpy.p0i8.p0i8.i64(i8* %0, i8* %1, i64 24, i32 8, i1 false)
   store i32 0, i32* %retval, align 4
   call void @llvm.dbg.declare(metadata i32* %i, metadata !10, metadata !11), !dbg !12
-  call void @omp_set_num_threads(i32 4), !dbg !13
+  call void @omp_set_num_threads(i32 32), !dbg !13
   call void @llvm.dbg.declare(metadata i32* %blablabla, metadata !14, metadata !11), !dbg !15
   %call = call i32 @omp_get_thread_num(), !dbg !16
   %call1 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([39 x i8], [39 x i8]* @.str, i32 0, i32 0), i32 %call), !dbg !17

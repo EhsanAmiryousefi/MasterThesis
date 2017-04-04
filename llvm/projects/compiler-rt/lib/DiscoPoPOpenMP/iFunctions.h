@@ -16,8 +16,10 @@
 #include <unordered_set>
 #include <utility>
 #include <string.h>
+
 #include "signature.h"
 #include "PEUtils.h"
+#include "omp.h"
 //#include "LockFree.h"
 
 #define CACHE_LINE_SIZE 64
@@ -32,19 +34,26 @@ struct DepsMatrix {
         std::map<pid_t, std::map<pid_t, std::atomic<int64_t> > > * matrixAll;
         std::map<std::string, std::map<pid_t, std::map<pid_t, std::atomic<int64_t> > > > * matrixRegions;
 
+
+        std::map<std::string, std::map<int32_t,double[2]>> *regionTemporalInfo;
+
         std::map<std::string, std::atomic<int32_t> > * regionIdsMap;
         std::vector<pid_t>* listOfTidKeys;
 
         std::atomic_flag memAccessLock;
         std::atomic_flag newThreadLock;
 
+        std::atomic_flag temporalInfoLock;
+
     public:
-        DepsMatrix() : memAccessLock ATOMIC_FLAG_INIT, newThreadLock ATOMIC_FLAG_INIT
+        DepsMatrix() : memAccessLock ATOMIC_FLAG_INIT, newThreadLock ATOMIC_FLAG_INIT, temporalInfoLock ATOMIC_FLAG_INIT
         {
             matrixAll = new std::map<pid_t, std::map<pid_t, std::atomic<int64_t> > >;
             matrixRegions = new std::map<std::string, std::map<pid_t, std::map<pid_t, std::atomic<int64_t> > > >;
             regionIdsMap = new std::map<std::string, std::atomic<int32_t> >;
             listOfTidKeys = new std::vector<pid_t>;
+
+            regionTemporalInfo=new  std::map<std::string, std::map<int32_t,double[2]>>;
         }
         inline void set(pid_t row, pid_t column, std::string prefixFName, int32_t volume, int32_t regionId, int32_t parentRegionID){
             // cout << "---------------------------------------------------------------" << prefixFName << "\n";
@@ -64,6 +73,48 @@ struct DepsMatrix {
             listOfTidKeys->push_back(tid);
             // cout << "New Thread: " << tid << endl;
             newThreadLock.clear(std::memory_order_release);
+        }
+
+         inline void setEnterRegionTemporalInfo(string regName,int threadId){
+            // std::chrono::time_point<std::chrono::system_clock> start;
+            // start = std::chrono::system_clock::now();
+            // cout << "Start Time for "<<regName<<": " <<to_string(start)<< '\n';
+            while (temporalInfoLock.test_and_set(std::memory_order_acquire));
+            double begin = omp_get_wtime();
+            (*regionTemporalInfo)[regName][threadId][0]=begin;
+            // cout<<"START:"<<to_string(begin)<<endl;
+            temporalInfoLock.clear(std::memory_order_release);
+
+         }
+
+          inline void setExitRegionTemporalInfo(string regName,int threadId){
+            while (temporalInfoLock.test_and_set(std::memory_order_acquire));
+            double end = omp_get_wtime();
+            (*regionTemporalInfo)[regName][threadId][1]=end;
+            temporalInfoLock.clear(std::memory_order_release);
+         }
+
+         inline void printTemporalInfo(ofstream *out){
+            cout<<"Writing temoral info to the file"<<endl;
+            *out << "==================================================================================="<< endl;
+            *out << "                       The overal extracted temporal info "<< endl;
+            *out << "==================================================================================="<< endl;
+           
+             for(auto &outerMap : *regionTemporalInfo)
+             {
+                *out << "*********************************************************************************************************"  << endl;
+                *out << "Region Location:"<<outerMap.first<< endl;
+                *out << "*********************************************************************************************************"  << endl;
+                for(auto & innerMap :outerMap.second)
+                {
+                    *out << "Thread ID: "<<innerMap.first<<" ====> ";
+                    *out<<"[Enter Time]: "<<innerMap.second[0];
+                    *out<<" ----[Exit Time]: "<<innerMap.second[1];
+                    *out<<" ----[Elapsed Time]: "<<innerMap.second[1]-innerMap.second[0]<<endl;
+                    *out<<endl;
+                }
+             }
+
         }
 
         inline void print(ofstream *out, int32_t maxSize){
@@ -100,7 +151,7 @@ struct DepsMatrix {
             // Printing each loop's matrix
             cout<< endl << "Printing Region's matrices..." << endl;
             for(auto iter = (*matrixRegions).begin(); iter != (*matrixRegions).end(); iter++){
-                *out << (*regionIdsMap)[iter->first] << " |--> " << iter->first << endl;
+                *out << "Region Location" << " |--> " << iter->first << endl;
                 for(auto it1=listOfTidKeys->begin(); it1 != listOfTidKeys->end(); ++it1)
                 {
                     if( (*matrixRegions)[iter->first].count(*it1) ){

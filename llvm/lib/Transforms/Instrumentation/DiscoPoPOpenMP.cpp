@@ -114,6 +114,9 @@ namespace {
     int32_t fileID;
     int64_t ompRegionsUID;
 
+    string fileName;
+    string currentDirectory;
+
     Function *DPOMPRead, *DPOMPWrite,*DPOMPInitialize,*DPOMPFinalize,*DPOMPThreadCollector,*DPOMPBeforeCall,*DPOMPAfterCall;
 
     IRBuilder<> *Builder;
@@ -430,7 +433,9 @@ bool DiscoPoPOpenMP::runOnFunction(Function &F) {
     for (inst_iterator i = inst_begin(F), e = inst_end(F); i != e; ++i) {
     Instruction *I = &*i;
     if (DILocation *Loc = I->getDebugLoc()) { // Here I is an LLVM instruction
+      currentDirectory=Loc->getDirectory();
       functionStartLineNumber = Loc->getLine();
+      fileName = Loc->getFilename();
       if (functionStartLineNumber > 0 && !isa<PHINode>(I)) {
         
         //errs()<< "000000000000 " << functionStartLineNumber << "\n";
@@ -462,6 +467,8 @@ insertInitializeInst(F);
     }
     else if(isa<AtomicCmpXchgInst>(I))
        errs()<<"ATOMIC DETECTED! \n";
+
+
     else if (isa<ReturnInst>(I)) {
         if (F.hasName() && F.getName().equals("main")) {   // returning from main
                 insertFinalizeInst(I);
@@ -471,18 +478,18 @@ insertInitializeInst(F);
               instrumentAfterCallInst(I);
             }
       }
-     // if(isaCallOrInvoke(I)){
-     //     instrumentBeforeCallInst(I);
-     //     instrumentAfterCallInst(I);
-     //  } 
-     //  if (isEndOfCall(I))
-     //  {
-     //     instrumentAfterCallInst(I);
-     //  }
-     //  if (isBeginnigOfCall(I))
-     //  {
-     //    instrumentBeforeCallInst(I);
-     //  }
+     if(isaCallOrInvoke(I)){
+         instrumentBeforeCallInst(I);
+         instrumentAfterCallInst(I);
+      } 
+      if (isEndOfCall(I))
+      {
+         instrumentAfterCallInst(I);
+      }
+      if (isBeginnigOfCall(I))
+      {
+        instrumentBeforeCallInst(I);
+      }
 
   }
 
@@ -497,27 +504,10 @@ void DiscoPoPOpenMP::instrumentBeforeCallInst(Instruction *toInstrument){
   Value *absolutePathFileName = IRB.CreateGlobalStringPtr("Main Thread", ".str");
   StringRef regName = (toInstrument)->getParent()->getParent()->getName();
 
-  //MDNode *mdnode = toInstrument->getMetadata("dbg");
   std::string s=std::to_string(functionStartLineNumber);
-  StringRef ourtemp= regName.str() + "  line No: " +s ;
-  absolutePathFileName=IRB.CreateGlobalStringPtr(ourtemp , ".str");
+  // StringRef ourtemp= currentDirectory+"/" + fileName +": " + regName.str() + " :: line No: " +s ;
+  absolutePathFileName=IRB.CreateGlobalStringPtr( (currentDirectory+"/" + fileName +": " + regName.str() + " :: line No: " + s) , ".str");
 
- // if (DILocation *Loc = toInstrument->getDebugLoc()) { // Here I is an LLVM instruction
- //    lid = Loc->getLine();
- //  }
-  
- //  if (mdnode){
- //    StringRef File = "", Dir = "",lno= "";
- //      DILocation *Loc = toInstrument->getDebugLoc();
-      
- //      File = Loc->getFilename();
- //      Dir = Loc->getDirectory();
- //      lno =decodeLID(Loc->getLine());
-
-   
- //  }
-
-   // errs()<<"IT IS HERE IN INSR#########    "<<functionStartLineNumber<<"\n";  
 
     beforeCallArgs.push_back(absolutePathFileName);
     // errs()<<"IT IS HERE IN INSR#########    "<<absolutePathFileName->getString()<<"\n";
