@@ -1,0 +1,40 @@
+include_directories(..)
+
+# Runtime library sources and build flags.
+set(PatternExtractor_SOURCES
+  murmur.cpp
+  bitvector.cpp
+  bloom.cpp
+  #shadow.cpp
+  signature.cpp
+  iFunctions.cpp
+  )
+  
+set(PatternExtractor_CFLAGS
+  -O2
+  -std=c++11
+  -pthread
+  -fno-rtti
+  -fPIE
+  # Prevent clang from generating libc calls.
+  -ffreestanding)
+
+filter_available_targets(PatternExtractor_SUPPORTED_ARCH x86_64 i386)  
+
+# Static runtime library.
+set(PatternExtractor_LIBRARIES)
+if(APPLE)
+  add_compiler_rt_osx_static_runtime(clang_rt.PatternExtractor_osx
+    ARCH ${PatternExtractor_SUPPORTED_ARCH}
+    SOURCES ${PatternExtractor_SOURCES}
+    CFLAGS ${PatternExtractor_CFLAGS})
+else()
+  foreach(arch ${PatternExtractor_SUPPORTED_ARCH})
+    add_compiler_rt_static_runtime(clang_rt.PatternExtractor-${arch} ${arch}
+      SOURCES ${PatternExtractor_SOURCES}
+      CFLAGS ${PatternExtractor_CFLAGS}
+      #SYMS PatternExtractor.syms
+    )
+    list(APPEND PatternExtractor_LIBRARIES clang_rt.PatternExtractor-${arch})
+  endforeach()
+endif()

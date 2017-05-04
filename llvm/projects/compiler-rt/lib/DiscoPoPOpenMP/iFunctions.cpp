@@ -25,6 +25,7 @@ namespace __DpOMP {
     DepsMatrix* depsMatrix = nullptr;
     ofstream *out;
     ofstream *writeTempInfo;
+    ofstream *writeLocality;
 
     ReadSignature* RSig = nullptr;
     WriteSignature* WSig = nullptr;
@@ -46,6 +47,7 @@ void outputDeps() {
     // print out all dps
     depsMatrix->print(out, numberOfHwThreads);
     depsMatrix->printTemporalInfo(writeTempInfo);
+    depsMatrix->printLocalityInfo(writeLocality);
 }
 void readRuntimeInfo() {
     ifstream conf(get_exe_dir() + "/DpOMP.conf");
@@ -131,6 +133,9 @@ void __DiscoPoPOpenMPInitialize(){
         writeTempInfo= new ofstream();
         writeTempInfo->open("TemporalInfo.txt", ios::out);
 
+        writeLocality= new ofstream();
+        writeLocality->open("LocalityInfo.txt",ios::out);
+
         parentRegionStack = new stack<string>[numberOfHwThreads];  
         initThreadPool(numberOfHwThreads);
         parentRegionStack[0].push("MAIN THREAD");
@@ -175,10 +180,7 @@ void __DiscoPoPOpenMPRead(ADDR addr,
         // RAW
         bool lastRead = RSig->membershipCheck(addr, currentThreadId);
         if((lastWriteTid != currentThreadId) && lastRead==false ){
-            while (stackLock.test_and_set(std::memory_order_acquire));  
-            // cout<<"We are here DUDE=========!!!!!!!!!!!!!!!!!"<<endl;  
-            stackLock.clear(std::memory_order_release);   
-            depsMatrix->set(lastWriteTid, currentThreadId, currentRegName, varSize, 0, parentLoopID);
+            depsMatrix->set(lastWriteTid, currentThreadId, currentRegName, varSize, 0, parentLoopID,addr);
         }
     }
     RSig->insert(addr, currentThreadId);
@@ -269,9 +271,14 @@ void __DiscoPoPOpenMPFinalize() {
     writeTempInfo->flush();
     writeTempInfo->close();
 
+    writeLocality->flush();
+    writeLocality->close();
+
+
 
     delete writeTempInfo;
     delete out;
+    delete writeLocality;
 
     if (DpOMP_DEBUG) {
         cout << "Program terminated." << endl;

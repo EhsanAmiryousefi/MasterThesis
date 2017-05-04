@@ -1,0 +1,31 @@
+Number of threads: 8
+#The overall communication matrix between threads 
+0 0 0 0 0 0 0 0 
+8 0 24 12 0 4 20 0 
+0 36 0 0 4 4 20 0 
+8 12 0 0 48 20 0 0 
+16 0 8 48 0 0 4 0 
+4 8 8 16 0 0 0 0 
+8 16 16 0 8 0 0 0 
+0 0 0 0 0 0 0 0 
+
+#Region Location |--> /media/norouzi/90cafd61-f918-48a5-9298-db353cb6be30/software/benchmarks/botsTemp/fib/fib.c: .omp_outlined..4 :: line No: 118
+0 0 0 0 0 0 0 0 
+0 0 0 8 0 0 0 0 
+0 0 0 0 0 0 0 0 
+8 0 0 0 0 0 0 0 
+0 0 0 8 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+
+#Region Location |--> /media/norouzi/90cafd61-f918-48a5-9298-db353cb6be30/software/benchmarks/botsTemp/fib/fib.c: .omp_task_entry. :: line No: 103
+0 0 0 0 0 0 0 0 
+8 0 20 4 0 0 20 0 
+0 36 0 0 0 4 8 0 
+0 4 0 0 32 12 0 0 
+4 0 8 40 0 0 0 0 
+4 8 8 16 0 0 0 0 
+0 16 12 0 8 0 0 0 
+0 0 0 0 0 0 0 0 
+

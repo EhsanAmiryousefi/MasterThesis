@@ -34,6 +34,8 @@ struct DepsMatrix {
         std::map<pid_t, std::map<pid_t, std::atomic<int64_t> > > * matrixAll;
         std::map<std::string, std::map<pid_t, std::map<pid_t, std::atomic<int64_t> > > > * matrixRegions;
 
+        std::map<std::string, std::map<pid_t, std::map<pid_t, string > > > * localityMatrix;
+
 
         std::map<std::string, std::map<int32_t,double[2]>> *regionTemporalInfo;
 
@@ -45,17 +47,27 @@ struct DepsMatrix {
 
         std::atomic_flag temporalInfoLock;
 
+        std::set<string> memoryAddresses;
+
+
+        std::map<std::string,std::string>  memAddr;
+        int memoryAddressCounter;
+
     public:
         DepsMatrix() : memAccessLock ATOMIC_FLAG_INIT, newThreadLock ATOMIC_FLAG_INIT, temporalInfoLock ATOMIC_FLAG_INIT
         {
             matrixAll = new std::map<pid_t, std::map<pid_t, std::atomic<int64_t> > >;
             matrixRegions = new std::map<std::string, std::map<pid_t, std::map<pid_t, std::atomic<int64_t> > > >;
+            localityMatrix= new std::map<std::string, std::map<pid_t, std::map<pid_t, string > > >;
             regionIdsMap = new std::map<std::string, std::atomic<int32_t> >;
             listOfTidKeys = new std::vector<pid_t>;
 
             regionTemporalInfo=new  std::map<std::string, std::map<int32_t,double[2]>>;
+
+            // memAddr=new std::map<std::string, std::string>;
+            memoryAddressCounter=0;
         }
-        inline void set(pid_t row, pid_t column, std::string prefixFName, int32_t volume, int32_t regionId, int32_t parentRegionID){
+        inline void set(pid_t row, pid_t column, std::string prefixFName, int32_t volume, int32_t regionId, int32_t parentRegionID, ADDR addr){
             // cout << "---------------------------------------------------------------" << prefixFName << "\n";
             while (memAccessLock.test_and_set(std::memory_order_acquire));  // acquire lock; // spin
             (*matrixAll)[row][column] += volume;
@@ -64,7 +76,58 @@ struct DepsMatrix {
                 // cout << "---------" << prefixFName << "\n";
                 (*matrixRegions)[regionKey][row][column] += volume;
                 (*regionIdsMap)[regionKey] = regionId;
+
+
+                int index=1000;
+                std::string address= std::to_string(addr);
+                // std::set<string>::iterator iter = memoryAddresses.find(address);
+                // if (iter==memoryAddresses.end())
+                // {
+                //     // cout<<"There is no such address in the set ############"<<endl;
+                //     memoryAddresses.insert(address);    
+                // }
+
+                // std::set<string>::iterator iterGetIndex = memoryAddresses.find(address);
+                // if (iterGetIndex != memoryAddresses.end())
+                // {
+                //     string result=*iterGetIndex;
+                //     index=std::distance(memoryAddresses.begin(), iterGetIndex)+1;
+                //     address=*iterGetIndex;
+                //     // cout<<"**************** Distance:   "<<index<<endl;
+                //     // cout<<"++++++++++++++++ ADDR:  "<<*iterGetIndex<<endl;
+                // }
+
+                
+                // string value=(*localityMatrix)[regionKey][row][column];
+                // string newValue;
+                // if(value.empty())
+                // {
+                //     value="$";
+                //     value +=std::to_string(index);
+                // }
+                // else
+                //     value+=","+ std::to_string(index);
+                
+                if ((memAddr)[address].empty())
+                {
+                    // cout<<"Memory is empty!  "<<address<<endl;
+                    memAddr[address]=std::to_string(memoryAddressCounter++);
+                    // cout<<"Value added to memory"<<(memAddr)[address]<<endl;
+                }
+
+                string value=(*localityMatrix)[regionKey][row][column];
+                if(value.empty())
+                {
+                    value="$";
+                    value +=(memAddr)[address];
+                }
+                else
+                    value+=","+ (memAddr)[address];
+
+                (*localityMatrix)[regionKey][row][column]=value;
+                // (*localityMatrix)[regionKey][row][column]=value;
             }
+
             memAccessLock.clear(std::memory_order_release);
         }
 
@@ -115,6 +178,41 @@ struct DepsMatrix {
                 }
              }
 
+        }
+
+        inline void printLocalityInfo(ofstream *out)
+        {
+            *out << "The locality matrix between threads "  << endl;
+
+            // for(auto it = (*matrixAll).begin(); it != (*matrixAll).end(); ++it) {
+            //     listOfTidKeys->push_back(it->first);
+            //     cout << it->first << "\n";
+            // }
+            sort(listOfTidKeys->begin(), listOfTidKeys->end());
+            // Printing each loop's matrix
+            cout<< endl << "Printing Region's matrices..." << endl;
+            for(auto iter = (*localityMatrix).begin(); iter != (*localityMatrix).end(); iter++){
+                *out << "Region Location" << " |--> " << iter->first << endl;
+                for(auto it1=listOfTidKeys->begin(); it1 != listOfTidKeys->end(); ++it1)
+                {
+                    if( (*localityMatrix)[iter->first].count(*it1) ){
+                        for(auto it2=listOfTidKeys->begin(); it2 != listOfTidKeys->end(); ++it2){
+                            if( (*localityMatrix)[iter->first][*it1].count(*it2) ){
+                                *out << (*localityMatrix)[iter->first][*it1][*it2] << " ";
+                            }
+                            else
+                                *out << 0 << " ";
+                        }
+                        *out << endl;
+                    }
+                    else{
+                        for(auto itn=listOfTidKeys->begin(); itn != listOfTidKeys->end(); ++itn)
+                            *out << 0 << " ";   
+                        *out << endl;
+                    }
+                }
+                *out << endl;
+            }
         }
 
         inline void print(ofstream *out, int32_t maxSize){
