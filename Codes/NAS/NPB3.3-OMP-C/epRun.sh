@@ -1,6 +1,6 @@
 cd ./bin/
 rm -R ep/ 
-cd ../ep/
+cd ../EP/
 make clean
 cd ../
 make ep CLASS=S

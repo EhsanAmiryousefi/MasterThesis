@@ -1,0 +1,9 @@
+#Region Location |--> /media/norouzi/90cafd61-f918-48a5-9298-db353cb6be30/software/benchmarks/NAS/NPB3.3-OMP-C/LU/pintgr.c: .omp.reduction.reduction_func.1 :: line No: 129
+0 0 0 0 0 0 0 0 
+16 0 0 0 0 0 0 0 
+16 0 0 0 0 0 0 0 
+0 0 16 0 0 0 0 0 
+16 0 0 0 0 0 0 0 
+0 0 0 0 16 0 0 0 
+0 0 0 0 16 0 0 0 
+0 0 0 0 0 0 16 0 

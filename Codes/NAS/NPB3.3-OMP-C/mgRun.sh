@@ -1,6 +1,6 @@
 cd ./bin/
 rm -R mg/ 
-cd ../mg/
+cd ../MG/
 make clean
 cd ../
 make mg CLASS=S

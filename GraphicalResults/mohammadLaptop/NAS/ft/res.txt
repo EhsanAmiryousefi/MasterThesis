@@ -1,0 +1,65 @@
+DiscoPoPOpenMPInitialize is about to start...!
+============================================================================================================
+No.of detected hardware threads:8
+============================================================================================================
+mainTid: 0
+BF_FP_RATE = 0.0001
+Signature slots = 6000000
+PE initialized
+
+
+ NAS Parallel Benchmarks (NPB3.3-OMP-C) - FT Benchmark
+
+ Size                :   64x  64x  64
+ Iterations                  :      6
+ Number of available threads :      8
+
+ T =    1     Checksum =    5.546087004964E+02    4.845363331978E+02
+ T =    2     Checksum =    5.546385409190E+02    4.865304269511E+02
+ T =    3     Checksum =    5.546148406171E+02    4.883910722337E+02
+ T =    4     Checksum =    5.545423607415E+02    4.901273169046E+02
+ T =    5     Checksum =    5.544255039624E+02    4.917475857993E+02
+ T =    6     Checksum =    5.542683411903E+02    4.932597244941E+02
+ Result verification successful
+ class = S
+
+
+ FT Benchmark Completed.
+ Class           =                        S
+ Size            =             64x  64x  64
+ Iterations      =                        6
+ Time in seconds =                   359.68
+ Total threads   =                        8
+ Avail threads   =                        8
+ Mop/s total     =                     0.49
+ Mop/s/thread    =                     0.06
+ Operation type  =           floating point
+ Verification    =               SUCCESSFUL
+ Version         =                    3.3.1
+ Compile date    =              03 May 2017
+
+ Compile options:
+    CC           = (none)
+    CLINK        = (none)
+    C_LIB        = (none)
+    C_INC        = -I ../common -I /media/norouzi/90cafd61-f91...
+    CFLAGS       = (none)
+    CLINKFLAGS   = (none)
+    RAND         = randdp
+
+--------------------------------------
+ Please send all errors/feedbacks to:
+ Center for Manycore Programming
+ cmp@aces.snu.ac.kr
+ http://aces.snu.ac.kr
+--------------------------------------
+
+Program terminated! clearing up
+BEGIN: Printing Output.txt file... 
+Printing whole matrix...
+0 1 2 3 4 5 6 7 
+Printing Region's matrices...
+Writing temoral info to the file
+
+Printing Region's matrices...
+Program terminated.

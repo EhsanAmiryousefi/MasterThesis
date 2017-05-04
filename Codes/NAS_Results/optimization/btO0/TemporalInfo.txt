@@ -1,0 +1,723 @@
+===================================================================================
+                       The overal extracted temporal info 
+===================================================================================
+*********************************************************************************************************
+Region Location:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/add.c: .omp_outlined..77 :: line No: 47
+*********************************************************************************************************
+Thread ID: 0 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.05312e-06
+
+Thread ID: 1 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.8147e-06
+
+Thread ID: 2 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.05312e-06
+
+Thread ID: 3 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.05312e-06
+
+Thread ID: 4 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.00679e-06
+
+Thread ID: 5 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.00679e-06
+
+Thread ID: 6 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.05312e-06
+
+Thread ID: 7 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.05312e-06
+
+Thread ID: 8 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.05312e-06
+
+Thread ID: 9 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.96046e-06
+
+Thread ID: 10 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.09944e-06
+
+Thread ID: 11 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 6.91414e-06
+
+Thread ID: 12 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 1.19209e-05
+
+Thread ID: 13 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 9.05991e-06
+
+Thread ID: 14 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.05312e-06
+
+Thread ID: 15 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 2.19345e-05
+
+Thread ID: 16 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 9.05991e-06
+
+Thread ID: 17 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.96046e-06
+
+Thread ID: 18 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.09944e-06
+
+Thread ID: 19 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 1.09673e-05
+
+Thread ID: 20 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 2.00272e-05
+
+Thread ID: 21 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.09944e-06
+
+Thread ID: 22 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 2.86102e-06
+
+Thread ID: 23 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.00679e-06
+
+Thread ID: 24 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.96046e-06
+
+Thread ID: 25 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.8147e-06
+
+Thread ID: 26 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.96046e-06
+
+Thread ID: 27 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 7.15256e-06
+
+Thread ID: 28 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.00679e-06
+
+Thread ID: 29 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.09944e-06
+
+Thread ID: 30 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.09944e-06
+
+Thread ID: 31 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.09944e-06
+
+*********************************************************************************************************
+Region Location:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/add.c: add :: line No: 43
+*********************************************************************************************************
+Thread ID: 0 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.00679e-06
+
+*********************************************************************************************************
+Region Location:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..1 :: line No: 101
+*********************************************************************************************************
+Thread ID: 0 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000108004
+
+Thread ID: 1 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000138044
+
+Thread ID: 2 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000137806
+
+Thread ID: 3 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000166893
+
+Thread ID: 4 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000143051
+
+Thread ID: 5 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000138044
+
+Thread ID: 6 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000143051
+
+Thread ID: 7 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000138998
+
+Thread ID: 8 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000138998
+
+Thread ID: 9 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000147104
+
+Thread ID: 10 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000173092
+
+Thread ID: 11 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.0001719
+
+Thread ID: 12 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000240088
+
+Thread ID: 13 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.00019598
+
+Thread ID: 14 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000773907
+
+Thread ID: 15 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000210047
+
+Thread ID: 16 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000193119
+
+Thread ID: 17 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000156879
+
+Thread ID: 18 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000182867
+
+Thread ID: 19 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000142097
+
+Thread ID: 20 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000150919
+
+Thread ID: 21 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000202894
+
+Thread ID: 22 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000149965
+
+Thread ID: 23 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000254869
+
+Thread ID: 24 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000252962
+
+Thread ID: 25 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000215054
+
+Thread ID: 26 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000142097
+
+Thread ID: 27 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000154018
+
+Thread ID: 28 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000210047
+
+Thread ID: 29 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000184059
+
+Thread ID: 30 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000191927
+
+Thread ID: 31 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000157118
+
+*********************************************************************************************************
+Region Location:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: .omp_outlined..79 :: line No: 54
+*********************************************************************************************************
+Thread ID: 0 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000103951
+
+Thread ID: 1 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000156879
+
+Thread ID: 2 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000138044
+
+Thread ID: 3 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 9.799e-05
+
+Thread ID: 4 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000136852
+
+Thread ID: 5 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000137091
+
+Thread ID: 6 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000111103
+
+Thread ID: 7 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000149012
+
+Thread ID: 8 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000138998
+
+Thread ID: 9 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 9.70364e-05
+
+Thread ID: 10 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 9.799e-05
+
+Thread ID: 11 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000141144
+
+Thread ID: 12 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.00016284
+
+Thread ID: 13 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000152111
+
+Thread ID: 14 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000154018
+
+Thread ID: 15 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000151873
+
+Thread ID: 16 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000166178
+
+Thread ID: 17 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000159979
+
+Thread ID: 18 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000143051
+
+Thread ID: 19 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000143051
+
+Thread ID: 20 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000164032
+
+Thread ID: 21 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000140905
+
+Thread ID: 22 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000159979
+
+Thread ID: 23 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000149012
+
+Thread ID: 24 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000152111
+
+Thread ID: 25 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000144958
+
+Thread ID: 26 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000160933
+
+Thread ID: 27 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000155926
+
+Thread ID: 28 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000106812
+
+Thread ID: 29 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000154972
+
+Thread ID: 30 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000142097
+
+Thread ID: 31 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000145912
+
+*********************************************************************************************************
+Region Location:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: error_norm :: line No: 42
+*********************************************************************************************************
+Thread ID: 0 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.96046e-06
+
+*********************************************************************************************************
+Region Location:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/error.c: rhs_norm :: line No: 89
+*********************************************************************************************************
+Thread ID: 0 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 1.00136e-05
+
+*********************************************************************************************************
+Region Location:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/exact_rhs.c: .omp_outlined..45 :: line No: 52
+*********************************************************************************************************
+Thread ID: 0 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.00679e-06
+
+Thread ID: 1 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.05312e-06
+
+Thread ID: 2 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.8147e-06
+
+Thread ID: 3 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.05312e-06
+
+Thread ID: 4 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.05312e-06
+
+Thread ID: 5 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.05312e-06
+
+Thread ID: 6 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.05312e-06
+
+Thread ID: 7 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.00679e-06
+
+Thread ID: 8 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.8147e-06
+
+Thread ID: 9 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.8147e-06
+
+Thread ID: 10 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000104904
+
+Thread ID: 11 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.05312e-06
+
+Thread ID: 12 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 1.40667e-05
+
+Thread ID: 13 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 6.91414e-06
+
+Thread ID: 14 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000106812
+
+Thread ID: 15 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 1.50204e-05
+
+Thread ID: 16 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 6.19888e-06
+
+Thread ID: 17 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.1008e-05
+
+Thread ID: 18 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.96046e-06
+
+Thread ID: 19 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 1.38283e-05
+
+Thread ID: 20 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.31402e-05
+
+Thread ID: 21 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.00679e-06
+
+Thread ID: 22 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.48227e-05
+
+Thread ID: 23 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 1.19209e-05
+
+Thread ID: 24 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000161886
+
+Thread ID: 25 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 9.20296e-05
+
+Thread ID: 26 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 7.10487e-05
+
+Thread ID: 27 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.96046e-06
+
+Thread ID: 28 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.19617e-05
+
+Thread ID: 29 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.31402e-05
+
+Thread ID: 30 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 7.29561e-05
+
+Thread ID: 31 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.00679e-06
+
+*********************************************************************************************************
+Region Location:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/exact_rhs.c: exact_rhs :: line No: 42
+*********************************************************************************************************
+Thread ID: 0 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.00679e-06
+
+*********************************************************************************************************
+Region Location:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/initialize.c: .omp_outlined. :: line No: 56
+*********************************************************************************************************
+Thread ID: 0 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.09944e-06
+
+Thread ID: 1 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 8.10623e-06
+
+Thread ID: 2 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.00679e-06
+
+Thread ID: 3 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.05312e-06
+
+Thread ID: 4 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.96046e-06
+
+Thread ID: 5 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.05312e-06
+
+Thread ID: 6 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 2.86102e-06
+
+Thread ID: 7 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 2.86102e-06
+
+Thread ID: 8 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 2.86102e-06
+
+Thread ID: 9 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 1.90735e-06
+
+Thread ID: 10 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 7.86781e-06
+
+Thread ID: 11 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 8.10623e-06
+
+Thread ID: 12 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 1.28746e-05
+
+Thread ID: 13 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.96046e-06
+
+Thread ID: 14 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.96046e-06
+
+Thread ID: 15 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 8.10623e-06
+
+Thread ID: 16 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.09944e-06
+
+Thread ID: 17 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.8147e-06
+
+Thread ID: 18 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.05312e-06
+
+Thread ID: 19 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.09944e-06
+
+Thread ID: 20 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 1.90735e-06
+
+Thread ID: 21 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 1.19209e-05
+
+Thread ID: 22 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.09944e-05
+
+Thread ID: 23 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.09944e-06
+
+Thread ID: 24 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 2.86102e-06
+
+Thread ID: 25 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 2.86102e-06
+
+Thread ID: 26 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.09944e-06
+
+Thread ID: 27 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.09944e-06
+
+Thread ID: 28 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 1.50204e-05
+
+Thread ID: 29 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 2.86102e-06
+
+Thread ID: 30 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.09944e-06
+
+Thread ID: 31 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.00679e-06
+
+*********************************************************************************************************
+Region Location:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/initialize.c: initialize :: line No: 43
+*********************************************************************************************************
+Thread ID: 0 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 1.90735e-06
+
+*********************************************************************************************************
+Region Location:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/rhs.c: .omp_outlined..53 :: line No: 52
+*********************************************************************************************************
+Thread ID: 0 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 7.15256e-06
+
+Thread ID: 1 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 6.91414e-06
+
+Thread ID: 2 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 9.05991e-06
+
+Thread ID: 3 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.00679e-06
+
+Thread ID: 4 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.00679e-06
+
+Thread ID: 5 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.00679e-06
+
+Thread ID: 6 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.00679e-06
+
+Thread ID: 7 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.00679e-06
+
+Thread ID: 8 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.00679e-06
+
+Thread ID: 9 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.00679e-06
+
+Thread ID: 10 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 2.28882e-05
+
+Thread ID: 11 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 1.19209e-05
+
+Thread ID: 12 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.0198619
+
+Thread ID: 13 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.60012e-05
+
+Thread ID: 14 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 1.81198e-05
+
+Thread ID: 15 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 1.40667e-05
+
+Thread ID: 16 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 2.40803e-05
+
+Thread ID: 17 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 8.10623e-05
+
+Thread ID: 18 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 8.10623e-06
+
+Thread ID: 19 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 1.00136e-05
+
+Thread ID: 20 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 8.10623e-06
+
+Thread ID: 21 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 7.86781e-06
+
+Thread ID: 22 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.60148e-05
+
+Thread ID: 23 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 9.05991e-06
+
+Thread ID: 24 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 2.00272e-05
+
+Thread ID: 25 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 6.91414e-06
+
+Thread ID: 26 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 6.91414e-06
+
+Thread ID: 27 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 1.71661e-05
+
+Thread ID: 28 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 1.19209e-05
+
+Thread ID: 29 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 2.19345e-05
+
+Thread ID: 30 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 1.69277e-05
+
+Thread ID: 31 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.8147e-05
+
+*********************************************************************************************************
+Region Location:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/rhs.c: compute_rhs :: line No: 40
+*********************************************************************************************************
+Thread ID: 0 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.09944e-06
+
+*********************************************************************************************************
+Region Location:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/x_solve.c: .omp_outlined..57 :: line No: 72
+*********************************************************************************************************
+Thread ID: 0 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 6.91414e-06
+
+Thread ID: 1 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.8147e-06
+
+Thread ID: 2 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.05312e-06
+
+Thread ID: 3 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 2.86102e-06
+
+Thread ID: 4 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.05312e-06
+
+Thread ID: 5 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.05312e-06
+
+Thread ID: 6 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.05312e-06
+
+Thread ID: 7 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.05312e-06
+
+Thread ID: 8 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.05312e-06
+
+Thread ID: 9 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.00679e-06
+
+Thread ID: 10 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 6.29425e-05
+
+Thread ID: 11 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.79086e-05
+
+Thread ID: 12 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.60284e-05
+
+Thread ID: 13 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 1.50204e-05
+
+Thread ID: 14 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.19617e-05
+
+Thread ID: 15 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 2.09808e-05
+
+Thread ID: 16 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 1.69277e-05
+
+Thread ID: 17 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 2.6226e-05
+
+Thread ID: 18 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 6.38962e-05
+
+Thread ID: 19 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 8.10623e-06
+
+Thread ID: 20 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000152111
+
+Thread ID: 21 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 2.81334e-05
+
+Thread ID: 22 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 9.10759e-05
+
+Thread ID: 23 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.05312e-06
+
+Thread ID: 24 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.69685e-05
+
+Thread ID: 25 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.05312e-06
+
+Thread ID: 26 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.1008e-05
+
+Thread ID: 27 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 1.71661e-05
+
+Thread ID: 28 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 8.79765e-05
+
+Thread ID: 29 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 1.50204e-05
+
+Thread ID: 30 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.05312e-06
+
+Thread ID: 31 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.31538e-05
+
+*********************************************************************************************************
+Region Location:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/x_solve.c: x_solve :: line No: 52
+*********************************************************************************************************
+Thread ID: 0 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.05312e-06
+
+*********************************************************************************************************
+Region Location:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/y_solve.c: .omp_outlined..61 :: line No: 71
+*********************************************************************************************************
+Thread ID: 0 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 1.09673e-05
+
+Thread ID: 1 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.8147e-06
+
+Thread ID: 2 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.05312e-06
+
+Thread ID: 3 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.96046e-06
+
+Thread ID: 4 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.05312e-06
+
+Thread ID: 5 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 2.86102e-06
+
+Thread ID: 6 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.05312e-06
+
+Thread ID: 7 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.8147e-06
+
+Thread ID: 8 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.8147e-06
+
+Thread ID: 9 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 1.28746e-05
+
+Thread ID: 10 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.8147e-06
+
+Thread ID: 11 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.09944e-06
+
+Thread ID: 12 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.96046e-06
+
+Thread ID: 13 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 2.86102e-06
+
+Thread ID: 14 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.8147e-06
+
+Thread ID: 15 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.05312e-06
+
+Thread ID: 16 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.00679e-06
+
+Thread ID: 17 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 7.86781e-06
+
+Thread ID: 18 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 1.19209e-05
+
+Thread ID: 19 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.00679e-06
+
+Thread ID: 20 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.96046e-06
+
+Thread ID: 21 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.05312e-06
+
+Thread ID: 22 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.05312e-06
+
+Thread ID: 23 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 6.91414e-06
+
+Thread ID: 24 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 7.86781e-06
+
+Thread ID: 25 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.09944e-05
+
+Thread ID: 26 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 1.88351e-05
+
+Thread ID: 27 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 9.05991e-06
+
+Thread ID: 28 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.05312e-06
+
+Thread ID: 29 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.09944e-06
+
+Thread ID: 30 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.09944e-06
+
+Thread ID: 31 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.09944e-06
+
+*********************************************************************************************************
+Region Location:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/y_solve.c: y_solve :: line No: 50
+*********************************************************************************************************
+Thread ID: 0 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.00679e-06
+
+*********************************************************************************************************
+Region Location:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/z_solve.c: .omp_outlined..73 :: line No: 71
+*********************************************************************************************************
+Thread ID: 0 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.96046e-06
+
+Thread ID: 1 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.05312e-06
+
+Thread ID: 2 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.8147e-06
+
+Thread ID: 3 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 6.91414e-06
+
+Thread ID: 4 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.05312e-06
+
+Thread ID: 5 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.05312e-06
+
+Thread ID: 6 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.05312e-06
+
+Thread ID: 7 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.8147e-06
+
+Thread ID: 8 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.8147e-06
+
+Thread ID: 9 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.05312e-06
+
+Thread ID: 10 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 6.91414e-06
+
+Thread ID: 11 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.21865e-05
+
+Thread ID: 12 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 2.00272e-05
+
+Thread ID: 13 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 2.5034e-05
+
+Thread ID: 14 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 6.91414e-06
+
+Thread ID: 15 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.29289e-05
+
+Thread ID: 16 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 2.90871e-05
+
+Thread ID: 17 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.09944e-06
+
+Thread ID: 18 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.09944e-06
+
+Thread ID: 19 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 1.90735e-05
+
+Thread ID: 20 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.09944e-06
+
+Thread ID: 21 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.09944e-06
+
+Thread ID: 22 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.09944e-06
+
+Thread ID: 23 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.09944e-06
+
+Thread ID: 24 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 2.7895e-05
+
+Thread ID: 25 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.09944e-06
+
+Thread ID: 26 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 1.4782e-05
+
+Thread ID: 27 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 6.19888e-06
+
+Thread ID: 28 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 1.40667e-05
+
+Thread ID: 29 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 8.10623e-06
+
+Thread ID: 30 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.96046e-06
+
+Thread ID: 31 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.00679e-06
+
+*********************************************************************************************************
+Region Location:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/BT/z_solve.c: z_solve :: line No: 50
+*********************************************************************************************************
+Thread ID: 0 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 2.86102e-06
+
+*********************************************************************************************************
+Region Location:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/common/print_results.c: .omp_outlined..3 :: line No: 26
+*********************************************************************************************************
+Thread ID: 0 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 1.90735e-05
+
+Thread ID: 1 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 2.5034e-05
+
+Thread ID: 2 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000306845
+
+Thread ID: 3 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 1.90735e-05
+
+Thread ID: 4 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000144958
+
+Thread ID: 5 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 8.79765e-05
+
+Thread ID: 6 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 2.09808e-05
+
+Thread ID: 7 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.96046e-06
+
+Thread ID: 8 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 7.86781e-06
+
+Thread ID: 9 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.00679e-06
+
+Thread ID: 10 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.69685e-05
+
+Thread ID: 11 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000298977
+
+Thread ID: 12 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 2.86102e-06
+
+Thread ID: 13 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 8.89301e-05
+
+Thread ID: 14 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.00679e-06
+
+Thread ID: 15 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.00679e-06
+
+Thread ID: 16 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.00679e-05
+
+Thread ID: 17 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 2.86102e-06
+
+Thread ID: 18 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.29018e-05
+
+Thread ID: 19 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.000133991
+
+Thread ID: 20 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 2.90871e-05
+
+Thread ID: 21 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 0.00010705
+
+Thread ID: 22 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.88758e-05
+
+Thread ID: 23 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.96046e-06
+
+Thread ID: 24 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 1.09673e-05
+
+Thread ID: 25 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 6.91414e-06
+
+Thread ID: 26 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 1.21593e-05
+
+Thread ID: 27 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 2.7895e-05
+
+Thread ID: 28 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 5.96046e-06
+
+Thread ID: 29 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.09944e-06
+
+Thread ID: 30 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 4.19617e-05
+
+Thread ID: 31 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 3.09944e-06
+
+*********************************************************************************************************
+Region Location:/home/amiryousefi/MasterThesis/Codes/NAS/NPB3.3-OMP-C/common/print_results.c: print_results :: line No: 10
+*********************************************************************************************************
+Thread ID: 0 ====> [Enter Time]: 1.49311e+09 ----[Exit Time]: 1.49311e+09 ----[Elapsed Time]: 8.82149e-06
+

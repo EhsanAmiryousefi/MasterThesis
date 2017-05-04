@@ -1,0 +1,2 @@
+1	/home/amiryousefi/llvmTemp/Codes/NAS/NPB3.3-OMP-C/FT/ft.c
+2	/home/amiryousefi/llvmTemp/Codes/NAS/NPB3.3-OMP-C/FT/global.h

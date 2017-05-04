@@ -1,0 +1,81 @@
+
+
+ NAS Parallel Benchmarks (NPB3.3-OMP-C) - BT Benchmark
+
+ No input file inputbt.data. Using compiled defaults
+ Size:   64x  64x  64
+ Iterations:  200       dt:   0.0008000
+ Number of available threads:    32
+
+ Time step    1
+ Time step   20
+ Time step   40
+ Time step   60
+ Time step   80
+ Time step  100
+ Time step  120
+ Time step  140
+ Time step  160
+ Time step  180
+ Time step  200
+ Verification being performed for class A
+ accuracy setting for epsilon =  1.0000000000000E-08
+ Comparison of RMS-norms of residual
+           1 1.0806346714637E+02 1.0806346714637E+02 6.9697495351091E-15
+           2 1.1319730901221E+01 1.1319730901221E+01 7.8462856356801E-16
+           3 2.5974354511583E+01 2.5974354511582E+01 2.5987771849002E-15
+           4 2.3665622544679E+01 2.3665622544679E+01 7.9564281320275E-15
+           5 2.5278963211749E+02 2.5278963211748E+02 1.3716735617139E-14
+ Comparison of RMS-norms of solution error
+           1 4.2348416040525E+00 4.2348416040525E+00 6.2919360586015E-16
+           2 4.4390282496995E-01 4.4390282496996E-01 7.1279916283386E-15
+           3 9.6692480136346E-01 9.6692480136346E-01 1.2630199632542E-15
+           4 8.8302063039766E-01 8.8302063039765E-01 1.3830314774613E-15
+           5 9.7379901770830E+00 9.7379901770829E+00 4.5603784946833E-15
+ Verification Successful
+
+
+ BT Benchmark Completed.
+ Class           =                        A
+ Size            =             64x  64x  64
+ Iterations      =                      200
+ Time in seconds =                    19.34
+ Total threads   =                       32
+ Avail threads   =                       32
+ Mop/s total     =                  8701.96
+ Mop/s/thread    =                   271.94
+ Operation type  =           floating point
+ Verification    =               SUCCESSFUL
+ Version         =                    3.3.1
+ Compile date    =              24 Apr 2017
+
+ Compile options:
+    CC           = gcc
+    CLINK        = $(CC)
+    C_LIB        = -lm
+    C_INC        = -I../common
+    CFLAGS       = -g -Wall -ftree-loop-distribution -fopenmp ...
+    CLINKFLAGS   = -ftree-loop-distribution -fopenmp -mcmodel=...
+    RAND         = (none)
+
+--------------------------------------
+ Please send all errors/feedbacks to:
+ Center for Manycore Programming
+ cmp@aces.snu.ac.kr
+ http://aces.snu.ac.kr
+--------------------------------------
+
+
+ Performance counter stats for 'CPU(s) 0-1':
+
+CPU0              30662172        cache-references                                              (100.00%)
+CPU1              30128404        cache-references                                              (100.00%)
+CPU0               3240776        cache-misses              #   10.662 % of all cache refs      (100.00%)
+CPU1               3259917        cache-misses                                                  (100.00%)
+CPU0           44253163774        cycles                   
+CPU1           43478717427        cycles                   
+CPU0               1062.84 Joules power/energy-cores/                                         
+CPU1               1062.84 Joules power/energy-cores/                                         
+
+      19.581449353 seconds time elapsed
+

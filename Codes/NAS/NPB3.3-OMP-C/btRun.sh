@@ -8,7 +8,7 @@ cd bin/
 mkdir bt/
 mv bt.S.bc bt/
 cd bt/
-#/home/amiryousefi/repbuild/bin/opt -S -dpomp < bt.S.bc > bt.S_DpOMPInstrumented.bc
+/home/amiryousefi/repbuild/bin/opt -S -dpomp < bt.S.bc > bt.S_DpOMPInstrumented.bc
 /home/amiryousefi/repbuild/bin/opt -S -dpomp < bt.S.bc > bt.S_DpOMPInstrumented.bc
 
 /home/amiryousefi/repbuild/bin/clang++ -emit-llvm -fopenmp -I /home/amiryousefi/repbuild/projects/openmp/runtime/src/ -c -std=c++11 -g /home/amiryousefi/MasterThesis/llvm/projects/compiler-rt/lib/DiscoPoPOpenMP/murmur.cpp -o /home/amiryousefi/MasterThesis/llvm/projects/compiler-rt/lib/DiscoPoPOpenMP/murmur.ll

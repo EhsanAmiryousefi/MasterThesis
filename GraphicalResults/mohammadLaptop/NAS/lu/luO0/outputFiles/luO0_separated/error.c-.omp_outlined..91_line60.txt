@@ -1,0 +1,9 @@
+#Region Location |--> /media/norouzi/90cafd61-f918-48a5-9298-db353cb6be30/software/benchmarks/NAS/NPB3.3-OMP-C/LU/error.c: .omp_outlined..91 :: line No: 60
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 8 
+8 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 8 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 8 0 8 0 0 0 8 
+0 0 0 0 0 0 0 0 

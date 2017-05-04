@@ -1,0 +1,112 @@
+===================================================================================
+                       The overal extracted temporal info 
+===================================================================================
+*********************************************************************************************************
+Region Location:/media/norouzi/90cafd61-f918-48a5-9298-db353cb6be30/software/benchmarks/botsTemp/fib/fib.c: .omp_outlined..4 :: line No: 118
+*********************************************************************************************************
+Thread ID: 0 ====> [Enter Time]: 1.49382e+09 ----[Exit Time]: 1.49382e+09 ----[Elapsed Time]: 0.00831699
+
+Thread ID: 1 ====> [Enter Time]: 1.49382e+09 ----[Exit Time]: 1.49382e+09 ----[Elapsed Time]: 0.00829601
+
+Thread ID: 2 ====> [Enter Time]: 1.49382e+09 ----[Exit Time]: 1.49382e+09 ----[Elapsed Time]: 0.00849986
+
+Thread ID: 3 ====> [Enter Time]: 1.49382e+09 ----[Exit Time]: 1.49382e+09 ----[Elapsed Time]: 0.00905395
+
+Thread ID: 4 ====> [Enter Time]: 1.49382e+09 ----[Exit Time]: 1.49382e+09 ----[Elapsed Time]: 0.0082972
+
+Thread ID: 5 ====> [Enter Time]: 1.49382e+09 ----[Exit Time]: 1.49382e+09 ----[Elapsed Time]: 0.00829697
+
+Thread ID: 6 ====> [Enter Time]: 1.49382e+09 ----[Exit Time]: 1.49382e+09 ----[Elapsed Time]: 0.00827599
+
+Thread ID: 7 ====> [Enter Time]: 1.49382e+09 ----[Exit Time]: 1.49382e+09 ----[Elapsed Time]: 4.05312e-06
+
+*********************************************************************************************************
+Region Location:/media/norouzi/90cafd61-f918-48a5-9298-db353cb6be30/software/benchmarks/botsTemp/fib/fib.c: .omp_task_entry. :: line No: 103
+*********************************************************************************************************
+Thread ID: 0 ====> [Enter Time]: 1.49382e+09 ----[Exit Time]: 1.49382e+09 ----[Elapsed Time]: 0.000192165
+
+Thread ID: 1 ====> [Enter Time]: 1.49382e+09 ----[Exit Time]: 1.49382e+09 ----[Elapsed Time]: 0.000309944
+
+Thread ID: 2 ====> [Enter Time]: 1.49382e+09 ----[Exit Time]: 1.49382e+09 ----[Elapsed Time]: 0.000112057
+
+Thread ID: 3 ====> [Enter Time]: 1.49382e+09 ----[Exit Time]: 1.49382e+09 ----[Elapsed Time]: 4.69685e-05
+
+Thread ID: 4 ====> [Enter Time]: 1.49382e+09 ----[Exit Time]: 1.49382e+09 ----[Elapsed Time]: 0.00012207
+
+Thread ID: 5 ====> [Enter Time]: 1.49382e+09 ----[Exit Time]: 1.49382e+09 ----[Elapsed Time]: 0.000123024
+
+Thread ID: 6 ====> [Enter Time]: 1.49382e+09 ----[Exit Time]: 1.49382e+09 ----[Elapsed Time]: 0.000198126
+
+*********************************************************************************************************
+Region Location:/media/norouzi/90cafd61-f918-48a5-9298-db353cb6be30/software/benchmarks/botsTemp/fib/fib.c: .omp_task_entry..3 :: line No: 105
+*********************************************************************************************************
+Thread ID: 0 ====> [Enter Time]: 1.49382e+09 ----[Exit Time]: 1.49382e+09 ----[Elapsed Time]: 0.000190973
+
+Thread ID: 1 ====> [Enter Time]: 1.49382e+09 ----[Exit Time]: 1.49382e+09 ----[Elapsed Time]: 7.70092e-05
+
+Thread ID: 2 ====> [Enter Time]: 1.49382e+09 ----[Exit Time]: 1.49382e+09 ----[Elapsed Time]: 2.5034e-05
+
+Thread ID: 3 ====> [Enter Time]: 1.49382e+09 ----[Exit Time]: 1.49382e+09 ----[Elapsed Time]: 9.39369e-05
+
+Thread ID: 4 ====> [Enter Time]: 1.49382e+09 ----[Exit Time]: 1.49382e+09 ----[Elapsed Time]: 5.48363e-05
+
+Thread ID: 5 ====> [Enter Time]: 1.49382e+09 ----[Exit Time]: 1.49382e+09 ----[Elapsed Time]: 0.000248909
+
+Thread ID: 6 ====> [Enter Time]: 1.49382e+09 ----[Exit Time]: 1.49382e+09 ----[Elapsed Time]: 4.98295e-05
+
+*********************************************************************************************************
+Region Location:/media/norouzi/90cafd61-f918-48a5-9298-db353cb6be30/software/benchmarks/botsTemp/fib/fib.c: .omp_task_privates_map. :: line No: 103
+*********************************************************************************************************
+Thread ID: 0 ====> [Enter Time]: 1.49382e+09 ----[Exit Time]: 1.49382e+09 ----[Elapsed Time]: 4.05312e-06
+
+Thread ID: 1 ====> [Enter Time]: 1.49382e+09 ----[Exit Time]: 1.49382e+09 ----[Elapsed Time]: 6.91414e-06
+
+Thread ID: 2 ====> [Enter Time]: 1.49382e+09 ----[Exit Time]: 1.49382e+09 ----[Elapsed Time]: 4.05312e-06
+
+Thread ID: 3 ====> [Enter Time]: 1.49382e+09 ----[Exit Time]: 1.49382e+09 ----[Elapsed Time]: 5.96046e-06
+
+Thread ID: 4 ====> [Enter Time]: 1.49382e+09 ----[Exit Time]: 1.49382e+09 ----[Elapsed Time]: 5.96046e-06
+
+Thread ID: 5 ====> [Enter Time]: 1.49382e+09 ----[Exit Time]: 1.49382e+09 ----[Elapsed Time]: 5.00679e-06
+
+Thread ID: 6 ====> [Enter Time]: 1.49382e+09 ----[Exit Time]: 1.49382e+09 ----[Elapsed Time]: 5.00679e-06
+
+*********************************************************************************************************
+Region Location:/media/norouzi/90cafd61-f918-48a5-9298-db353cb6be30/software/benchmarks/botsTemp/fib/fib.c: .omp_task_privates_map..2 :: line No: 105
+*********************************************************************************************************
+Thread ID: 0 ====> [Enter Time]: 1.49382e+09 ----[Exit Time]: 1.49382e+09 ----[Elapsed Time]: 4.05312e-06
+
+Thread ID: 1 ====> [Enter Time]: 1.49382e+09 ----[Exit Time]: 1.49382e+09 ----[Elapsed Time]: 5.00679e-06
+
+Thread ID: 2 ====> [Enter Time]: 1.49382e+09 ----[Exit Time]: 1.49382e+09 ----[Elapsed Time]: 3.09944e-06
+
+Thread ID: 3 ====> [Enter Time]: 1.49382e+09 ----[Exit Time]: 1.49382e+09 ----[Elapsed Time]: 5.00679e-06
+
+Thread ID: 4 ====> [Enter Time]: 1.49382e+09 ----[Exit Time]: 1.49382e+09 ----[Elapsed Time]: 5.00679e-06
+
+Thread ID: 5 ====> [Enter Time]: 1.49382e+09 ----[Exit Time]: 1.49382e+09 ----[Elapsed Time]: 6.19888e-06
+
+Thread ID: 6 ====> [Enter Time]: 1.49382e+09 ----[Exit Time]: 1.49382e+09 ----[Elapsed Time]: 5.00679e-06
+
+*********************************************************************************************************
+Region Location:/media/norouzi/90cafd61-f918-48a5-9298-db353cb6be30/software/benchmarks/botsTemp/fib/fib.c: fib :: line No: 97
+*********************************************************************************************************
+Thread ID: 0 ====> [Enter Time]: 1.49382e+09 ----[Exit Time]: 1.49382e+09 ----[Elapsed Time]: 1.90735e-06
+
+Thread ID: 1 ====> [Enter Time]: 1.49382e+09 ----[Exit Time]: 1.49382e+09 ----[Elapsed Time]: 1.19209e-06
+
+Thread ID: 2 ====> [Enter Time]: 1.49382e+09 ----[Exit Time]: 1.49382e+09 ----[Elapsed Time]: 1.19209e-06
+
+Thread ID: 3 ====> [Enter Time]: 1.49382e+09 ----[Exit Time]: 1.49382e+09 ----[Elapsed Time]: 9.53674e-07
+
+Thread ID: 4 ====> [Enter Time]: 1.49382e+09 ----[Exit Time]: 1.49382e+09 ----[Elapsed Time]: 1.19209e-06
+
+Thread ID: 5 ====> [Enter Time]: 1.49382e+09 ----[Exit Time]: 1.49382e+09 ----[Elapsed Time]: 9.53674e-07
+
+Thread ID: 6 ====> [Enter Time]: 1.49382e+09 ----[Exit Time]: 1.49382e+09 ----[Elapsed Time]: 9.53674e-07
+
+*********************************************************************************************************
+Region Location:/media/norouzi/90cafd61-f918-48a5-9298-db353cb6be30/software/benchmarks/botsTemp/fib/fib.c: fib0 :: line No: 115
+*********************************************************************************************************
+Thread ID: 0 ====> [Enter Time]: 1.49382e+09 ----[Exit Time]: 1.49382e+09 ----[Elapsed Time]: 7.15256e-06
+
