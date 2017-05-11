@@ -26,6 +26,7 @@ namespace __DpOMP {
     ofstream *out;
     ofstream *writeTempInfo;
     ofstream *writeLocality;
+    ofstream *writeMemAccessTime;
 
     ReadSignature* RSig = nullptr;
     WriteSignature* WSig = nullptr;
@@ -48,6 +49,7 @@ void outputDeps() {
     depsMatrix->print(out, numberOfHwThreads);
     depsMatrix->printTemporalInfo(writeTempInfo);
     depsMatrix->printLocalityInfo(writeLocality);
+    depsMatrix->printMemoryAccessTimeInfo(writeMemAccessTime);
 }
 void readRuntimeInfo() {
     ifstream conf(get_exe_dir() + "/DpOMP.conf");
@@ -135,6 +137,9 @@ void __DiscoPoPOpenMPInitialize(){
 
         writeLocality= new ofstream();
         writeLocality->open("LocalityInfo.txt",ios::out);
+
+        writeMemAccessTime= new ofstream();
+        writeMemAccessTime->open("MemoryAccessTimeInfo.txt", ios::out);
 
         parentRegionStack = new stack<string>[numberOfHwThreads];  
         initThreadPool(numberOfHwThreads);
@@ -274,11 +279,15 @@ void __DiscoPoPOpenMPFinalize() {
     writeLocality->flush();
     writeLocality->close();
 
+    writeMemAccessTime->flush();
+    writeMemAccessTime->close();
+
 
 
     delete writeTempInfo;
     delete out;
     delete writeLocality;
+    delete writeMemAccessTime;
 
     if (DpOMP_DEBUG) {
         cout << "Program terminated." << endl;

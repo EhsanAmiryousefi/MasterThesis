@@ -26,11 +26,12 @@
 
 namespace __DpOMP{
 
-/******* Data structures *******/
 
 
 struct DepsMatrix {
     private:
+
+/******* Data structures *******/
         std::map<pid_t, std::map<pid_t, std::atomic<int64_t> > > * matrixAll;
         std::map<std::string, std::map<pid_t, std::map<pid_t, std::atomic<int64_t> > > > * matrixRegions;
 
@@ -50,11 +51,16 @@ struct DepsMatrix {
         std::set<string> memoryAddresses;
 
 
+        std::map<std::string, std::map<pid_t, std::map<pid_t, string > > > * memoryAccesTimeMatrix;
+        long logicalMemoryAccessTimeCounter;
+
         std::map<std::string,std::string>  memAddr;
-        int memoryAddressCounter;
+        long memoryAddressCounter;
+        std::atomic_flag timeLock; 
 
     public:
-        DepsMatrix() : memAccessLock ATOMIC_FLAG_INIT, newThreadLock ATOMIC_FLAG_INIT, temporalInfoLock ATOMIC_FLAG_INIT
+        // Initialize the data structures
+        DepsMatrix() : memAccessLock ATOMIC_FLAG_INIT, newThreadLock ATOMIC_FLAG_INIT, temporalInfoLock ATOMIC_FLAG_INIT, timeLock ATOMIC_FLAG_INIT
         {
             matrixAll = new std::map<pid_t, std::map<pid_t, std::atomic<int64_t> > >;
             matrixRegions = new std::map<std::string, std::map<pid_t, std::map<pid_t, std::atomic<int64_t> > > >;
@@ -64,50 +70,28 @@ struct DepsMatrix {
 
             regionTemporalInfo=new  std::map<std::string, std::map<int32_t,double[2]>>;
 
-            // memAddr=new std::map<std::string, std::string>;
+           // memAddr=new std::map<std::string, std::string>;
             memoryAddressCounter=0;
+
+            //Logical Memory access time counter, for each memory access, it is increased by 1
+            logicalMemoryAccessTimeCounter=0;
+            memoryAccesTimeMatrix= new std::map<std::string, std::map<pid_t, std::map<pid_t, string > > >;
         }
+        // Implement data collection methods
         inline void set(pid_t row, pid_t column, std::string prefixFName, int32_t volume, int32_t regionId, int32_t parentRegionID, ADDR addr){
-            // cout << "---------------------------------------------------------------" << prefixFName << "\n";
+
             while (memAccessLock.test_and_set(std::memory_order_acquire));  // acquire lock; // spin
             (*matrixAll)[row][column] += volume;
             if(regionId >= 0){
-                std::string regionKey = prefixFName; //+ "::" + std::to_string(regionId);
+                std::string regionKey = prefixFName; 
                 // cout << "---------" << prefixFName << "\n";
                 (*matrixRegions)[regionKey][row][column] += volume;
                 (*regionIdsMap)[regionKey] = regionId;
 
 
-                int index=1000;
                 std::string address= std::to_string(addr);
-                // std::set<string>::iterator iter = memoryAddresses.find(address);
-                // if (iter==memoryAddresses.end())
-                // {
-                //     // cout<<"There is no such address in the set ############"<<endl;
-                //     memoryAddresses.insert(address);    
-                // }
-
-                // std::set<string>::iterator iterGetIndex = memoryAddresses.find(address);
-                // if (iterGetIndex != memoryAddresses.end())
-                // {
-                //     string result=*iterGetIndex;
-                //     index=std::distance(memoryAddresses.begin(), iterGetIndex)+1;
-                //     address=*iterGetIndex;
-                //     // cout<<"**************** Distance:   "<<index<<endl;
-                //     // cout<<"++++++++++++++++ ADDR:  "<<*iterGetIndex<<endl;
-                // }
-
-                
-                // string value=(*localityMatrix)[regionKey][row][column];
-                // string newValue;
-                // if(value.empty())
-                // {
-                //     value="$";
-                //     value +=std::to_string(index);
-                // }
-                // else
-                //     value+=","+ std::to_string(index);
-                
+               
+                //the LocalityInfo data to be added to its data structure 
                 if ((memAddr)[address].empty())
                 {
                     // cout<<"Memory is empty!  "<<address<<endl;
@@ -125,7 +109,24 @@ struct DepsMatrix {
                     value+=","+ (memAddr)[address];
 
                 (*localityMatrix)[regionKey][row][column]=value;
-                // (*localityMatrix)[regionKey][row][column]=value;
+
+
+                //Extract logical times of the memory accesses
+                string oldTimeValue=(*memoryAccesTimeMatrix)[regionKey][row][column];
+                if(oldTimeValue.empty())
+                {
+                    oldTimeValue="$";
+                    oldTimeValue +=std::to_string(++logicalMemoryAccessTimeCounter);
+                }
+                else
+                    oldTimeValue+=","+ std::to_string(++logicalMemoryAccessTimeCounter);
+
+                
+                while (timeLock.test_and_set(std::memory_order_acquire));  
+                // cout<<"Memory access time!  "<<oldTimeValue<<endl;
+                (*memoryAccesTimeMatrix)[regionKey][row][column]=oldTimeValue;          
+                timeLock.clear(std::memory_order_release);
+
             }
 
             memAccessLock.clear(std::memory_order_release);
@@ -158,7 +159,7 @@ struct DepsMatrix {
          }
 
          inline void printTemporalInfo(ofstream *out){
-            cout<<"Writing temoral info to the file"<<endl;
+            cout<<"Writing temoral info to the file TemporalInfo.txt ..."<<endl;
             *out << "==================================================================================="<< endl;
             *out << "                       The overal extracted temporal info "<< endl;
             *out << "==================================================================================="<< endl;
@@ -182,17 +183,13 @@ struct DepsMatrix {
 
         inline void printLocalityInfo(ofstream *out)
         {
-            *out << "The locality matrix between threads "  << endl;
+            *out << "$The locality matrix between threads "  << endl;
 
-            // for(auto it = (*matrixAll).begin(); it != (*matrixAll).end(); ++it) {
-            //     listOfTidKeys->push_back(it->first);
-            //     cout << it->first << "\n";
-            // }
             sort(listOfTidKeys->begin(), listOfTidKeys->end());
             // Printing each loop's matrix
-            cout<< endl << "Printing Region's matrices..." << endl;
+            cout<<"Writing the locality matrix between threads to the file LocalityInfo.txt ..." << endl;
             for(auto iter = (*localityMatrix).begin(); iter != (*localityMatrix).end(); iter++){
-                *out << "Region Location" << " |--> " << iter->first << endl;
+                *out << "#Region Location" << " |--> " << iter->first << endl;
                 for(auto it1=listOfTidKeys->begin(); it1 != listOfTidKeys->end(); ++it1)
                 {
                     if( (*localityMatrix)[iter->first].count(*it1) ){
@@ -215,17 +212,45 @@ struct DepsMatrix {
             }
         }
 
-        inline void print(ofstream *out, int32_t maxSize){
-            *out << "# of threads: " << maxSize << endl;
-            *out << "The overall communication matrix between threads "  << endl;
+        inline void printMemoryAccessTimeInfo(ofstream *out)
+        {
+            *out << "$The Memory Access Time matrix between threads "  << endl;
 
-            // for(auto it = (*matrixAll).begin(); it != (*matrixAll).end(); ++it) {
-            //     listOfTidKeys->push_back(it->first);
-            //     cout << it->first << "\n";
-            // }
+            sort(listOfTidKeys->begin(), listOfTidKeys->end());
+            // Printing each loop's matrix
+            cout<<"Writing memory access time matrix between threads matrices to the file MemoryAccessTimeInfo.txt ..." << endl;
+            for(auto iter = (*memoryAccesTimeMatrix).begin(); iter != (*memoryAccesTimeMatrix).end(); iter++){
+                *out << "#Region Location" << " |--> " << iter->first << endl;
+                for(auto it1=listOfTidKeys->begin(); it1 != listOfTidKeys->end(); ++it1)
+                {
+                    if( (*memoryAccesTimeMatrix)[iter->first].count(*it1) ){
+                        for(auto it2=listOfTidKeys->begin(); it2 != listOfTidKeys->end(); ++it2){
+                            if( (*memoryAccesTimeMatrix)[iter->first][*it1].count(*it2) ){
+                                *out << (*memoryAccesTimeMatrix)[iter->first][*it1][*it2] << " ";
+                            }
+                            else
+                                *out << 0 << " ";
+                        }
+                        *out << endl;
+                    }
+                    else{
+                        for(auto itn=listOfTidKeys->begin(); itn != listOfTidKeys->end(); ++itn)
+                            *out << 0 << " ";   
+                        *out << endl;
+                    }
+                }
+                *out << endl;
+            }
+        }
+
+        inline void print(ofstream *out, int32_t maxSize){
+            *out << "$ Number of threads: " << maxSize << endl;
+            *out << "#The overall communication matrix between threads "  << endl;
+
+         
             sort(listOfTidKeys->begin(), listOfTidKeys->end());
             //Printing Whole matrix
-            cout << "Printing whole matrix..." << endl;
+            cout << "Writing the overall matrix to file Output.txt..." << endl;
             for(auto it1=listOfTidKeys->begin(); it1 != listOfTidKeys->end(); ++it1)
             {
                 cout << *it1 << " ";
@@ -247,9 +272,9 @@ struct DepsMatrix {
             }
             *out << endl;
             // Printing each loop's matrix
-            cout<< endl << "Printing Region's matrices..." << endl;
+            cout<<endl<< "Writing Region's matrices to the file Output.txt..." << endl;
             for(auto iter = (*matrixRegions).begin(); iter != (*matrixRegions).end(); iter++){
-                *out << "Region Location" << " |--> " << iter->first << endl;
+                *out << "#Region Location" << " |--> " << iter->first << endl;
                 for(auto it1=listOfTidKeys->begin(); it1 != listOfTidKeys->end(); ++it1)
                 {
                     if( (*matrixRegions)[iter->first].count(*it1) ){
@@ -273,17 +298,13 @@ struct DepsMatrix {
         }
 };
 
-//typedef std::unordered_map<pid_t, BloomFilter*> BloomFilterThreads;
-//typedef WRRMMap<pid_t, BloomFilter*> BloomFilterThreads;
+
 /******* Helper functions *******/
 void outputDeps();
 void outputLoops();
 void outputFuncs();
 void readRuntimeInfo();
-// void initParallelization();
-// void* analyzeDeps(void* arg);
-// void addAccessInfo(bool isRead, char* var, ADDR addr, int32_t varSize, int32_t loopID);
-// void finalizeParallelization();
+
 
 /******* Instrumentation functions *******/
 extern "C"{
@@ -293,6 +314,6 @@ void __DiscoPoPOpenMPWrite(ADDR addr, char* varName);
 void __DiscoPoPOpenMPFinalize();
 void __DiscoPoPOpenMPInitialize();
 }
-} // namespace __pe
+} 
 
 #endif
